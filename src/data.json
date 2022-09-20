@@ -1,0 +1,47 @@
+[
+  {
+    "title": "Mr Robot",
+    "season": 2,
+    "episode": 7,
+    "status": "watching",
+    "update": "2022-08-28T10:48:46.586Z",
+    "type": "show",
+    "poster": "https://www.themoviedb.org/t/p/w220_and_h330_face/oKIBhzZzDX07SoE2bOLhq2EE8rf.jpg"
+  },
+  {
+    "title": "Breaking Bad",
+    "season": 2,
+    "episode": 7,
+    "status": "completed",
+    "update": "2022-02-18T10:48:46.586Z",
+    "type": "show",
+    "poster": "https://www.themoviedb.org/t/p/w220_and_h330_face/zKnBah5dWlFoY0yIKcSIYb4f7kC.jpg"
+  },
+  {
+    "title": "Sonic The Hedgehog",
+    "season": 0,
+    "episode": 0,
+    "status": "ptw",
+    "update": "2022-08-28T10:48:46.586Z",
+    "type": "movie",
+    "poster": "https://www.themoviedb.org/t/p/w220_and_h330_face/aQvJ5WPzZgYVDrxLX4R6cLJCEaQ.jpg"
+  },
+  {
+    "title": "One Piece",
+    "season": 1,
+    "episode": 850,
+    "status": "onhold",
+    "update": "2022-08-28T10:48:46.586Z",
+    "type": "show",
+    "poster": "https://www.themoviedb.org/t/p/w220_and_h330_face/fcXdJlbSdUEeMSJFsXKsznGwwok.jpg"
+  },
+  {
+    "title": "The Walking Dead",
+    "season": 2,
+    "episode": 7,
+    "status": "dropped",
+    "update": "2022-08-28T10:48:46.586Z",
+    "type": "show",
+    "poster": "https://www.themoviedb.org/t/p/w220_and_h330_face/n7PVu0hSz2sAsVekpOIoCnkWlbn.jpg"
+  }
+]
