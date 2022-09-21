@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { MdMenu, MdFilterList, MdSearch } from 'react-icons/md'
 import Image from 'next/image'
+import { signOut } from 'next-auth/react'
 
 import { useDimension } from '../../context/dimensionContext'
 import { useFilter } from '../../context/filterContext'
@@ -45,7 +46,7 @@ export default function Header() {
         <span>Home</span>
         <span>About</span>
         <span>Account</span>
-        <span>Logout</span>
+        <span onClick={() => signOut()}>Logout</span>
       </Menu>
     </SDesktopContainer>
   )

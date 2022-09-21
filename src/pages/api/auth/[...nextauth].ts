@@ -1,5 +1,6 @@
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import { prisma } from '../../../lib/prisma'
 
 interface CredentialProps {
   name: string
@@ -7,12 +8,13 @@ interface CredentialProps {
 }
 
 export const authOptions: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
-    maxAge: 60 * 60 * 24 * 1, // 1 day
   },
   pages: {
     signIn: '/',
+    error: '/',
   },
   providers: [
     CredentialsProvider({
@@ -20,11 +22,18 @@ export const authOptions: NextAuthOptions = {
       credentials: {},
       async authorize(credentials, req) {
         const { name, password } = credentials as CredentialProps
-        // Temp
-        if (name === 'rafael' && password === '123') {
-          return {
-            id: '123',
-            name: 'Rafael Costa',
+
+        const user = await prisma.user.findUnique({
+          where: {
+            name,
+          },
+        })
+
+        if (user) {
+          if (user.password === password) {
+            return {
+              id: user.id,
+            }
           }
         }
 
@@ -51,7 +60,6 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   },
-  // secret: process.env.NEXTAUTH_SECRET ?? 'temp',
 }
 
 export default NextAuth(authOptions)

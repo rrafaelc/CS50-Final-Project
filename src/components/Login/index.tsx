@@ -1,3 +1,4 @@
+import { FormEventHandler } from 'react'
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
@@ -11,7 +12,6 @@ import {
   SButton,
   SLink,
 } from './styles'
-import { FormEventHandler } from 'react'
 
 const Login = () => {
   const router = useRouter()

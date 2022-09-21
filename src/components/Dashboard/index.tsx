@@ -14,9 +14,7 @@ import 'swiper/css/navigation'
 import data from '../../data.json'
 
 const Dashboard = () => {
-  const { data: session } = useSession({
-    required: true,
-  })
+  const { data: session } = useSession()
 
   const all: StatusProps[] = []
 
