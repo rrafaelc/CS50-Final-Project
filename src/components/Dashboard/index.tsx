@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import { useSession, signIn, signOut } from 'next-auth/react'
 import Status from '../Status'
 
-import parseDate from '../../lib/parseDate'
+import parseDate from '../../utils/parseDate'
 import { StatusProps } from '../../types'
 
 import { SContainer, SStatus, SStatusTitle, SSwiper } from './styles'
@@ -13,6 +14,10 @@ import 'swiper/css/navigation'
 import data from '../../data.json'
 
 const Dashboard = () => {
+  const { data: session } = useSession({
+    required: true,
+  })
+
   const all: StatusProps[] = []
 
   const watching: StatusProps[] = []
@@ -70,6 +75,7 @@ const Dashboard = () => {
 
   return (
     <SContainer>
+      {session && <h1>{JSON.stringify(session.user)}</h1>}
       <SStatus>
         <SStatusTitle>
           <p>Watching ({watching.length})</p>
@@ -77,7 +83,6 @@ const Dashboard = () => {
         </SStatusTitle>
         <Status data={watching} />
       </SStatus>
-
       <SStatus>
         <SStatusTitle>
           <p>All ({all.length})</p>
@@ -85,7 +90,6 @@ const Dashboard = () => {
         </SStatusTitle>
         <Status data={all} />
       </SStatus>
-
       <SStatus>
         <SStatusTitle>
           <p>On Hold ({onhold.length})</p>
@@ -93,7 +97,6 @@ const Dashboard = () => {
         </SStatusTitle>
         <Status data={onhold} />
       </SStatus>
-
       <SStatus>
         <SStatusTitle>
           <p>Dropped ({dropped.length})</p>
@@ -101,7 +104,6 @@ const Dashboard = () => {
         </SStatusTitle>
         <Status data={dropped} />
       </SStatus>
-
       <SStatus>
         <SStatusTitle>
           <p>Plan to watch ({ptw.length})</p>

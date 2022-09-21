@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 import {
   SMain,
@@ -9,8 +11,26 @@ import {
   SButton,
   SLink,
 } from './styles'
+import { FormEventHandler } from 'react'
 
 const Login = () => {
+  const router = useRouter()
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
+    e.preventDefault()
+
+    await signIn('credentials', {
+      name: 'rafael',
+      password: '123',
+      redirect: false,
+    }).then(response => {
+      console.log(response)
+      if (response!.ok) {
+        router.push('/dashboard')
+      }
+    })
+  }
+
   return (
     <SMain>
       <STitle>
@@ -18,7 +38,7 @@ const Login = () => {
       </STitle>
 
       <section>
-        <SForm>
+        <SForm onSubmit={handleSubmit}>
           <SInputs>
             <label>
               <span>Username</span>
@@ -34,9 +54,7 @@ const Login = () => {
             </label>
           </SInputs>
 
-          <Link href="/dashboard">
-            <SButton type="submit">Login</SButton>
-          </Link>
+          <SButton type="submit">Login</SButton>
         </SForm>
 
         <SLink>

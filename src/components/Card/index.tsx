@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { MdAddCircleOutline, MdEdit } from 'react-icons/md'
-import padNumber from '../../lib/padNumber'
+import padNumber from '../../utils/padNumber'
 import colors from '../../styles/colors'
 import { StatusProps } from '../../types'
 
