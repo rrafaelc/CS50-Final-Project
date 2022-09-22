@@ -19,9 +19,6 @@ interface RegisterProps {
   confirm_password: string
 }
 
-const delay = (amount = 750) =>
-  new Promise(resolve => setTimeout(resolve, amount))
-
 const Register = () => {
   const router = useRouter()
   const [formState, setFormState] = useState<RegisterProps>({

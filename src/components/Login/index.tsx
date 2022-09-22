@@ -18,9 +18,6 @@ interface LoginProps {
   password: string
 }
 
-const delay = (amount = 750) =>
-  new Promise(resolve => setTimeout(resolve, amount))
-
 const Login = () => {
   const router = useRouter()
   const [authState, setAuthState] = useState<LoginProps>({
@@ -47,8 +44,6 @@ const Login = () => {
     }
 
     setPageState({ error: false, processing: true })
-
-    await delay(1500)
 
     await signIn('credentials', {
       name: authState.name.toLowerCase(),
