@@ -36,6 +36,16 @@ const Register = () => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault()
 
+    if (!/^[a-zA-Z].*/.test(formState.name)) {
+      alert('First character must be alphabetical!')
+      return
+    }
+
+    if (!/^[a-zA-Z0-9_]*$/.test(formState.name)) {
+      alert('Only alphanumerics and underscores are allowed!')
+      return
+    }
+
     setPageState({ error_name: false, error_password: false, processing: true })
 
     // Check if passwords match
@@ -45,16 +55,6 @@ const Register = () => {
         error_password: true,
         processing: false,
       })
-      return
-    }
-
-    if (!/^[a-zA-Z].*/.test(formState.name)) {
-      alert('First character must be alphabetical!')
-      return
-    }
-
-    if (!/^[a-zA-Z0-9_]*$/.test(formState.name)) {
-      alert('Only alphanumerics and underscores are allowed!')
       return
     }
 
