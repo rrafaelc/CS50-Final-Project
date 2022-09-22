@@ -3,8 +3,6 @@ import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
-import { AuthStateProps } from '../../types'
-
 import {
   SMain,
   STitle,
@@ -15,12 +13,17 @@ import {
   SLink,
 } from './styles'
 
+interface LoginProps {
+  name: string
+  password: string
+}
+
 const delay = (amount = 750) =>
   new Promise(resolve => setTimeout(resolve, amount))
 
 const Login = () => {
   const router = useRouter()
-  const [authState, setAuthState] = useState<AuthStateProps>({
+  const [authState, setAuthState] = useState<LoginProps>({
     name: '',
     password: '',
   })

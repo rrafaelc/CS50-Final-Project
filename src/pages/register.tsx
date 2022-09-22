@@ -1,5 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import { getSession } from 'next-auth/react'
+
 import Register from '../components/Register'
 
 export const getServerSideProps: GetServerSideProps = async context => {

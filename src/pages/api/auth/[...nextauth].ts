@@ -23,6 +23,16 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials, req) {
         const { name, password } = credentials as CredentialProps
 
+        // First character must be alphabetic
+        if (!/^[a-zA-Z].*/.test(name)) {
+          return null
+        }
+
+        // Only alphanumeric is allowed
+        if (!/^[a-zA-Z0-9_]*$/.test(name)) {
+          return null
+        }
+
         const user = await prisma.user.findUnique({
           where: {
             name,

@@ -119,6 +119,15 @@ export const SButton = styled.button`
   transition-duration: 200ms;
   transition-timing-function: ease-in;
 
+  &:disabled {
+    border-color: ${colors.grey};
+    color: ${colors.grey};
+    &:hover {
+      background: transparent;
+      color: ${colors.grey};
+    }
+  }
+
   @media only screen and (min-width: 500px) {
     padding: 15px 0;
     font-size: 20px;
