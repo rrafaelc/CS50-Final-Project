@@ -49,7 +49,7 @@ export default async function register(
           await prisma.user.create({
             data: {
               name,
-              password: hash,
+              hash,
             },
           })
         } catch (err: any) {
