@@ -39,27 +39,24 @@ export default async function register(
       .json({ message: 'Database error: Error searching for username' })
   }
 
-  // Hash the password
-
   try {
-    bcrypt.genSalt(10, function (err, salt) {
-      bcrypt.hash(password, salt, async function (err, hash) {
-        // Create the new user
-        try {
-          await prisma.user.create({
-            data: {
-              name,
-              hash,
-            },
-          })
-        } catch (err: any) {
-          console.log(err.message)
-          return res
-            .status(500)
-            .json({ message: 'Database error: Error creating new user' })
-        }
+    // Hash the password
+    const hash = await bcrypt.hash(password, 10)
+
+    try {
+      // Create the new user
+      await prisma.user.create({
+        data: {
+          name,
+          hash,
+        },
       })
-    })
+    } catch (err: any) {
+      console.log(err.message)
+      return res
+        .status(500)
+        .json({ message: 'Database error: Error creating new user' })
+    }
   } catch (err: any) {
     console.log(err)
     return res.status(500).json({ error: 'Error while hashing password' })
