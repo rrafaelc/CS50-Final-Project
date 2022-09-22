@@ -1,6 +1,7 @@
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { prisma } from '../../../lib/prisma'
+import bcrypt from 'bcrypt'
 
 interface CredentialProps {
   name: string
@@ -33,6 +34,7 @@ export const authOptions: NextAuthOptions = {
           return null
         }
 
+        // Search for user
         const user = await prisma.user.findUnique({
           where: {
             name,
@@ -40,7 +42,10 @@ export const authOptions: NextAuthOptions = {
         })
 
         if (user) {
-          if (user.password === password) {
+          // Check the password
+          const compare = await bcrypt.compare(password, user.hash)
+
+          if (compare) {
             return {
               id: user.id,
               name: user.name,
