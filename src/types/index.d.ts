@@ -11,3 +11,8 @@ export interface StatusProps {
   type: string
   poster: string
 }
+
+export interface AuthStateProps {
+  name: string
+  password: string
+}

@@ -1,7 +1,13 @@
 import { createGlobalStyle } from 'styled-components'
 import colors from './colors'
 
-const GlobalStyle = createGlobalStyle`  
+const GlobalStyle = createGlobalStyle`
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
+
 * {
   font-family: Roboto, sans-serif;
   margin: 0;

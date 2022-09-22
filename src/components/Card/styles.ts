@@ -180,6 +180,7 @@ export const SStatus = styled.button<SStatusProps>`
     switch (status) {
       case 'watching':
         return css`
+          color: ${colors.black};
           background: ${colors.green};
 
           &:hover {
@@ -199,6 +200,7 @@ export const SStatus = styled.button<SStatusProps>`
 
       case 'onhold':
         return css`
+          color: ${colors.black};
           background: ${colors.yellow};
 
           &:hover {
@@ -218,6 +220,7 @@ export const SStatus = styled.button<SStatusProps>`
 
       case 'plantowatch' || 'ptw':
         return css`
+          color: ${colors.black};
           background: ${colors.grey};
 
           &:hover {

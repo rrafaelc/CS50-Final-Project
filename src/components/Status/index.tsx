@@ -12,6 +12,7 @@ import { useDimension } from '../../context/dimensionContext'
 import { StatusProps } from '../../types'
 
 import { SContainerButton, SButton } from './styles'
+import colors from '../../styles/colors'
 
 export default function Status({ data }: { data: StatusProps[] }) {
   const { width } = useDimension()
@@ -47,10 +48,10 @@ export default function Status({ data }: { data: StatusProps[] }) {
       ))}
       <SContainerButton>
         <SButton title="Previous" className="swiper-prev ">
-          <MdChevronLeft size={40} />
+          <MdChevronLeft size={40} color={colors.white} />
         </SButton>
         <SButton title="Next" className="swiper-next">
-          <MdChevronRight size={40} />
+          <MdChevronRight size={40} color={colors.white} />
         </SButton>
       </SContainerButton>
     </Swiper>

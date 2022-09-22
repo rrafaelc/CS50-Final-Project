@@ -1,7 +1,9 @@
-import { FormEventHandler } from 'react'
+import { FormEventHandler, useState } from 'react'
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
+
+import { AuthStateProps } from '../../types'
 
 import {
   SMain,
@@ -13,22 +15,58 @@ import {
   SLink,
 } from './styles'
 
+const delay = (amount = 750) =>
+  new Promise(resolve => setTimeout(resolve, amount))
+
 const Login = () => {
   const router = useRouter()
+  const [authState, setAuthState] = useState<AuthStateProps>({
+    name: '',
+    password: '',
+  })
+
+  const [pageState, setPageState] = useState({
+    error: false,
+    processing: false,
+  })
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault()
 
+    if (!/^[a-zA-Z].*/.test(authState.name)) {
+      alert('First character must be alphabetical!')
+      return
+    }
+
+    if (!/^[a-zA-Z0-9_]*$/.test(authState.name)) {
+      alert('Only alphanumerics and underscores are allowed!')
+      return
+    }
+
+    setPageState({ error: false, processing: true })
+
+    await delay(1500)
+
     await signIn('credentials', {
-      name: 'rafael',
-      password: '123',
+      name: authState.name.toLowerCase(),
+      password: authState.password,
       redirect: false,
-    }).then(response => {
-      console.log(response)
-      if (response!.ok) {
-        router.push('/dashboard')
-      }
     })
+      .then(response => {
+        if (response!.ok) {
+          router.push('/dashboard')
+        } else {
+          setPageState({ error: true, processing: false })
+        }
+      })
+      .catch(error => {
+        console.log(error)
+        setPageState({
+          error: false,
+          processing: false,
+        })
+        alert('Something went wrong! Check the logs')
+      })
   }
 
   return (
@@ -42,19 +80,42 @@ const Login = () => {
           <SInputs>
             <label>
               <span>Username</span>
-              <input id="username" type="text" placeholder="Username" />
-              {/* <SSpanError className="error"> */}
-              <SSpanError>Incorrect username or password</SSpanError>
+              <input
+                id="username"
+                type="text"
+                placeholder="Username"
+                required
+                value={authState.name}
+                onChange={e =>
+                  setAuthState(old => ({ ...old, name: e.target.value }))
+                }
+              />
+              <SSpanError className={pageState.error ? 'error' : ''}>
+                Incorrect username or password
+              </SSpanError>
             </label>
 
             <label>
               <span>Password</span>
-              <input id="password" type="password" placeholder="Password" />
-              <SSpanError>Incorrect username or password</SSpanError>
+              <input
+                id="password"
+                type="password"
+                placeholder="Password"
+                required
+                value={authState.password}
+                onChange={e =>
+                  setAuthState(old => ({ ...old, password: e.target.value }))
+                }
+              />
+              <SSpanError className={pageState.error ? 'error' : ''}>
+                Incorrect username or password
+              </SSpanError>
             </label>
           </SInputs>
 
-          <SButton type="submit">Login</SButton>
+          <SButton disabled={pageState.processing} type="submit">
+            {pageState.processing ? 'Loading' : 'Login'}
+          </SButton>
         </SForm>
 
         <SLink>

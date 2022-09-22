@@ -33,6 +33,7 @@ export const authOptions: NextAuthOptions = {
           if (user.password === password) {
             return {
               id: user.id,
+              name: user.name,
             }
           }
         }
