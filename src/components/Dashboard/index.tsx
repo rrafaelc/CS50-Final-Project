@@ -14,7 +14,7 @@ import 'swiper/css/navigation'
 import data from '../../data.json'
 
 const Dashboard = () => {
-  const { data: session } = useSession()
+  // const { data: session } = useSession()
 
   const all: StatusProps[] = []
 
@@ -73,7 +73,7 @@ const Dashboard = () => {
 
   return (
     <SContainer>
-      {session && <h1>{JSON.stringify(session.user)}</h1>}
+      {/* {session && <h1>{JSON.stringify(session.user)}</h1>} */}
       <SStatus>
         <SStatusTitle>
           <p>Watching ({watching.length})</p>
