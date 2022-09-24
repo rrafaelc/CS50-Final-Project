@@ -17,17 +17,18 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  tv_shows TvShow[]
-  movies   Movie[]
+  tvShows TvShow[]
+  movies  Movie[]
 }
 
 model TvShow {
   id        String   @id @default(uuid())
-  api_id    String
+  tvId      Int
   title     String
+  genre     String
   status    String
-  episode   String
-  season    String
+  episode   Int
+  season    Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User?    @relation(fields: [userId], references: [id])
@@ -36,8 +37,9 @@ model TvShow {
 
 model Movie {
   id        String   @id @default(uuid())
-  api_id    String
+  movieId   Int
   title     String
+  genre     String
   status    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Dashboard from '../components/Dashboard'
 import Filter from '../components/Filter'
 
-import axios from 'axios'
+import axios from '../lib/axios'
 
 interface MovieDbProps {
   page: number
@@ -15,14 +15,13 @@ interface MovieDbProps {
   total_results: number
 }
 
+const test = async () => {
+  const res = await axios.get<MovieDbProps>('/api/tmdb/tv/name/breaking bad')
+  console.log(res.data)
+  // res.data.results.map(tv => console.log(tv))
+}
+
 const Dash: NextPage = () => {
-  const test = async () => {
-    // const res = await axios.get<MovieDbProps>('/api/tmdb/tv/name/breaking')
-    // res.data.results.map(tv => console.log(tv.name))
-  }
-
-  test()
-
   return (
     <>
       <Filter />
