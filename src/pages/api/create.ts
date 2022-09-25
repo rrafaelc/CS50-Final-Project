@@ -9,7 +9,6 @@ export default async function createTV(
 ) {
   const session = await unstable_getServerSession(req, res, authOptions)
 
-  // If not session
   if (!session) {
     // return res.status(401).send('Unauthorized')
   }
