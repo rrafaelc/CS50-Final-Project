@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { MovieDb, TvResultsResponse } from 'moviedb-promise'
+import { MovieDb } from 'moviedb-promise'
 import { unstable_getServerSession } from 'next-auth/next'
 import { authOptions } from '../auth/[...nextauth]'
 
@@ -10,19 +10,19 @@ export default async function search(
   const session = await unstable_getServerSession(req, res, authOptions)
 
   if (!session) {
-    // return res.status(401).send('Unauthorized')
+    return res.status(401).send('Unauthorized')
   }
 
   const moviedb = new MovieDb(process.env.MOVIEDB_API_KEY ?? '')
-  const { name } = req.query
-  const query = String(name)
+  const query = String(req.query.query)
+  const page = Number(req.query.page)
 
   // const tv = await moviedb.searchTv({
   //   query,
   // })
   // const movieGenre = await moviedb.genreMovieList()
   // const tvGenre = await moviedb.genreTvList()
-  const multi = await moviedb.searchMulti({ query })
+  const multi = await moviedb.searchMulti({ query, page })
 
   // const tvInfo = await moviedb.tvInfo({ id: 1396 })
   // const movieInfo = await moviedb.movieInfo({ id: 1396 })
