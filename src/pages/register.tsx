@@ -20,8 +20,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
 }
 
-const Reg: NextPage = () => {
+const RegisterPage: NextPage = () => {
   return <Register />
 }
 
-export default Reg
+export default RegisterPage

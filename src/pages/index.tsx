@@ -19,8 +19,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
 }
 
-const Log: NextPage = () => {
+const LoginPage: NextPage = () => {
   return <Login />
 }
 
-export default Log
+export default LoginPage
