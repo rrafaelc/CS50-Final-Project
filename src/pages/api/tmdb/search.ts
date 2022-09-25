@@ -20,7 +20,7 @@ export default async function search(
   // const tv = await moviedb.searchTv({
   //   query,
   // })
-  // const genre = await moviedb.genreMovieList()
+  // const movieGenre = await moviedb.genreMovieList()
   // const tvGenre = await moviedb.genreTvList()
   const multi = await moviedb.searchMulti({ query })
 
