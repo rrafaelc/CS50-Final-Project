@@ -61,33 +61,30 @@ export default async function createTV(
     return res.status(201).send({})
   }
 
-  // TODO
   if (mediaType === 'movie') {
-    const tvApiId = apiId
-    return res.status(400).send('Can not create, movie already exists.')
+    const movieApiId = apiId
+
     // Check if tv show exists
-    const tv = await prisma.tvShow.findFirst({
+    const movie = await prisma.movie.findFirst({
       where: {
         userId,
-        tvApiId,
+        movieApiId,
       },
     })
 
     // If found return
-    if (tv) {
+    if (movie) {
       return res.status(400).send('Can not create, movie already exists.')
     }
 
     // Else create
-    await prisma.tvShow.create({
+    await prisma.movie.create({
       data: {
         userId,
-        tvApiId,
+        movieApiId,
         title,
         genre,
         status,
-        season,
-        episode,
         poster,
         type: mediaType,
       },
