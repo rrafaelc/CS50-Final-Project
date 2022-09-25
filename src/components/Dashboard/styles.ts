@@ -15,11 +15,3 @@ export const SStatusTitle = styled.div`
   justify-content: space-between;
   margin-bottom: 10px;
 `
-
-export const SSwiper = styled.div`
-  /* display: flex; */
-  /* gap: 20px; */
-
-  /* overflow-x: auto; */
-  /* scroll-behavior: smooth; */
-`

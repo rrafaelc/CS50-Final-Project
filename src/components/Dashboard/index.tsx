@@ -1,20 +1,17 @@
-import { useState } from 'react'
-import { useSession, signIn, signOut } from 'next-auth/react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 import Status from '../Status'
 
-import parseDate from '../../utils/parseDate'
-import { StatusProps } from '../../types'
+import { StatusProps } from 'types'
 
-import { SContainer, SStatus, SStatusTitle, SSwiper } from './styles'
+import { SContainer, SStatus, SStatusTitle } from './styles'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
-import data from '../../data.json'
-
 const Dashboard = () => {
-  // const { data: session } = useSession()
+  const [data, setData] = useState<StatusProps[]>([])
 
   const all: StatusProps[] = []
 
@@ -25,55 +22,27 @@ const Dashboard = () => {
   const ptw: StatusProps[] = []
 
   data.forEach(elem => {
-    const { year, month, day } = parseDate(elem.update)
+    elem.status === 'watching' && watching.push(elem)
+    elem.status === 'completed' && completed.push(elem)
+    elem.status === 'onhold' && onhold.push(elem)
+    elem.status === 'dropped' && dropped.push(elem)
+    elem.status === 'ptw' && ptw.push(elem)
 
-    const status = () => {
-      switch (elem.status) {
-        case 'watching':
-          return elem.status
-
-        case 'completed':
-          return elem.status
-
-        case 'onhold':
-          return elem.status
-
-        case 'dropped':
-          return elem.status
-
-        case 'ptw':
-          return elem.status
-        default:
-          return 'watching'
-      }
-    }
-
-    const item: StatusProps = {
-      title: elem.title,
-      season: elem.season,
-      episode: elem.episode,
-      status: status(),
-      update: {
-        year,
-        month,
-        day,
-      },
-      type: elem.type,
-      poster: elem.poster,
-    }
-
-    item.status === 'watching' && watching.push(item)
-    item.status === 'completed' && completed.push(item)
-    item.status === 'onhold' && onhold.push(item)
-    item.status === 'dropped' && dropped.push(item)
-    item.status === 'ptw' && ptw.push(item)
-
-    all.push(item)
+    all.push(elem)
   })
+
+  useEffect(() => {
+    async function getData() {
+      const getAll = await axios.get<StatusProps[]>('/api/list')
+
+      setData(getAll.data)
+    }
+
+    getData()
+  }, [])
 
   return (
     <SContainer>
-      {/* {session && <h1>{JSON.stringify(session.user)}</h1>} */}
       <SStatus>
         <SStatusTitle>
           <p>Watching ({watching.length})</p>

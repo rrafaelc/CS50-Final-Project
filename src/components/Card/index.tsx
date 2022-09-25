@@ -1,10 +1,11 @@
 import Image from 'next/image'
 import { MdAddCircleOutline, MdEdit } from 'react-icons/md'
-import padNumber from '../../utils/padNumber'
-import colors from '../../styles/colors'
-import { StatusProps } from '../../types'
+import padNumber from 'utils/padNumber'
+import colors from 'styles/colors'
+import { StatusProps } from 'types'
+import parseDate from 'utils/parseDate'
 
-import { useDimension } from '../../context/dimensionContext'
+import { useDimension } from 'context/dimensionContext'
 
 import { SContainer, SImage, SInfo, SStatus } from './styles'
 
@@ -12,6 +13,7 @@ type CardProps = StatusProps
 
 export default function Card(props: CardProps) {
   const { width } = useDimension()
+  const { year, month, day } = parseDate(props.updatedAt)
 
   const statusName = () => {
     switch (props.status) {
@@ -45,7 +47,7 @@ export default function Card(props: CardProps) {
         <h1>{props.title}</h1>
 
         <div className="middle">
-          {props.type === 'show' && (
+          {props.type === 'tv' && (
             <div className="episodes">
               <p>
                 {width >= 500 ? 'Season ' : 'S '}
@@ -61,13 +63,12 @@ export default function Card(props: CardProps) {
           <SStatus status={props.status}>{statusName()}</SStatus>
 
           <div className="lastUpdate">
-            Last Update - {padNumber(2, props.update.month)}/
-            {padNumber(2, props.update.day)}/
-            {padNumber(2, props.update.year).substring(2)}
+            Last Update - {padNumber(2, month)}/{padNumber(2, day)}/
+            {padNumber(2, year).substring(2)}
           </div>
         </div>
 
-        {props.type === 'show' && (
+        {props.type === 'tv' && (
           <div className="buttons">
             <button className="button">
               Season{' '}

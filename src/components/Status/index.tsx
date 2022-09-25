@@ -42,7 +42,7 @@ export default function Status({ data }: { data: StatusProps[] }) {
   return (
     <Swiper {...settings}>
       {data.map(d => (
-        <SwiperSlide key={d.title}>
+        <SwiperSlide key={d.id}>
           <Card {...d} />
         </SwiperSlide>
       ))}

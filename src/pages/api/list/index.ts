@@ -17,12 +17,15 @@ export default async function listAll(
     return res.status(405).json({ message: `Method ${req.method} not allowed` })
   }
 
+  const data: any = []
+
   const tv = await prisma.tvShow.findMany({
     where: {
       userId: session.user.id,
       // userId: process.env.USER_ID,
     },
   })
+
   const movie = await prisma.movie.findMany({
     where: {
       userId: session.user.id,
@@ -30,5 +33,14 @@ export default async function listAll(
     },
   })
 
-  return res.status(200).json({ tv, movie })
+  tv.forEach(elem => {
+    elem.poster = `https://image.tmdb.org/t/p/w220_and_h330_face${elem.poster}`
+    return data.push(elem)
+  })
+  movie.forEach(elem => {
+    elem.poster = `https://image.tmdb.org/t/p/w220_and_h330_face${elem.poster}`
+    return data.push(elem)
+  })
+
+  return res.status(200).json(data)
 }

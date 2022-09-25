@@ -54,6 +54,7 @@ export default async function createTV(
         season,
         episode,
         poster,
+        type: mediaType,
       },
     })
 
@@ -88,6 +89,7 @@ export default async function createTV(
         season,
         episode,
         poster,
+        type: mediaType,
       },
     })
 
