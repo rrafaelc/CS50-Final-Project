@@ -23,7 +23,7 @@ export default async function list(req: NextApiRequest, res: NextApiResponse) {
   })
 
   if (tv.length > 0) {
-    return res.status(200).json({ tv })
+    return res.status(200).json(tv)
   }
 
   const movie = await prisma.movie.findMany({
@@ -33,7 +33,7 @@ export default async function list(req: NextApiRequest, res: NextApiResponse) {
   })
 
   if (movie.length > 0) {
-    return res.status(200).json({ movie })
+    return res.status(200).json(movie)
   }
 
   return res.status(400).send('ID not found')
