@@ -25,6 +25,18 @@ export default async function createTV(
   !Number(episode) &&
     res.status(400).json({ message: 'episode must be number' })
 
+  // Check if the current user has this tvId
+  const userhasTvId = await prisma.tvShow.findFirst({
+    where: {
+      id,
+      userId: process.env.USER_ID,
+    },
+  })
+
+  if (!userhasTvId) {
+    return res.status(400).send('Tv Show not found')
+  }
+
   try {
     await prisma.tvShow.update({
       where: {
@@ -40,7 +52,7 @@ export default async function createTV(
     return res.status(204).send({})
   } catch (err: any) {
     console.log(err)
-  }
 
-  return res.status(400).send('Tv Show not found')
+    return res.status(500).send('Database error')
+  }
 }
