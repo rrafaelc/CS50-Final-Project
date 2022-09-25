@@ -1,8 +1,7 @@
 import type { NextPage } from 'next'
-import Dashboard from '../components/Dashboard'
-import Filter from '../components/Filter'
+import Dashboard from 'components/Dashboard'
 
-import axios from '../lib/axios'
+import axios from 'lib/axios'
 
 interface MovieDbProps {
   page: number
@@ -22,12 +21,7 @@ const test = async () => {
 }
 
 const Dash: NextPage = () => {
-  return (
-    <>
-      <Filter />
-      <Dashboard />
-    </>
-  )
+  return <Dashboard />
 }
 
 export default Dash

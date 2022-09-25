@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Status from '../Status'
+import Filter from 'components/Filter'
 
 import { StatusProps } from 'types'
 
@@ -43,6 +44,7 @@ const Dashboard = () => {
 
   return (
     <SContainer>
+      <Filter />
       <SStatus>
         <SStatusTitle>
           <p>Watching ({watching.length})</p>
