@@ -61,6 +61,13 @@ const Dashboard = () => {
       </SStatus>
       <SStatus>
         <SStatusTitle>
+          <p>Completed ({completed.length})</p>
+          <p>See all</p>
+        </SStatusTitle>
+        <Status data={completed} />
+      </SStatus>
+      <SStatus>
+        <SStatusTitle>
           <p>On Hold ({onhold.length})</p>
           <p>See all</p>
         </SStatusTitle>
