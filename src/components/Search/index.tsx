@@ -4,7 +4,15 @@ import Image from 'next/image'
 
 import { useDimension } from 'context/dimensionContext'
 
-import { SContainer, SCard, SImage, SButtons } from './styles'
+import {
+  SContainer,
+  SCard,
+  SImage,
+  SButtons,
+  SLoading,
+  SScrolToTop,
+} from './styles'
+import { MdArrowCircleUp } from 'react-icons/md'
 
 interface ResultsProps {
   id: number
@@ -20,7 +28,7 @@ const Search = () => {
   const [results, setResults] = useState<ResultsProps[]>([])
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
-  const lastElement = useRef<HTMLLIElement>(null)
+  const lastElement = useRef(null)
 
   const { width } = useDimension()
 
@@ -29,13 +37,18 @@ const Search = () => {
     setPage(page + 1)
   }
 
+  const handleScrollToTop = () => {
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
+  }
+
   useEffect(() => {
     setLoading(true)
 
     axios
       .get('/api/tmdb/search/', {
         params: {
-          query: 'Breaking',
+          query: 'One piece',
           page,
         },
       })
@@ -99,7 +112,14 @@ const Search = () => {
             )
           }
         })}
-      {page !== totalPages && <SCard ref={lastElement}>Loading more</SCard>}
+      {page !== totalPages && (
+        <SLoading ref={lastElement}>
+          <Image src="/loading.svg" layout="fill" />
+        </SLoading>
+      )}
+      <SScrolToTop onClick={() => handleScrollToTop()}>
+        <MdArrowCircleUp size={32} />
+      </SScrolToTop>
     </SContainer>
   )
 }

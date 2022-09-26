@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import colors from 'styles/colors'
+import { lighten } from 'polished'
 
 export const SContainer = styled.ul``
 
@@ -14,12 +15,6 @@ export const SCard = styled.li`
     font-size: 24px;
     font-weight: normal;
     color: ${colors.white};
-  }
-
-  &.sentinela {
-    width: 100%;
-    height: 10px;
-    background-color: magenta;
   }
 `
 
@@ -55,5 +50,36 @@ export const SButtons = styled.div`
       background-color: ${colors.black};
       color: ${colors.white};
     }
+  }
+`
+export const SLoading = styled.div`
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 25px;
+
+  display: flex;
+  justify-content: center;
+`
+
+export const SScrolToTop = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 99;
+  font-size: 18px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background-color: ${colors.black};
+  color: ${colors.white};
+
+  transition: background-color ease-out 200ms;
+
+  &:hover {
+    background-color: ${lighten(0.1, colors.black)};
   }
 `

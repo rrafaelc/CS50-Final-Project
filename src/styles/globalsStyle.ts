@@ -17,6 +17,10 @@ const GlobalStyle = createGlobalStyle`
   outline: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: ${colors.bg_color};
   color: ${colors.white};
