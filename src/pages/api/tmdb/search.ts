@@ -15,7 +15,7 @@ export default async function search(
 
   const moviedb = new MovieDb(process.env.MOVIEDB_API_KEY ?? '')
   const query = String(req.query.query)
-  const page = Number(req.query.page)
+  const page = Number(req.query.page ?? 1)
 
   // const tv = await moviedb.searchTv({
   //   query,

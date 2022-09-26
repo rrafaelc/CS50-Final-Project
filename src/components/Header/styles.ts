@@ -16,7 +16,7 @@ export const SMobileContainer = styled.header`
   }
 `
 
-export const SSearch = styled.div<{ isDesktop: boolean }>`
+export const SSearch = styled.form<{ isDesktop: boolean }>`
   flex: 1;
   display: flex;
   justify-content: space-between;
@@ -55,6 +55,13 @@ export const SSearch = styled.div<{ isDesktop: boolean }>`
     &::placeholder {
       color: ${colors.more_weak};
     }
+  }
+
+  button {
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `
 

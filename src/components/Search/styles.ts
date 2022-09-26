@@ -16,6 +16,11 @@ export const SCard = styled.li`
     font-weight: normal;
     color: ${colors.white};
   }
+
+  p {
+    font-size: 16px;
+    color: ${colors.weak};
+  }
 `
 
 export const SImage = styled.div`
@@ -52,6 +57,16 @@ export const SButtons = styled.div`
     }
   }
 `
+
+export const SNotFound = styled.p`
+  color: ${colors.white};
+  font-size: 24px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+`
+
 export const SLoading = styled.div`
   position: relative;
   width: 100%;
