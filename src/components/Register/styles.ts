@@ -120,11 +120,11 @@ export const SButton = styled.button`
   transition-timing-function: ease-in;
 
   &:disabled {
-    border-color: ${colors.grey};
-    color: ${colors.grey};
+    border-color: ${colors.gray};
+    color: ${colors.gray};
     &:hover {
       background: transparent;
-      color: ${colors.grey};
+      color: ${colors.gray};
     }
   }
 

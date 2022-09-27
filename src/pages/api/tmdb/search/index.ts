@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { MovieDb } from 'moviedb-promise'
 import { unstable_getServerSession } from 'next-auth/next'
-import { authOptions } from '../auth/[...nextauth]'
+import { authOptions } from '@api/auth/[...nextauth]'
 
 export default async function search(
   req: NextApiRequest,
@@ -24,7 +24,6 @@ export default async function search(
   // const tvGenre = await moviedb.genreTvList()
   const multi = await moviedb.searchMulti({ query, page })
 
-  // const tvInfo = await moviedb.tvInfo({ id: 1396 })
   // const movieInfo = await moviedb.movieInfo({ id: 1396 })
 
   return res.json(multi)

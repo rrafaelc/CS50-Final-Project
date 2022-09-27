@@ -8,7 +8,7 @@ const colors = {
   black: '#262626',
   blue: '#343A90',
   yellow: '#F4D953',
-  grey: '#909090',
+  gray: '#909090',
 }
 
 export default colors

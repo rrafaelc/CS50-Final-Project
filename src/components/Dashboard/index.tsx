@@ -14,8 +14,6 @@ import 'swiper/css/navigation'
 const Dashboard = () => {
   const [data, setData] = useState<StatusProps[]>([])
 
-  const all: StatusProps[] = []
-
   const watching: StatusProps[] = []
   const completed: StatusProps[] = []
   const onhold: StatusProps[] = []
@@ -28,8 +26,6 @@ const Dashboard = () => {
     elem.status === 'onhold' && onhold.push(elem)
     elem.status === 'dropped' && dropped.push(elem)
     elem.status === 'ptw' && ptw.push(elem)
-
-    all.push(elem)
   })
 
   useEffect(() => {
@@ -51,13 +47,6 @@ const Dashboard = () => {
           <p>See all</p>
         </SStatusTitle>
         <Status data={watching} />
-      </SStatus>
-      <SStatus>
-        <SStatusTitle>
-          <p>All ({all.length})</p>
-          <p>See all</p>
-        </SStatusTitle>
-        <Status data={all} />
       </SStatus>
       <SStatus>
         <SStatusTitle>

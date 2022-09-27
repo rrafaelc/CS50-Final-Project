@@ -49,11 +49,23 @@ export const SButtons = styled.div`
     &:first-child {
       background-color: ${colors.green};
       color: ${colors.black};
+
+      transition: background-color ease-in 200ms;
+
+      &:hover {
+        background: ${lighten(0.1, colors.green)};
+      }
     }
 
     &:last-child {
       background-color: ${colors.black};
       color: ${colors.white};
+
+      transition: background-color ease-in 200ms;
+
+      &:hover {
+        background: ${lighten(0.1, colors.black)};
+      }
     }
   }
 `

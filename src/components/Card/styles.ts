@@ -221,20 +221,20 @@ export const SStatus = styled.button<SStatusProps>`
       case 'plantowatch' || 'ptw':
         return css`
           color: ${colors.black};
-          background: ${colors.grey};
+          background: ${colors.gray};
 
           &:hover {
-            background: ${lighten(0.1, colors.grey)};
+            background: ${lighten(0.1, colors.gray)};
           }
         `
 
       default:
         return css`
           color: ${colors.black};
-          background: ${colors.grey};
+          background: ${colors.gray};
 
           &:hover {
-            background: ${lighten(0.1, colors.grey)};
+            background: ${lighten(0.1, colors.gray)};
           }
         `
     }

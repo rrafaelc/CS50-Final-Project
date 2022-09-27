@@ -10,15 +10,15 @@ export default async function createTV(
   const session = await unstable_getServerSession(req, res, authOptions)
 
   if (!session) {
-    // return res.status(401).send('Unauthorized')
+    return res.status(401).send('Unauthorized')
   }
 
   if (req.method !== 'POST') {
     return res.status(405).json({ message: `Method ${req.method} not allowed` })
   }
 
-  // const userId = session.user.id
-  const userId = process.env.USER_ID
+  const userId = session.user.id
+
   const { apiId, mediaType, title, genre, status, season, episode, poster } =
     req.body
 
@@ -40,6 +40,7 @@ export default async function createTV(
 
     // If found return
     if (tv) {
+      console.log('tv', tv)
       return res.status(400).send('Can not create, tv show already exists.')
     }
 

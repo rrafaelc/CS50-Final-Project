@@ -18,13 +18,12 @@ import { MdArrowCircleUp } from 'react-icons/md'
 
 interface ResultsProps {
   id: number
-  name: string // Fot tv show
-  first_air_date: string // Fot tv show
+  name: string // For tv show
+  first_air_date: string // For tv show
   title: string // For movie
   release_date: string // For movie
   media_type: string
   poster_path: string
-  genre_ids: number[]
 }
 
 const Search = () => {
@@ -37,7 +36,7 @@ const Search = () => {
   const [loading, setLoading] = useState(false)
   const lastElement = useRef(null)
 
-  const query = router.query.query
+  const { query } = router.query
 
   const loadMore = () => {
     setPage(page + 1)
@@ -86,7 +85,7 @@ const Search = () => {
   const handleScrollToTop = () => {
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
-  }  
+  }
 
   useEffect(() => {
     setLoading(true)
