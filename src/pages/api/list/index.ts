@@ -22,14 +22,18 @@ export default async function listAll(
   const tv = await prisma.tvShow.findMany({
     where: {
       userId: session.user.id,
-      // userId: process.env.USER_ID,
+    },
+    orderBy: {
+      updatedAt: 'desc',
     },
   })
 
   const movie = await prisma.movie.findMany({
     where: {
       userId: session.user.id,
-      // userId: process.env.USER_ID,
+    },
+    orderBy: {
+      updatedAt: 'desc',
     },
   })
 
