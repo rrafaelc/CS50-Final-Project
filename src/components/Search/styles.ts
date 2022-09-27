@@ -28,7 +28,8 @@ export const SImage = styled.div`
   width: 200px;
   height: 300px;
 
-  margin: 20px 0;
+  margin-top: 5px;
+  margin-bottom: 20px;
 
   @media (min-width: 500px) {
     width: 220px;
