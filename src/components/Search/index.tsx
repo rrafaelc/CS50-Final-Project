@@ -87,6 +87,10 @@ const Search = () => {
     document.documentElement.scrollTop = 0
   }
 
+  const handleAdd = (id: number, type: string) => {
+    router.push(`/search/add?id=${id}&type=${type}`)
+  }
+
   useEffect(() => {
     setLoading(true)
     setPage(1)
@@ -168,8 +172,12 @@ const Search = () => {
                 />
               </SImage>
               <SButtons>
-                <button>ADD</button>
-                <button>GO BACK</button>
+                <button onClick={() => handleAdd(d.id, d.media_type)}>
+                  ADD
+                </button>
+                <button onClick={() => router.push('/dashboard')}>
+                  GO BACK
+                </button>
               </SButtons>
             </SCard>
           )
