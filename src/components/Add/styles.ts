@@ -90,10 +90,22 @@ export const SButtons = styled.div`
       background-color: ${colors.black};
       color: ${colors.white};
 
-      transition: background-color ease-in 200ms;
+      transition-property: background-color, color;
+      transition-duration: 200ms;
+      transition-timing-function: ease-in;
 
       &:hover {
         background: ${lighten(0.1, colors.black)};
+      }
+
+      &:disabled {
+        border: 1px solid ${colors.gray};
+        color: ${colors.gray};
+        background: transparent;
+        &:hover {
+          background: transparent;
+          color: ${colors.gray};
+        }
       }
     }
 
@@ -197,10 +209,22 @@ export const SButtons = styled.div`
       background-color: ${colors.green};
       color: ${colors.black};
 
-      transition: background-color ease-in 200ms;
+      transition-property: background-color, color;
+      transition-duration: 200ms;
+      transition-timing-function: ease-in;
 
       &:hover {
         background: ${lighten(0.1, colors.green)};
+      }
+
+      &:disabled {
+        border: 1px solid ${colors.gray};
+        color: ${colors.gray};
+        background: transparent;
+        &:hover {
+          background: transparent;
+          color: ${colors.gray};
+        }
       }
     }
   }
