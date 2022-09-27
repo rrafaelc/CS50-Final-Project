@@ -31,6 +31,7 @@ export default function Add() {
   const [season, setSeason] = useState('1')
   const [episode, setEpisode] = useState('1')
   const [status, setStatus] = useState<StatusProps | null>(null)
+  const [loading, setLoading] = useState(false)
 
   const handleSave = () => {
     if (!status) {
@@ -56,6 +57,8 @@ export default function Add() {
         genre += g.name
       })
 
+      setLoading(true)
+
       axios
         .post('/api/create', {
           apiId: tv.id,
@@ -70,6 +73,7 @@ export default function Add() {
         .then(() => router.push('/dashboard'))
         .catch(err => {
           console.log(err)
+          setLoading(false)
 
           alert(err.response.data)
         })
@@ -84,6 +88,7 @@ export default function Add() {
   }
 
   useEffect(() => {
+    setLoading(true)
     if (router.isReady) {
       const { id, type } = router.query
 
@@ -100,9 +105,11 @@ export default function Add() {
               poster_path: data.poster_path,
               genres: data.genres,
             })
+            setLoading(false)
           })
           .catch(err => {
             console.log(err)
+            setLoading(false)
             alert('Error to get TV')
           })
       }
@@ -120,6 +127,7 @@ export default function Add() {
           layout="fill"
         />
       </SImage>
+
       {type === 'tv' && (
         <STvEpisodes>
           <div>
@@ -175,10 +183,12 @@ export default function Add() {
         >
           Plan to watch
         </button>
-        <button className="save" onClick={handleSave}>
-          Save
+        <button disabled={loading} className="save" onClick={handleSave}>
+          {loading ? 'Loading' : 'Save'}
         </button>
-        <button onClick={handleGoBack}>GO BACK</button>
+        <button disabled={loading} onClick={handleGoBack}>
+          {loading ? 'Loading' : 'GO BACK'}
+        </button>
       </SButtons>
     </SCard>
   )
