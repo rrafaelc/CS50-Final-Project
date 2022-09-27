@@ -40,7 +40,6 @@ export default async function createTV(
 
     // If found return
     if (tv) {
-      console.log('tv', tv)
       return res.status(400).send('Can not create, tv show already exists.')
     }
 
