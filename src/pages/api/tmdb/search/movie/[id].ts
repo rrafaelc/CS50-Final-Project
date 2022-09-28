@@ -3,7 +3,7 @@ import { MovieDb } from 'moviedb-promise'
 import { unstable_getServerSession } from 'next-auth/next'
 import { authOptions } from '@api/auth/[...nextauth]'
 
-export default async function search(
+export default async function searchByIdMovie(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -13,11 +13,20 @@ export default async function search(
     return res.status(401).send('Unauthorized')
   }
 
+  if (req.method !== 'GET') {
+    return res.status(405).json({ message: `Method ${req.method} not allowed` })
+  }
+
   const moviedb = new MovieDb(process.env.MOVIEDB_API_KEY ?? '')
-  const query = String(req.query.query)
-  const page = Number(req.query.page ?? 1)
+  const id = String(req.query.id)
 
-  const multi = await moviedb.searchMulti({ query, page })
+  try {
+    const movieInfo = await moviedb.movieInfo({ id })
 
-  return res.json(multi)
+    return res.json(movieInfo)
+  } catch (error) {
+    console.log(error)
+
+    return res.status(400).send('ID not found')
+  }
 }

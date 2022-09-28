@@ -2,9 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { MovieDb } from 'moviedb-promise'
 import { unstable_getServerSession } from 'next-auth/next'
 import { authOptions } from '@api/auth/[...nextauth]'
-import { prisma } from 'lib/prisma'
 
-export default async function searchById(
+export default async function searchByIdTv(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
