@@ -17,15 +17,6 @@ import colors from '../../styles/colors'
 export default function Status({ data }: { data: StatusProps[] }) {
   const { width } = useDimension()
 
-  // const mobileSettings: SwiperProps = {
-  //   spaceBetween: 20,
-  //   slidesPerView: 1.2,
-  //   pagination: {
-  //     type: 'progressbar',
-  //   },
-  //   modules: [Pagination],
-  // }
-
   const settings: SwiperProps = {
     spaceBetween: width >= 500 ? 30 : 20,
     slidesPerView: width >= 500 ? 2 : 1.2,
@@ -38,6 +29,13 @@ export default function Status({ data }: { data: StatusProps[] }) {
     },
     modules: [Pagination, Navigation],
   }
+
+  // Limit the total data show in the browser
+  // const maxData = data.filter((d, index) => {
+  //   if (index <= 9) {
+  //     return d
+  //   }
+  // })
 
   return (
     <Swiper {...settings}>
