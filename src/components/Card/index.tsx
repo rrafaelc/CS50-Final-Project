@@ -6,6 +6,7 @@ import { StatusProps } from 'types'
 import parseDate from 'utils/parseDate'
 
 import { useDimension } from 'context/dimensionContext'
+import { useModalStatus } from 'context/modalStatusContext'
 
 import { SContainer, SImage, SInfo, SStatus } from './styles'
 
@@ -13,6 +14,7 @@ type CardProps = StatusProps
 
 export default function Card(props: CardProps) {
   const { width } = useDimension()
+  const { toggle, setItemProps, setStatusFunction } = useModalStatus()
   const { year, month, day } = parseDate(props.updatedAt)
 
   const statusName = () => {
@@ -34,6 +36,20 @@ export default function Card(props: CardProps) {
       default:
         return 'Watching'
     }
+  }
+
+  const handleEditCardProps = (
+    id: string,
+    name: string,
+    poster: string,
+    type: string,
+    status: string,
+    season?: number,
+    episode?: number
+  ) => {
+    setStatusFunction(status)
+    setItemProps({ id, name, poster, type, season, episode })
+    toggle()
   }
 
   return (
@@ -60,7 +76,22 @@ export default function Card(props: CardProps) {
             </div>
           )}
 
-          <SStatus status={props.status}>{statusName()}</SStatus>
+          <SStatus
+            onClick={() =>
+              handleEditCardProps(
+                props.id,
+                props.title,
+                props.poster,
+                props.type,
+                props.status,
+                props.season,
+                props.episode
+              )
+            }
+            status={props.status}
+          >
+            {statusName()}
+          </SStatus>
 
           <div className="lastUpdate">
             Last Update - {padNumber(2, month)}/{padNumber(2, day)}/
