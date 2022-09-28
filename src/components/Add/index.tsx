@@ -12,6 +12,11 @@ interface TvProps {
   genres: {
     name: string
   }[]
+  number_of_seasons: number
+  seasons: {
+    episode_count: number
+    season_number: number
+  }[]
 }
 
 interface MovieProps {
@@ -145,6 +150,8 @@ export default function Add() {
               name: data.name,
               poster_path: data.poster_path,
               genres: data.genres,
+              number_of_seasons: data.number_of_seasons,
+              seasons: data.seasons,
             })
             setLoading(false)
           })
@@ -176,6 +183,19 @@ export default function Add() {
       }
     }
   }, [router.isReady])
+
+  useEffect(() => {
+    if (type === 'tv' && status === 'completed') {
+      setSeason(String(tv.number_of_seasons))
+      const episode = tv.seasons.filter(
+        s => s.season_number === tv.number_of_seasons
+      )
+      setEpisode(String(episode[0].episode_count))
+    } else if (type === 'tv' && status === 'ptw') {
+      setSeason('1')
+      setEpisode('1')
+    }
+  }, [status])
 
   return (
     <SCard>
