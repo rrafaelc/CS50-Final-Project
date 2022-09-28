@@ -18,6 +18,9 @@ interface MovieProps {
   id: number
   title: string
   poster_path: string
+  genres: {
+    name: string
+  }[]
 }
 
 type StatusProps = 'watching' | 'completed' | 'dropped' | 'onhold' | 'ptw'
@@ -40,7 +43,10 @@ export default function Add() {
     }
 
     if (type === 'tv') {
+      // For add to the database genre
+      // Like: Drama,Crime,Action
       let genre = ''
+
       if (!Number(season) || !Number(episode)) {
         alert('Season and episode must be only numbers')
 
@@ -78,6 +84,41 @@ export default function Add() {
           alert(err.response.data)
         })
     }
+
+    if (type === 'movie') {
+      // For add to the database genre
+      // Like: Drama,Crime,Action
+      let genre = ''
+
+      movie.genres.forEach((g, index) => {
+        if (index + 1 !== movie.genres.length) {
+          genre += `${g.name},`
+
+          return
+        }
+
+        genre += g.name
+      })
+
+      setLoading(true)
+
+      axios
+        .post('/api/create', {
+          apiId: movie.id,
+          mediaType: type,
+          title: movie.title,
+          genre,
+          status,
+          poster: movie.poster_path,
+        })
+        .then(() => router.push('/dashboard'))
+        .catch(err => {
+          console.log(err)
+          setLoading(false)
+
+          alert(err.response.data)
+        })
+    }
   }
 
   const handleGoBack = () => {
@@ -102,6 +143,26 @@ export default function Add() {
             setTv({
               id: data.id,
               name: data.name,
+              poster_path: data.poster_path,
+              genres: data.genres,
+            })
+            setLoading(false)
+          })
+          .catch(err => {
+            console.log(err)
+            setLoading(false)
+            alert('Error to get TV')
+          })
+      }
+
+      if (type === 'movie') {
+        axios
+          .get(`/api/tmdb/search/movie/${id}`)
+          .then(res => res.data)
+          .then(data => {
+            setMovie({
+              id: data.id,
+              title: data.title,
               poster_path: data.poster_path,
               genres: data.genres,
             })

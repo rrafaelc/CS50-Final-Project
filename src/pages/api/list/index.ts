@@ -23,17 +23,11 @@ export default async function listAll(
     where: {
       userId: session.user.id,
     },
-    orderBy: {
-      updatedAt: 'desc',
-    },
   })
 
   const movie = await prisma.movie.findMany({
     where: {
       userId: session.user.id,
-    },
-    orderBy: {
-      updatedAt: 'desc',
     },
   })
 

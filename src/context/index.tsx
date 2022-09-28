@@ -2,6 +2,7 @@ import React from 'react'
 
 import { DimensionProvider } from './dimensionContext'
 import { FilterProvider } from './filterContext'
+import { ModalStatusProvider } from './modalStatusContext'
 
 interface Props {
   children: React.ReactNode
@@ -11,7 +12,9 @@ interface Props {
 export const AppProvider = ({ children }: Props) => {
   return (
     <DimensionProvider>
-      <FilterProvider>{children}</FilterProvider>
+      <ModalStatusProvider>
+        <FilterProvider>{children}</FilterProvider>
+      </ModalStatusProvider>
     </DimensionProvider>
   )
 }

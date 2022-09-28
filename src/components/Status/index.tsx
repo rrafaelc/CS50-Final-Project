@@ -37,9 +37,13 @@ export default function Status({ data }: { data: StatusProps[] }) {
   //   }
   // })
 
+  const sortedByDateDesc = data.sort(
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+  )
+
   return (
     <Swiper {...settings}>
-      {data.map(d => (
+      {sortedByDateDesc.map(d => (
         <SwiperSlide key={d.id}>
           <Card {...d} />
         </SwiperSlide>

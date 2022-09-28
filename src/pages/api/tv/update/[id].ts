@@ -10,7 +10,7 @@ export default async function createTV(
   const session = await unstable_getServerSession(req, res, authOptions)
 
   if (!session) {
-    // return res.status(401).send('Unauthorized')
+    return res.status(401).send('Unauthorized')
   }
 
   if (req.method !== 'PUT') {
@@ -29,7 +29,7 @@ export default async function createTV(
   const userhasTvId = await prisma.tvShow.findFirst({
     where: {
       id,
-      userId: process.env.USER_ID,
+      userId: session.user.id,
     },
   })
 
