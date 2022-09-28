@@ -49,7 +49,7 @@ export default async function createTV(
       },
     })
 
-    return res.status(204).send({})
+    return res.status(204).end()
   } catch (err: any) {
     console.log(err)
 

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import axios from 'lib/axios'
 import Status from '../Status'
 import Filter from 'components/Filter'
@@ -28,7 +27,6 @@ const Dashboard = () => {
     episode,
     setStatusFunction,
   } = useModalStatus()
-  const router = useRouter()
 
   const [data, setData] = useState<StatusProps[]>([])
   const [loading, setLoading] = useState(false)
@@ -57,7 +55,23 @@ const Dashboard = () => {
           episode,
         })
 
-        router.reload()
+        // update the list without reload
+        const updateData = data.map(d => {
+          if (d.id === id) {
+            return {
+              ...d,
+              updatedAt: new Date().toISOString(), // Just for let them be in first position
+              status,
+            }
+          }
+
+          return d
+        })
+
+        setData(updateData)
+
+        toggle()
+        setLoading(false)
       }
     } catch (error) {
       setLoading(false)
