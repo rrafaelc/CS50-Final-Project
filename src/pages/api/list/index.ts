@@ -40,5 +40,5 @@ export default async function listAll(
     return data.push(elem)
   })
 
-  return res.status(200).json(data)
+  return res.json(data)
 }
