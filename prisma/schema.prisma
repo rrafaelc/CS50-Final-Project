@@ -1,6 +1,8 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// About onDelete - https://youtu.be/-Nv3wSm0Ac0
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -33,7 +35,7 @@ model TvShow {
   type      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User?    @relation(fields: [userId], references: [id])
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String?
 }
 
@@ -47,6 +49,6 @@ model Movie {
   type       String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  user       User?    @relation(fields: [userId], references: [id])
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String?
 }
