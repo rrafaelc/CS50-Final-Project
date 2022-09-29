@@ -66,7 +66,10 @@ export default function Header() {
           width={78}
           height={32}
           alt="Logo"
-          onClick={() => router.push('/dashboard')}
+          onClick={() => {
+            setHeaderQuery('')
+            router.push('/dashboard')
+          }}
           style={{ cursor: 'pointer' }}
         />
       )}
