@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import Status from '../Status'
 import Filter from 'components/Filter'
 import { getAll, updateTV, updateMovie } from 'lib/db'
 
 import { useModalStatus } from 'context/modalStatusContext'
+import { useDimension } from 'context/dimensionContext'
 import { StatusProps } from 'types'
+import { MdClose } from 'react-icons/md'
 
 import { SContainer, SModal, SStatus, SStatusTitle } from './styles'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
-import Image from 'next/image'
-import { MdClose } from 'react-icons/md'
 
 const Dashboard = () => {
   const {
@@ -27,6 +28,7 @@ const Dashboard = () => {
     episode,
     setStatusFunction,
   } = useModalStatus()
+  const { width } = useDimension()
 
   const [data, setData] = useState<StatusProps[]>([])
   const [loading, setLoading] = useState(false)
@@ -127,10 +129,12 @@ const Dashboard = () => {
           <h1>Status</h1>
 
           <div className="content">
-            <h1>{name}</h1>
+            <div className="poster">
+              <h1>{name}</h1>
 
-            <div className="image">
-              <Image src={poster} layout="fill" />
+              <div className="image">
+                <Image src={poster} layout="fill" />
+              </div>
             </div>
 
             <div className="buttons">

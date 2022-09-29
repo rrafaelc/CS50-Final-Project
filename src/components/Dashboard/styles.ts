@@ -27,7 +27,6 @@ export const SModal = styled.div`
   right: 0;
   top: 10px;
   bottom: 10px;
-  /* text-align: center; */
 
   border-radius: 10px;
   padding: 20px;
@@ -63,14 +62,22 @@ export const SModal = styled.div`
     h1 {
       font-size: 16px;
       font-weight: 500;
+      text-align: center;
       color: ${colors.white};
     }
 
-    .image {
-      margin-top: 15px;
-      position: relative;
-      width: 100px;
-      height: 150px;
+    .poster {
+      max-width: 250px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .image {
+        margin-top: 15px;
+        position: relative;
+        width: 100px;
+        height: 150px;
+      }
     }
 
     .buttons {
@@ -203,6 +210,38 @@ export const SModal = styled.div`
             }
           }
         }
+      }
+    }
+  }
+
+  @media (min-width: 700px) {
+    overflow-x: hidden;
+
+    .content {
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .poster {
+      h1 {
+        font-size: 32px;
+      }
+
+      .image {
+        width: 220px !important;
+        height: 330px !important;
+      }
+    }
+
+    .buttons {
+      margin-top: 0 !important;
+      gap: 20px !important;
+
+      button {
+        font-size: 30px !important;
+        border-radius: 10px !important;
       }
     }
   }
