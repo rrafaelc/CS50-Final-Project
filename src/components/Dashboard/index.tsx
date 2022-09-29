@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Status from '../Status'
 import Filter from 'components/Filter'
-import { getAll, updateTV } from 'lib/db'
+import { getAll, updateTV, updateMovie } from 'lib/db'
 
 import { useModalStatus } from 'context/modalStatusContext'
 import { StatusProps } from 'types'
@@ -50,6 +50,28 @@ const Dashboard = () => {
     try {
       if (type === 'tv') {
         await updateTV({ id, status, season, episode })
+
+        // update the list without reload
+        const updateData = data.map(d => {
+          if (d.id === id) {
+            return {
+              ...d,
+              updatedAt: new Date().toISOString(), // Just for let them be in first position
+              status,
+            }
+          }
+
+          return d
+        })
+
+        setData(updateData)
+
+        toggle()
+        setLoading(false)
+      }
+
+      if (type === 'movie') {
+        await updateMovie({ id, status })
 
         // update the list without reload
         const updateData = data.map(d => {

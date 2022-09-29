@@ -11,7 +11,7 @@ export default async function list(req: NextApiRequest, res: NextApiResponse) {
   }
 
   if (req.method !== 'GET') {
-    return res.status(405).json({ message: `Method ${req.method} not allowed` })
+    return res.status(405).send(`Method ${req.method} not allowed`)
   }
 
   const id = String(req.query.id)

@@ -3,7 +3,7 @@ import { prisma } from 'lib/prisma'
 import { unstable_getServerSession } from 'next-auth/next'
 import { authOptions } from './auth/[...nextauth]'
 
-export default async function createTV(
+export default async function createTVorMovie(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -14,7 +14,7 @@ export default async function createTV(
   }
 
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: `Method ${req.method} not allowed` })
+    return res.status(405).send(`Method ${req.method} not allowed`)
   }
 
   const userId = session.user.id

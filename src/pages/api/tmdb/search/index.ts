@@ -14,6 +14,12 @@ export default async function search(
   }
 
   const moviedb = new MovieDb(process.env.MOVIEDB_API_KEY ?? '')
+  if (!req.query.query) {
+    return res
+      .status(400)
+      .send('Missing query. Example: api/tmdb/search?query=The Simpsons')
+  }
+
   const query = String(req.query.query)
   const page = Number(req.query.page ?? 1)
 

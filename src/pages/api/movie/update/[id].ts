@@ -3,7 +3,7 @@ import { unstable_getServerSession } from 'next-auth/next'
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { prisma } from 'lib/prisma'
 
-export default async function updateTV(
+export default async function updateMovie(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -18,38 +18,32 @@ export default async function updateTV(
   }
 
   const statusConditions = ['watching', 'completed', 'onhold', 'dropped', 'ptw']
-  const { status, season, episode } = req.body
-  const id = String(req.query.id)
+  const { status } = req.body
 
   if (!statusConditions.some(el => String(status).includes(el))) {
     return res.status(400).send('Invalid status')
   }
 
-  // If is not number
-  !Number(season) && res.status(400).json({ message: 'season must be number' })
-  !Number(episode) &&
-    res.status(400).json({ message: 'episode must be number' })
+  const id = String(req.query.id)
 
-  // Check if the current user has this tvId
-  const userhasTvId = await prisma.tvShow.findFirst({
+  // Check if the current user has this movieId
+  const userhasMovieId = await prisma.movie.findFirst({
     where: {
       id,
       userId: session.user.id,
     },
   })
 
-  if (!userhasTvId) {
-    return res.status(400).send('Tv Show not found')
+  if (!userhasMovieId) {
+    return res.status(400).send('Movie not found')
   }
 
   try {
-    await prisma.tvShow.update({
+    await prisma.movie.update({
       where: {
         id,
       },
       data: {
-        season,
-        episode,
         status,
       },
     })

@@ -27,6 +27,11 @@ interface UpdateTvProps {
   episode: number
 }
 
+interface UpdateMovieProps {
+  id: string
+  status: string
+}
+
 export const registerAccount = async ({
   name,
   password,
@@ -112,6 +117,24 @@ export const updateTV = async ({
       status,
       season,
       episode,
+    })
+  } catch (err) {
+    const error = err as AxiosError
+
+    throw new AxiosError(
+      error.message,
+      error.code,
+      error.config,
+      error.request,
+      error.response
+    )
+  }
+}
+
+export const updateMovie = async ({ id, status }: UpdateMovieProps) => {
+  try {
+    await axios.put(`/api/movie/update/${id}`, {
+      status,
     })
   } catch (err) {
     const error = err as AxiosError

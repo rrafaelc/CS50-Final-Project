@@ -14,7 +14,7 @@ export default async function listAll(
   }
 
   if (req.method !== 'GET') {
-    return res.status(405).json({ message: `Method ${req.method} not allowed` })
+    return res.status(405).send(`Method ${req.method} not allowed`)
   }
 
   const data: any = []
