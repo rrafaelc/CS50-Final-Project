@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import axios from 'lib/axios'
+import { searchMulti } from 'lib/tmdb'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
@@ -52,16 +52,10 @@ const Search = () => {
         return
       }
 
-      axios
-        .get('/api/tmdb/search/', {
-          params: {
-            query,
-            page: page + 1,
-          },
-        })
-        .then(res => {
+      searchMulti({ query: String(query), page: page + 1 })
+        .then(data => {
           // Filter by only the tv, movies and not null or undefined
-          const resultParsed = res.data.results.filter((r: ResultsProps) => {
+          const resultParsed = data.results.filter((r: ResultsProps) => {
             if (
               r.poster_path !== undefined &&
               r.poster_path !== null &&
@@ -71,7 +65,7 @@ const Search = () => {
             }
           })
 
-          setTotalPages(res.data.total_pages)
+          setTotalPages(data.total_pages)
           setResults([...results, ...resultParsed])
           setLoading(false)
         })
@@ -88,7 +82,7 @@ const Search = () => {
   }
 
   const handleAdd = (id: number, type: string) => {
-    router.push(`/search/add?id=${id}&type=${type}`)
+    router.push(`/search/add?id=${id}&type=${type}&query=${query}`)
   }
 
   useEffect(() => {
@@ -102,16 +96,10 @@ const Search = () => {
         return
       }
 
-      axios
-        .get('/api/tmdb/search/', {
-          params: {
-            query,
-            page: 1,
-          },
-        })
-        .then(res => {
+      searchMulti({ query: String(query), page: 1 })
+        .then(data => {
           // Filter by only the tv, movies and not null or undefined
-          const resultParsed = res.data.results.filter((r: ResultsProps) => {
+          const resultParsed = data.results.filter((r: ResultsProps) => {
             if (
               r.poster_path !== undefined &&
               r.poster_path !== null &&
@@ -121,7 +109,7 @@ const Search = () => {
             }
           })
 
-          setTotalPages(res.data.total_pages)
+          setTotalPages(data.total_pages)
           setResults(resultParsed)
           setLoading(false)
         })

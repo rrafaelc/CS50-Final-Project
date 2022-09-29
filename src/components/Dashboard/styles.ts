@@ -41,7 +41,7 @@ export const SModal = styled.div`
 
     display: flex;
     padding: 5px;
-    cursor: pointer;
+    background: transparent;
 
     svg {
       fill: ${colors.white};

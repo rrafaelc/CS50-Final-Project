@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { STvEpisodes, SButtons, SCard, SImage } from './styles'
+import { createTVorMovie } from 'lib/db'
+import { searchTV, searchMovie } from 'lib/tmdb'
 import Image from 'next/image'
 
-import axios from 'lib/axios'
+import { STvEpisodes, SButtons, SCard, SImage } from './styles'
 
 interface TvProps {
   id: number
@@ -70,17 +71,16 @@ export default function Add() {
 
       setLoading(true)
 
-      axios
-        .post('/api/create', {
-          apiId: tv.id,
-          mediaType: type,
-          title: tv.name,
-          genre,
-          status,
-          season: Number(season),
-          episode: Number(episode),
-          poster: tv.poster_path,
-        })
+      createTVorMovie({
+        apiId: tv.id,
+        mediaType: type,
+        title: tv.name,
+        genre,
+        status,
+        season: Number(season),
+        episode: Number(episode),
+        poster: tv.poster_path,
+      })
         .then(() => router.push('/dashboard'))
         .catch(err => {
           console.log(err)
@@ -107,15 +107,14 @@ export default function Add() {
 
       setLoading(true)
 
-      axios
-        .post('/api/create', {
-          apiId: movie.id,
-          mediaType: type,
-          title: movie.title,
-          genre,
-          status,
-          poster: movie.poster_path,
-        })
+      createTVorMovie({
+        apiId: movie.id,
+        mediaType: type,
+        title: movie.title,
+        genre,
+        status,
+        poster: movie.poster_path,
+      })
         .then(() => router.push('/dashboard'))
         .catch(err => {
           console.log(err)
@@ -127,9 +126,11 @@ export default function Add() {
   }
 
   const handleGoBack = () => {
+    const { query } = router.query
+
     router.push({
       pathname: '/search',
-      query: { query: tv.name ?? movie.title },
+      query: { query: query ?? tv.name ?? movie.title },
     })
   }
 
@@ -141,9 +142,7 @@ export default function Add() {
       setType(String(type))
 
       if (type === 'tv') {
-        axios
-          .get(`/api/tmdb/search/tv/${id}`)
-          .then(res => res.data)
+        searchTV(String(id))
           .then(data => {
             setTv({
               id: data.id,
@@ -163,9 +162,7 @@ export default function Add() {
       }
 
       if (type === 'movie') {
-        axios
-          .get(`/api/tmdb/search/movie/${id}`)
-          .then(res => res.data)
+        searchMovie(String(id))
           .then(data => {
             setMovie({
               id: data.id,
@@ -178,7 +175,7 @@ export default function Add() {
           .catch(err => {
             console.log(err)
             setLoading(false)
-            alert('Error to get TV')
+            alert('Error to get Movie')
           })
       }
     }

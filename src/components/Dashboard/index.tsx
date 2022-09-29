@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import axios from 'lib/axios'
 import Status from '../Status'
 import Filter from 'components/Filter'
-import { useModalStatus } from 'context/modalStatusContext'
+import { getAll, updateTV } from 'lib/db'
 
+import { useModalStatus } from 'context/modalStatusContext'
 import { StatusProps } from 'types'
 
 import { SContainer, SModal, SStatus, SStatusTitle } from './styles'
@@ -49,11 +49,7 @@ const Dashboard = () => {
     setLoading(true)
     try {
       if (type === 'tv') {
-        await axios.put(`/api/tv/update/${id}`, {
-          status,
-          season,
-          episode,
-        })
+        await updateTV({ id, status, season, episode })
 
         // update the list without reload
         const updateData = data.map(d => {
@@ -90,9 +86,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     async function getData() {
-      const getAll = await axios.get<StatusProps[]>('/api/list')
+      const res = await getAll<StatusProps[]>()
 
-      setData(getAll.data)
+      setData(res)
     }
 
     getData()
@@ -103,9 +99,9 @@ const Dashboard = () => {
       <Filter />
       {isOpen && (
         <SModal>
-          <div className="close" onClick={() => toggle()}>
+          <button disabled={loading} className="close" onClick={() => toggle()}>
             <MdClose size={24} />
-          </div>
+          </button>
           <h1>Status</h1>
 
           <div className="content">

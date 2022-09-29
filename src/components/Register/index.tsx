@@ -1,5 +1,5 @@
 import { FormEventHandler, useState } from 'react'
-import axios, { AxiosError } from 'axios'
+import { AxiosError } from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -12,6 +12,7 @@ import {
   SButton,
   SLink,
 } from './styles'
+import { registerAccount } from 'lib/db'
 
 interface RegisterProps {
   name: string
@@ -59,7 +60,7 @@ const Register = () => {
     }
 
     try {
-      await axios.post('/api/account/register', {
+      await registerAccount({
         name: formState.name.toLowerCase(),
         password: formState.password,
       })
