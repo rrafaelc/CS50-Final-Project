@@ -2,7 +2,15 @@ import styled from 'styled-components'
 import colors from 'styles/colors'
 import { lighten } from 'polished'
 
-export const SContainer = styled.ul``
+export const SContainer = styled.ul`
+  @media (min-width: 500px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 50px;
+  }
+`
 
 export const SCard = styled.li`
   display: flex;
@@ -15,6 +23,7 @@ export const SCard = styled.li`
     font-size: 24px;
     font-weight: normal;
     color: ${colors.white};
+    max-width: 200px;
   }
 
   p {
@@ -40,6 +49,10 @@ export const SButtons = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  @media (min-width: 500px) {
+    gap: 20px;
+  }
 
   button {
     padding: 10px 50px;

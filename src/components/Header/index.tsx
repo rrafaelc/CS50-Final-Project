@@ -85,7 +85,14 @@ export default function Header() {
         </button>
       </SSearch>
       <Menu>
-        <span onClick={() => router.push('/dashboard')}>Home</span>
+        <span
+          onClick={() => {
+            setHeaderQuery('')
+            router.push('/dashboard')
+          }}
+        >
+          Home
+        </span>
         <span>About</span>
         <span>Account</span>
         <span onClick={() => signOut()}>Logout</span>
