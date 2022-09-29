@@ -82,7 +82,7 @@ const Search = () => {
   }
 
   const handleAdd = (id: number, type: string) => {
-    router.push(`/search/add?id=${id}&type=${type}&query=${query}`)
+    router.push(`/search/add?id=${id}&type=${type}`)
   }
 
   useEffect(() => {

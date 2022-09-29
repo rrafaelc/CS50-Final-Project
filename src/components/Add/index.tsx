@@ -4,6 +4,8 @@ import { createTVorMovie } from 'lib/db'
 import { searchTV, searchMovie } from 'lib/tmdb'
 import Image from 'next/image'
 
+import { useHeader } from 'context/headerContext'
+
 import { STvEpisodes, SButtons, SCard, SImage } from './styles'
 
 interface TvProps {
@@ -33,6 +35,7 @@ type StatusProps = 'watching' | 'completed' | 'dropped' | 'onhold' | 'ptw'
 
 export default function Add() {
   const router = useRouter()
+  const { query, setHeaderQuery } = useHeader()
 
   const [type, setType] = useState('')
   const [tv, setTv] = useState<TvProps>({} as TvProps)
@@ -81,7 +84,10 @@ export default function Add() {
         episode: Number(episode),
         poster: tv.poster_path,
       })
-        .then(() => router.push('/dashboard'))
+        .then(() => {
+          setHeaderQuery('')
+          router.push('/dashboard')
+        })
         .catch(err => {
           console.log(err)
           setLoading(false)
@@ -115,7 +121,10 @@ export default function Add() {
         status,
         poster: movie.poster_path,
       })
-        .then(() => router.push('/dashboard'))
+        .then(() => {
+          setHeaderQuery('')
+          router.push('/dashboard')
+        })
         .catch(err => {
           console.log(err)
           setLoading(false)
@@ -126,11 +135,9 @@ export default function Add() {
   }
 
   const handleGoBack = () => {
-    const { query } = router.query
-
     router.push({
       pathname: '/search',
-      query: { query: query ?? tv.name ?? movie.title },
+      query: { query },
     })
   }
 

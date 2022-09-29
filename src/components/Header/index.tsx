@@ -4,17 +4,19 @@ import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { MdMenu, MdFilterList, MdSearch } from 'react-icons/md'
 
-import { useDimension } from '../../context/dimensionContext'
-import { useFilter } from '../../context/filterContext'
+import { useDimension } from 'context/dimensionContext'
+import { useFilter } from 'context/filterContext'
+import { useHeader } from 'context/headerContext'
 
 import { SMobileContainer, SDesktopContainer, SSearch, Menu } from './styles'
-import colors from '../../styles/colors'
+import colors from 'styles/colors'
 
 export default function Header() {
-  const { width, setWidth } = useDimension()
   const router = useRouter()
+  const { width, setWidth } = useDimension()
+  const { query, setHeaderQuery } = useHeader()
   const { toggle } = useFilter()
-  const [query, setQuery] = useState('')
+  // const [query, setQuery] = useState('')
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
@@ -38,7 +40,7 @@ export default function Header() {
 
   return width < 500 ? (
     <SMobileContainer>
-      {/* temp */}
+      {/* menu go to dashboard temp for mobile */}
       <MdMenu
         size={36}
         color={colors.white}
@@ -48,7 +50,7 @@ export default function Header() {
         <input
           placeholder="Search"
           value={query}
-          onChange={e => setQuery(e.target.value)}
+          onChange={e => setHeaderQuery(e.target.value)}
         />
         <button type="submit">
           <MdSearch size={24} color={colors.more_weak} />
@@ -73,7 +75,7 @@ export default function Header() {
         <input
           placeholder="Search"
           value={query}
-          onChange={e => setQuery(e.target.value)}
+          onChange={e => setHeaderQuery(e.target.value)}
         />
         <button type="submit">
           <MdSearch size={32} color={colors.more_weak} />
