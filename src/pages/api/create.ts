@@ -58,7 +58,7 @@ export default async function createTVorMovie(
       },
     })
 
-    return res.status(201).send({})
+    return res.status(201).send('resource created successfully')
   }
 
   if (mediaType === 'movie') {
@@ -90,7 +90,7 @@ export default async function createTVorMovie(
       },
     })
 
-    return res.status(201).send({})
+    return res.status(201).send('resource created successfully')
   }
 
   return res.status(400).send('mediaType must be "tv" or "movie"')

@@ -14,12 +14,12 @@ export default async function register(
 
   // First character must be alphabetic
   if (!/^[a-zA-Z].*/.test(name)) {
-    return res.status(400).json({ error: 'First character must be alphabetic' })
+    return res.status(400).send('First character must be alphabetic')
   }
 
   // Only alphanumeric is allowed
   if (!/^[a-zA-Z0-9_]*$/.test(name)) {
-    return res.status(400).json({ error: 'Only alphanumeric is allowed' })
+    return res.status(400).send('Only alphanumeric is allowed')
   }
 
   try {
@@ -30,13 +30,11 @@ export default async function register(
     })
 
     if (user) {
-      return res.status(403).json({ message: 'User name already taken' })
+      return res.status(403).send('User name already taken')
     }
   } catch (err: any) {
     console.log(err.message)
-    return res
-      .status(500)
-      .json({ message: 'Database error: Error searching for username' })
+    return res.status(500).send('Database error: Error searching for username')
   }
 
   try {
@@ -53,14 +51,12 @@ export default async function register(
       })
     } catch (err: any) {
       console.log(err.message)
-      return res
-        .status(500)
-        .json({ message: 'Database error: Error creating new user' })
+      return res.status(500).send('Database error: Error creating new user')
     }
   } catch (err: any) {
     console.log(err.message)
-    return res.status(500).json({ error: 'Error while hashing password' })
+    return res.status(500).send('Error while hashing password')
   }
 
-  return res.status(201).json({})
+  return res.status(201).send('resource created successfully')
 }
