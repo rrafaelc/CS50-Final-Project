@@ -5,7 +5,6 @@ import Filter from 'components/Filter'
 import { getAll, updateTV, updateMovie } from 'lib/db'
 
 import { useModalStatus } from 'context/modalStatusContext'
-import { useDimension } from 'context/dimensionContext'
 import { StatusProps } from 'types'
 import { MdClose } from 'react-icons/md'
 
@@ -28,7 +27,6 @@ const Dashboard = () => {
     episode,
     setStatusFunction,
   } = useModalStatus()
-  const { width } = useDimension()
 
   const [data, setData] = useState<StatusProps[]>([])
   const [loading, setLoading] = useState(false)

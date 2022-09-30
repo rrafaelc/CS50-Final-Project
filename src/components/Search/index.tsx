@@ -3,7 +3,6 @@ import { searchMulti } from 'lib/tmdb'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import { useDimension } from 'context/dimensionContext'
 import { useHeader } from 'context/headerContext'
 
 import {
@@ -29,7 +28,6 @@ interface ResultsProps {
 
 const Search = () => {
   const router = useRouter()
-  const { width } = useDimension()
   const { setHeaderQuery } = useHeader()
 
   const [totalPages, setTotalPages] = useState(-1)
