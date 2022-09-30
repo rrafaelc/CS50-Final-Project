@@ -6,6 +6,8 @@ import { prisma } from 'lib/prisma'
 export default async function list(req: NextApiRequest, res: NextApiResponse) {
   const session = await unstable_getServerSession(req, res, authOptions)
 
+  console.log(session)
+
   if (!session) {
     return res.status(401).send('Unauthorized')
   }

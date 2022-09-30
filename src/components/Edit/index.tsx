@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { getOne, updateTV } from 'lib/db'
+import { deleteMedia, getOne, updateTV } from 'lib/db'
 import Image from 'next/image'
 
 import { STvEpisodes, SButtons, SCard, SImage } from './styles'
@@ -50,6 +50,25 @@ export default function Edit() {
       setLoading(false)
       alert('An error occurred while updating')
     }
+  }
+
+  const handleDelete = async (id: string) => {
+    // If false
+    if (!confirm('Are you sure you want to delete?')) return
+
+    setLoading(true)
+
+    try {
+      await deleteMedia(id)
+    } catch (err) {
+      console.log(err)
+      setLoading(false)
+
+      alert('An error occurred when deleting')
+      return
+    }
+
+    router.push('/dashboard')
   }
 
   useEffect(() => {
@@ -117,7 +136,11 @@ export default function Edit() {
         </STvEpisodes>
 
         <SButtons>
-          <button disabled={loading} className="delete" onClick={() => {}}>
+          <button
+            disabled={loading}
+            className="delete"
+            onClick={() => handleDelete(api.id)}
+          >
             {loading ? 'Loading' : 'Delete'}
           </button>
           <button disabled={loading} className="goback" onClick={handleGoBack}>

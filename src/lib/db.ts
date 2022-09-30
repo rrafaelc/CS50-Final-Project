@@ -166,3 +166,19 @@ export const updateMovie = async ({ id, status }: UpdateMovieProps) => {
     )
   }
 }
+
+export const deleteMedia = async (id: string) => {
+  try {
+    await axios.delete(`/api/delete/${id}`)
+  } catch (err) {
+    const error = err as AxiosError
+
+    throw new AxiosError(
+      error.message,
+      error.code,
+      error.config,
+      error.request,
+      error.response
+    )
+  }
+}
