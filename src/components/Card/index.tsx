@@ -10,9 +10,17 @@ import { useModalStatus } from 'context/modalStatusContext'
 
 import { SContainer, SImage, SInfo, SStatus } from './styles'
 
-type CardProps = StatusProps
+interface CardProps {
+  props: StatusProps
+  addOneSeason: (id: string) => Promise<void>
+  addOneEpisode: (id: string) => Promise<void>
+}
 
-export default function Card(props: CardProps) {
+export default function Card({
+  props,
+  addOneSeason,
+  addOneEpisode,
+}: CardProps) {
   const { width } = useDimension()
   const { toggle, setItemProps, setStatusFunction } = useModalStatus()
   const { year, month, day } = parseDate(props.updatedAt)
@@ -101,14 +109,20 @@ export default function Card(props: CardProps) {
 
         {props.type === 'tv' && (
           <div className="buttons">
-            <button className="button">
+            <button
+              className="button"
+              onClick={async () => await addOneSeason(props.id)}
+            >
               Season{' '}
               <MdAddCircleOutline
                 size={width >= 500 ? 24 : 12}
                 color={colors.black}
               />
             </button>
-            <button className="button">
+            <button
+              className="button"
+              onClick={async () => await addOneEpisode(props.id)}
+            >
               Episode{' '}
               <MdAddCircleOutline
                 size={width >= 500 ? 24 : 12}

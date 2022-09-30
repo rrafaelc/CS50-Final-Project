@@ -72,6 +72,24 @@ export const getAll = async <T = any>(): Promise<T> => {
   }
 }
 
+export const getOne = async <T = any>(id: string): Promise<T> => {
+  try {
+    const res = await axios.get<T>(`/api/list/${id}`)
+
+    return res.data
+  } catch (err) {
+    const error = err as AxiosError
+
+    throw new AxiosError(
+      error.message,
+      error.code,
+      error.config,
+      error.request,
+      error.response
+    )
+  }
+}
+
 export const createTVorMovie = async ({
   apiId,
   mediaType,

@@ -14,7 +14,13 @@ import { StatusProps } from '../../types'
 import { SContainerButton, SButton } from './styles'
 import colors from '../../styles/colors'
 
-export default function Status({ data }: { data: StatusProps[] }) {
+interface Props {
+  data: StatusProps[]
+  addOneSeason: (id: string) => Promise<void>
+  addOneEpisode: (id: string) => Promise<void>
+}
+
+export default function Status({ data, addOneSeason, addOneEpisode }: Props) {
   const { width } = useDimension()
 
   const settings: SwiperProps = {
@@ -43,9 +49,13 @@ export default function Status({ data }: { data: StatusProps[] }) {
 
   return (
     <Swiper {...settings}>
-      {sortedByDateDesc.map(d => (
-        <SwiperSlide key={d.id}>
-          <Card {...d} />
+      {sortedByDateDesc.map(elem => (
+        <SwiperSlide key={elem.id}>
+          <Card
+            props={elem}
+            addOneSeason={addOneSeason}
+            addOneEpisode={addOneEpisode}
+          />
         </SwiperSlide>
       ))}
       <SContainerButton>

@@ -48,7 +48,7 @@ export default async function updateMovie(
       },
     })
 
-    return res.status(204).end()
+    return res.send('resource updated successfully')
   } catch (err: any) {
     console.log(err)
 

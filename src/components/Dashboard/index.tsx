@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Status from '../Status'
 import Filter from 'components/Filter'
-import { getAll, updateTV, updateMovie } from 'lib/db'
+import { getAll, updateTV, updateMovie, getOne } from 'lib/db'
 
 import { useModalStatus } from 'context/modalStatusContext'
 import { StatusProps } from 'types'
@@ -95,7 +95,7 @@ const Dashboard = () => {
       setLoading(false)
       console.log(error)
 
-      alert('An error occcurred while saving status')
+      alert('An error occcurred while updating status')
     }
 
     setLoading(false)
@@ -104,6 +104,86 @@ const Dashboard = () => {
   const handleStatus = (status: string) => {
     setStatusFunction(status)
     handleUpdate(status)
+  }
+
+  const addOneSeason = async (id: string) => {
+    setLoading(true)
+
+    try {
+      const tv = await getOne<{
+        season: number
+        episode: number
+      }>(id)
+
+      await updateTV({
+        id,
+        status: 'watching',
+        season: tv.season + 1,
+        episode: tv.episode,
+      })
+
+      // update the list without reload
+      const updateData = data.map(d => {
+        if (d.id === id) {
+          return {
+            ...d,
+            updatedAt: new Date().toISOString(), // Just for let them be in first position
+            status: 'watching',
+            season: tv.season + 1,
+            episode: tv.episode,
+          }
+        }
+        return d
+      })
+      setData(updateData)
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+      alert('An error occcurred while updating season')
+    }
+
+    setLoading(false)
+  }
+
+  const addOneEpisode = async (id: string) => {
+    setLoading(true)
+
+    try {
+      const tv = await getOne<{
+        season: number
+        episode: number
+      }>(id)
+
+      await updateTV({
+        id,
+        status: 'watching',
+        season: tv.season,
+        episode: tv.episode + 1,
+      })
+
+      // update the list without reload
+      const updateData = data.map(d => {
+        if (d.id === id) {
+          return {
+            ...d,
+            updatedAt: new Date().toISOString(), // Just for let them be in first position
+            status: 'watching',
+            season: tv.season,
+            episode: tv.episode + 1,
+          }
+        }
+        return d
+      })
+      setData(updateData)
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+      alert('An error occcurred while updating episode')
+    }
+
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -188,35 +268,55 @@ const Dashboard = () => {
           <p>Watching ({watching.length})</p>
           <p>See all</p>
         </SStatusTitle>
-        <Status data={watching} />
+        <Status
+          data={watching}
+          addOneSeason={addOneSeason}
+          addOneEpisode={addOneEpisode}
+        />
       </SStatus>
       <SStatus>
         <SStatusTitle>
           <p>Completed ({completed.length})</p>
           <p>See all</p>
         </SStatusTitle>
-        <Status data={completed} />
+        <Status
+          data={completed}
+          addOneSeason={addOneSeason}
+          addOneEpisode={addOneEpisode}
+        />
       </SStatus>
       <SStatus>
         <SStatusTitle>
           <p>On Hold ({onhold.length})</p>
           <p>See all</p>
         </SStatusTitle>
-        <Status data={onhold} />
+        <Status
+          data={onhold}
+          addOneSeason={addOneSeason}
+          addOneEpisode={addOneEpisode}
+        />
       </SStatus>
       <SStatus>
         <SStatusTitle>
           <p>Dropped ({dropped.length})</p>
           <p>See all</p>
         </SStatusTitle>
-        <Status data={dropped} />
+        <Status
+          data={dropped}
+          addOneSeason={addOneSeason}
+          addOneEpisode={addOneEpisode}
+        />
       </SStatus>
       <SStatus>
         <SStatusTitle>
           <p>Plan to watch ({ptw.length})</p>
           <p>See all</p>
         </SStatusTitle>
-        <Status data={ptw} />
+        <Status
+          data={ptw}
+          addOneSeason={addOneSeason}
+          addOneEpisode={addOneEpisode}
+        />
       </SStatus>
     </SContainer>
   )

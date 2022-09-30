@@ -16,23 +16,25 @@ export default async function list(req: NextApiRequest, res: NextApiResponse) {
 
   const id = String(req.query.id)
 
-  const tv = await prisma.tvShow.findMany({
+  const tv = await prisma.tvShow.findFirst({
     where: {
       id,
+      userId: session.user.id,
     },
   })
 
-  if (tv.length > 0) {
+  if (tv) {
     return res.json(tv)
   }
 
-  const movie = await prisma.movie.findMany({
+  const movie = await prisma.movie.findFirst({
     where: {
       id,
+      userId: session.user.id,
     },
   })
 
-  if (movie.length > 0) {
+  if (movie) {
     return res.json(movie)
   }
 

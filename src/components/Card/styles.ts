@@ -106,7 +106,10 @@ export const SInfo = styled.div<SSInfo>`
 
     @media (min-width: 500px) {
       flex: 1;
-      flex-direction: column-reverse;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
 
       margin: ${({ isMovie }) => isMovie && 0};
 

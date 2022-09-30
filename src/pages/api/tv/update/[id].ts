@@ -26,9 +26,8 @@ export default async function updateTV(
   }
 
   // If is not number
-  !Number(season) && res.status(400).json({ message: 'season must be number' })
-  !Number(episode) &&
-    res.status(400).json({ message: 'episode must be number' })
+  !Number(season) && res.status(400).send('season must be number')
+  !Number(episode) && res.status(400).send('episode must be number')
 
   // Check if the current user has this tvId
   const userhasTvId = await prisma.tvShow.findFirst({
@@ -54,7 +53,7 @@ export default async function updateTV(
       },
     })
 
-    return res.status(204).end()
+    return res.send('resource updated successfully')
   } catch (err: any) {
     console.log(err)
 
