@@ -55,7 +55,7 @@ export default async function updateTV(
 
     return res.send('resource updated successfully')
   } catch (err: any) {
-    console.log(err)
+    console.log(err.message)
 
     return res.status(500).send('Database error')
   }

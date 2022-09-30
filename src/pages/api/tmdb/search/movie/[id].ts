@@ -24,8 +24,8 @@ export default async function searchByIdMovie(
     const movieInfo = await moviedb.movieInfo({ id })
 
     return res.json(movieInfo)
-  } catch (error) {
-    console.log(error)
+  } catch (err: any) {
+    console.log(err.message)
 
     return res.status(400).send('ID not found')
   }

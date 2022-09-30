@@ -58,7 +58,7 @@ export default async function register(
         .json({ message: 'Database error: Error creating new user' })
     }
   } catch (err: any) {
-    console.log(err)
+    console.log(err.message)
     return res.status(500).json({ error: 'Error while hashing password' })
   }
 

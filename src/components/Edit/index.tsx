@@ -45,8 +45,8 @@ export default function Edit() {
       })
 
       router.push('/dashboard')
-    } catch (err) {
-      console.log(err)
+    } catch (err: any) {
+      console.log(err.message)
       setLoading(false)
       alert('An error occurred while updating')
     }
@@ -60,8 +60,8 @@ export default function Edit() {
 
     try {
       await deleteMedia(id)
-    } catch (err) {
-      console.log(err)
+    } catch (err: any) {
+      console.log(err.message)
       setLoading(false)
 
       alert('An error occurred when deleting')

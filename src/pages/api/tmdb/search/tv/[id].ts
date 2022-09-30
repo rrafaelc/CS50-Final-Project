@@ -23,8 +23,8 @@ export default async function searchByIdTv(
   try {
     const tvInfo = await moviedb.tvInfo({ id })
     return res.json(tvInfo)
-  } catch (error) {
-    console.log(error)
+  } catch (err: any) {
+    console.log(err.message)
 
     return res.status(400).send('ID not found')
   }

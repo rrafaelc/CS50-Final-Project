@@ -137,9 +137,9 @@ const Dashboard = () => {
         toggle()
         setLoading(false)
       }
-    } catch (error) {
+    } catch (err: any) {
       setLoading(false)
-      console.log(error)
+      console.log(err.message)
 
       alert('An error occcurred while updating status')
     }
@@ -181,9 +181,9 @@ const Dashboard = () => {
       })
       setData(updateData)
       setLoading(false)
-    } catch (error) {
+    } catch (err: any) {
       setLoading(false)
-      console.log(error)
+      console.log(err.message)
       alert('An error occcurred while updating season')
     }
   }
@@ -219,9 +219,9 @@ const Dashboard = () => {
       })
       setData(updateData)
       setLoading(false)
-    } catch (error) {
+    } catch (err: any) {
       setLoading(false)
-      console.log(error)
+      console.log(err.message)
       alert('An error occcurred while updating episode')
     }
   }
