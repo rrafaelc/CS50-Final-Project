@@ -6,14 +6,21 @@ import { getAll, updateTV, updateMovie, getOne } from 'lib/db'
 
 import { useModalStatus } from 'context/modalStatusContext'
 import { StatusProps } from 'types'
-import { MdClose } from 'react-icons/md'
+import { searchTV } from 'lib/tmdb'
+import { MdClose, MdSearch } from 'react-icons/md'
+import colors from 'styles/colors'
 
-import { SContainer, SModal, SStatus, SStatusTitle } from './styles'
+import {
+  SContainer,
+  SSearchCards,
+  SModal,
+  SStatus,
+  SStatusTitle,
+} from './styles'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
-import { searchTV } from 'lib/tmdb'
 
 const Dashboard = () => {
   const {
@@ -30,6 +37,8 @@ const Dashboard = () => {
   } = useModalStatus()
 
   const [data, setData] = useState<StatusProps[]>([])
+  const [dataSearchCard, setDataSearchCard] = useState<StatusProps[]>([])
+  const [searchCardQuery, setSearchCardQuery] = useState('')
   const [loading, setLoading] = useState(false)
 
   const watching: StatusProps[] = []
@@ -38,12 +47,26 @@ const Dashboard = () => {
   const dropped: StatusProps[] = []
   const ptw: StatusProps[] = []
 
+  const watchingCard: StatusProps[] = []
+  const completedCard: StatusProps[] = []
+  const onholdCard: StatusProps[] = []
+  const droppedCard: StatusProps[] = []
+  const ptwCard: StatusProps[] = []
+
   data.forEach(elem => {
     elem.status === 'watching' && watching.push(elem)
     elem.status === 'completed' && completed.push(elem)
     elem.status === 'onhold' && onhold.push(elem)
     elem.status === 'dropped' && dropped.push(elem)
     elem.status === 'ptw' && ptw.push(elem)
+  })
+
+  dataSearchCard.forEach(elem => {
+    elem.status === 'watching' && watchingCard.push(elem)
+    elem.status === 'completed' && completedCard.push(elem)
+    elem.status === 'onhold' && onholdCard.push(elem)
+    elem.status === 'dropped' && droppedCard.push(elem)
+    elem.status === 'ptw' && ptwCard.push(elem)
   })
 
   const handleUpdate = async (status: string) => {
@@ -236,9 +259,35 @@ const Dashboard = () => {
     getData()
   }, [])
 
+  useEffect(() => {
+    if (searchCardQuery.trim() === '') {
+      setDataSearchCard([])
+
+      return
+    }
+
+    setDataSearchCard(
+      data.filter(d => {
+        if (d.title.toLowerCase().includes(searchCardQuery.toLowerCase())) {
+          return d
+        }
+      })
+    )
+  }, [searchCardQuery])
+
   return (
     <SContainer>
       <Filter />
+      <SSearchCards>
+        <input
+          placeholder="Search cards"
+          value={searchCardQuery}
+          onChange={e => setSearchCardQuery(e.target.value)}
+        />
+        <button type="submit">
+          <MdSearch size={30} color={colors.more_weak} />
+        </button>
+      </SSearchCards>
       {isOpen && (
         <SModal>
           <button disabled={loading} className="close" onClick={() => toggle()}>
@@ -305,55 +354,67 @@ const Dashboard = () => {
       )}
       <SStatus>
         <SStatusTitle>
-          <p>Watching ({watching.length})</p>
+          <p>
+            Watching ({!searchCardQuery ? watching.length : watchingCard.length}
+            )
+          </p>
           <p>See all</p>
         </SStatusTitle>
         <Status
-          data={watching}
+          data={!searchCardQuery ? watching : watchingCard}
           addOneSeason={addOneSeason}
           addOneEpisode={addOneEpisode}
         />
       </SStatus>
       <SStatus>
         <SStatusTitle>
-          <p>Completed ({completed.length})</p>
+          <p>
+            Completed (
+            {!searchCardQuery ? completed.length : completedCard.length})
+          </p>
           <p>See all</p>
         </SStatusTitle>
         <Status
-          data={completed}
+          data={!searchCardQuery ? completed : completedCard}
           addOneSeason={addOneSeason}
           addOneEpisode={addOneEpisode}
         />
       </SStatus>
       <SStatus>
         <SStatusTitle>
-          <p>On Hold ({onhold.length})</p>
+          <p>
+            On Hold ({!searchCardQuery ? onhold.length : onholdCard.length})
+          </p>
           <p>See all</p>
         </SStatusTitle>
         <Status
-          data={onhold}
+          data={!searchCardQuery ? onhold : onholdCard}
           addOneSeason={addOneSeason}
           addOneEpisode={addOneEpisode}
         />
       </SStatus>
       <SStatus>
         <SStatusTitle>
-          <p>Dropped ({dropped.length})</p>
+          <p>
+            Dropped ({!searchCardQuery ? dropped.length : droppedCard.length})
+          </p>
           <p>See all</p>
         </SStatusTitle>
         <Status
-          data={dropped}
+          data={!searchCardQuery ? dropped : droppedCard}
           addOneSeason={addOneSeason}
           addOneEpisode={addOneEpisode}
         />
       </SStatus>
       <SStatus>
         <SStatusTitle>
-          <p>Plan to watch ({ptw.length})</p>
+          <p>
+            Plan to watch ({!searchCardQuery ? ptw.length : ptwCard.length})
+          </p>
           <p>See all</p>
         </SStatusTitle>
         <Status
-          data={ptw}
+          data={!searchCardQuery ? ptw : ptwCard}
           addOneSeason={addOneSeason}
           addOneEpisode={addOneEpisode}
         />

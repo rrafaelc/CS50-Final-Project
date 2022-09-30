@@ -4,6 +4,58 @@ import colors from 'styles/colors'
 
 export const SContainer = styled.div``
 
+export const SSearchCards = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: 1px solid ${colors.weak};
+  border-radius: 8px;
+  margin-bottom: 30px;
+
+  transition: border-color 200ms ease-in;
+
+  @media (min-width: 500px) {
+    padding: 8px 12px;
+  }
+
+  &:hover {
+    border-color: ${colors.white};
+  }
+
+  svg:hover {
+    transition: fill 200ms ease-in;
+    fill: ${colors.white};
+  }
+
+  input {
+    flex: 1;
+    width: 100%;
+    align-self: stretch;
+
+    font-size: 14px;
+    background: transparent;
+    color: ${colors.white};
+
+    @media (min-width: 500px) {
+      font-size: 24px;
+    }
+
+    &::placeholder {
+      color: ${colors.more_weak};
+    }
+  }
+
+  button {
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`
+
 export const SStatus = styled.div`
   margin-bottom: 30px;
 
