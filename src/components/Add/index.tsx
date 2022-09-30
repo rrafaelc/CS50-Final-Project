@@ -203,38 +203,41 @@ export default function Add() {
 
   return (
     <SCard>
-      <h1>{type === 'tv' ? tv.name : movie.title}</h1>
-      <SImage>
-        <Image
-          src={`https://image.tmdb.org/t/p/w220_and_h330_face${
-            type === 'tv' ? tv.poster_path : movie.poster_path
-          }`}
-          layout="fill"
-        />
-      </SImage>
-
-      {type === 'tv' && (
-        <STvEpisodes>
-          <div>
-            <span>Season</span>
-            <input
-              type="number"
-              min={1}
-              value={season}
-              onChange={e => setSeason(e.target.value)}
+      <div>
+        <div className="poster">
+          <h1>{type === 'tv' ? tv.name : movie.title}</h1>
+          <SImage>
+            <Image
+              src={`https://image.tmdb.org/t/p/w220_and_h330_face${
+                type === 'tv' ? tv.poster_path : movie.poster_path
+              }`}
+              layout="fill"
             />
-          </div>
-          <div>
-            <span>Episode</span>
-            <input
-              type="number"
-              min={1}
-              value={episode}
-              onChange={e => setEpisode(e.target.value)}
-            />
-          </div>
-        </STvEpisodes>
-      )}
+          </SImage>
+        </div>
+        {type === 'tv' && (
+          <STvEpisodes>
+            <div>
+              <span>Season</span>
+              <input
+                type="number"
+                min={1}
+                value={season}
+                onChange={e => setSeason(e.target.value)}
+              />
+            </div>
+            <div>
+              <span>Episode</span>
+              <input
+                type="number"
+                min={1}
+                value={episode}
+                onChange={e => setEpisode(e.target.value)}
+              />
+            </div>
+          </STvEpisodes>
+        )}
+      </div>
       <SButtons>
         <button
           onClick={() => setStatus('watching')}

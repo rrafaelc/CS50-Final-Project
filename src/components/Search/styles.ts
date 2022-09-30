@@ -36,6 +36,9 @@ export const SImage = styled.div`
   position: relative;
   width: 200px;
   height: 300px;
+  outline: 1px solid ${colors.white};
+  border-radius: 5px;
+  overflow: hidden;
 
   margin-top: 5px;
   margin-bottom: 20px;

@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import { useDimension } from 'context/dimensionContext'
+import { useHeader } from 'context/headerContext'
 
 import {
   SContainer,
@@ -29,6 +30,7 @@ interface ResultsProps {
 const Search = () => {
   const router = useRouter()
   const { width } = useDimension()
+  const { setHeaderQuery } = useHeader()
 
   const [totalPages, setTotalPages] = useState(-1)
   const [results, setResults] = useState<ResultsProps[]>([])
@@ -95,6 +97,8 @@ const Search = () => {
         setResults([])
         return
       }
+
+      setHeaderQuery(String(query))
 
       searchMulti({ query: String(query), page: 1 })
         .then(data => {

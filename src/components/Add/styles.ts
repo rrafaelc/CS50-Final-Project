@@ -9,10 +9,24 @@ export const SCard = styled.li`
   text-align: center;
   margin: 50px 0;
 
+  .poster {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media (min-width: 500px) {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+  }
+
   h1 {
     font-size: 24px;
     font-weight: normal;
     color: ${colors.white};
+    max-width: 250px;
   }
 
   p {
@@ -24,6 +38,9 @@ export const SImage = styled.div`
   position: relative;
   width: 200px;
   height: 300px;
+  outline: 1px solid ${colors.white};
+  border-radius: 5px;
+  overflow: hidden;
 
   margin: 20px 0;
 
@@ -39,6 +56,10 @@ export const STvEpisodes = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media (min-width: 500px) {
+    margin: 0;
+  }
 
   div {
     display: flex;
@@ -79,6 +100,10 @@ export const SButtons = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media (min-width: 500px) {
+    gap: 15px;
+  }
 
   button {
     padding: 10px 50px;
