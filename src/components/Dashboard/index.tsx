@@ -13,6 +13,7 @@ import { SContainer, SModal, SStatus, SStatusTitle } from './styles'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
+import { searchTV } from 'lib/tmdb'
 
 const Dashboard = () => {
   const {
@@ -49,6 +50,51 @@ const Dashboard = () => {
     setLoading(true)
     try {
       if (type === 'tv') {
+        if (status === 'completed') {
+          const tvDatabase = await getOne(id)
+
+          if (tvDatabase) {
+            const tv = await searchTV(String(tvDatabase.tvApiId))
+
+            // All this data come for the tmdb api, and i selected the ones that i needed
+            if (tv) {
+              const episodeTotal = tv.seasons.filter(
+                (s: any) => s.season_number === tv.number_of_seasons
+              )
+
+              await updateTV({
+                id,
+                status,
+                season: tv.number_of_seasons,
+                episode: episodeTotal[0].episode_count,
+              })
+
+              // update the list without reload
+              const updateData = data.map(d => {
+                if (d.id === id) {
+                  return {
+                    ...d,
+                    updatedAt: new Date().toISOString(), // Just for let them be in first position
+                    status,
+                    season: tv.number_of_seasons,
+                    episode: episodeTotal[0].episode_count,
+                  }
+                }
+
+                return d
+              })
+
+              setData(updateData)
+
+              toggle()
+              setLoading(false)
+
+              return
+            }
+          }
+        }
+
+        // If is not status = completed
         await updateTV({ id, status, season, episode })
 
         // update the list without reload
