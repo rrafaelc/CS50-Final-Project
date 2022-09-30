@@ -358,7 +358,6 @@ const Dashboard = () => {
             Watching ({!searchCardQuery ? watching.length : watchingCard.length}
             )
           </p>
-          <p>See all</p>
         </SStatusTitle>
         <Status
           data={!searchCardQuery ? watching : watchingCard}
@@ -372,7 +371,6 @@ const Dashboard = () => {
             Completed (
             {!searchCardQuery ? completed.length : completedCard.length})
           </p>
-          <p>See all</p>
         </SStatusTitle>
         <Status
           data={!searchCardQuery ? completed : completedCard}
@@ -385,7 +383,6 @@ const Dashboard = () => {
           <p>
             On Hold ({!searchCardQuery ? onhold.length : onholdCard.length})
           </p>
-          <p>See all</p>
         </SStatusTitle>
         <Status
           data={!searchCardQuery ? onhold : onholdCard}
@@ -398,7 +395,6 @@ const Dashboard = () => {
           <p>
             Dropped ({!searchCardQuery ? dropped.length : droppedCard.length})
           </p>
-          <p>See all</p>
         </SStatusTitle>
         <Status
           data={!searchCardQuery ? dropped : droppedCard}
@@ -411,7 +407,6 @@ const Dashboard = () => {
           <p>
             Plan to watch ({!searchCardQuery ? ptw.length : ptwCard.length})
           </p>
-          <p>See all</p>
         </SStatusTitle>
         <Status
           data={!searchCardQuery ? ptw : ptwCard}
