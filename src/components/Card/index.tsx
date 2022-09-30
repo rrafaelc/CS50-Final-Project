@@ -1,13 +1,14 @@
 import Image from 'next/image'
-import { MdAddCircleOutline, MdEdit } from 'react-icons/md'
+import { MdAddCircleOutline, MdEdit, MdDeleteForever } from 'react-icons/md'
+import { useRouter } from 'next/router'
 import padNumber from 'utils/padNumber'
-import colors from 'styles/colors'
 import { StatusProps } from 'types'
 import parseDate from 'utils/parseDate'
 
 import { useDimension } from 'context/dimensionContext'
 import { useModalStatus } from 'context/modalStatusContext'
 
+import colors from 'styles/colors'
 import { SContainer, SImage, SInfo, SStatus } from './styles'
 
 interface CardProps {
@@ -21,6 +22,7 @@ export default function Card({
   addOneSeason,
   addOneEpisode,
 }: CardProps) {
+  const router = useRouter()
   const { width } = useDimension()
   const { toggle, setItemProps, setStatusFunction } = useModalStatus()
   const { year, month, day } = parseDate(props.updatedAt)
@@ -67,7 +69,18 @@ export default function Card({
       </SImage>
 
       <SInfo isMovie={props.type === 'movie'}>
-        <MdEdit className="edit" size={width >= 500 ? 35 : 24} />
+        {props.type === 'tv' ? (
+          <MdEdit
+            className="icon"
+            size={width >= 500 ? 35 : 24}
+            onClick={() => router.push(`/tv/edit/${props.id}`)}
+          />
+        ) : (
+          <MdDeleteForever
+            className="icon delete"
+            size={width >= 500 ? 35 : 24}
+          />
+        )}
         <h1>{props.title}</h1>
 
         <div className="middle">

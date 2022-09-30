@@ -143,8 +143,6 @@ const Dashboard = () => {
 
       alert('An error occcurred while updating status')
     }
-
-    setLoading(false)
   }
 
   const handleStatus = (status: string) => {
@@ -188,8 +186,6 @@ const Dashboard = () => {
       console.log(error)
       alert('An error occcurred while updating season')
     }
-
-    setLoading(false)
   }
 
   const addOneEpisode = async (id: string) => {
@@ -228,8 +224,6 @@ const Dashboard = () => {
       console.log(error)
       alert('An error occcurred while updating episode')
     }
-
-    setLoading(false)
   }
 
   useEffect(() => {

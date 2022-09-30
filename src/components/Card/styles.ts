@@ -50,7 +50,7 @@ export const SInfo = styled.div<SSInfo>`
   padding: 10px;
   color: ${colors.white};
 
-  .edit {
+  .icon {
     color: ${colors.white};
     position: absolute;
     right: 10px;
@@ -61,6 +61,10 @@ export const SInfo = styled.div<SSInfo>`
 
     &:hover {
       color: ${lighten(0.2, colors.white)};
+    }
+
+    &.delete:hover {
+      color: red;
     }
 
     @media (min-width: 500px) {
