@@ -19,8 +19,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
 }
 
-const Addpage: NextPage = () => {
+const Editpage: NextPage = () => {
   return <Edit />
 }
 
-export default Addpage
+export default Editpage
