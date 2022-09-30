@@ -1,9 +1,9 @@
 import type { AppProps } from 'next/app'
-import GlobalStyle from '../styles/globalsStyle'
-import Header from '../components/Header'
+import GlobalStyle from 'styles/globalsStyle'
+import Header from 'components/Header'
 import { SessionProvider } from 'next-auth/react'
 
-import { AppProvider } from '../context'
+import { AppProvider } from 'context'
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   return (

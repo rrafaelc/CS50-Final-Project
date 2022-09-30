@@ -2,10 +2,10 @@ import { SMobileContainer, STitle, SItems, SDesktopContainer } from './styles'
 
 import { MdClose, MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
 
-import { useFilter } from '../../context/filterContext'
-import { useDimension } from '../../context/dimensionContext'
+import { useFilter } from 'context/filterContext'
+import { useDimension } from 'context/dimensionContext'
 
-import colors from '../../styles/colors'
+import colors from 'styles/colors'
 import { SyntheticEvent } from 'react'
 
 export default function Filter() {

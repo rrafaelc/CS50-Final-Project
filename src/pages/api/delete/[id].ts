@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from 'lib/prisma'
 import { unstable_getServerSession } from 'next-auth/next'
-import { authOptions } from '../auth/[...nextauth]'
+import { authOptions } from '@api/auth/[...nextauth]'
 
 export default async function deleteTvOrMovie(
   req: NextApiRequest,

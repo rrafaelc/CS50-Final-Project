@@ -1,18 +1,18 @@
 import { Swiper, SwiperSlide, SwiperProps } from 'swiper/react'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import { Navigation, Pagination } from 'swiper'
-import Card from '../Card'
+import Card from 'components/Card'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
-import { useDimension } from '../../context/dimensionContext'
+import { useDimension } from 'context/dimensionContext'
 
-import { StatusProps } from '../../types'
+import { StatusProps } from 'types'
 
 import { SContainerButton, SButton } from './styles'
-import colors from '../../styles/colors'
+import colors from 'styles/colors'
 
 interface Props {
   data: StatusProps[]

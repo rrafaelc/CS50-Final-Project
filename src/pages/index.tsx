@@ -1,6 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import { getSession } from 'next-auth/react'
-import Login from '../components/Login'
+import Login from 'components/Login'
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const session = await getSession(context)

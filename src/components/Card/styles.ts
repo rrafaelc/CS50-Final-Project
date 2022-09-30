@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 import { lighten } from 'polished'
-import colors from '../../styles/colors'
+import colors from 'styles/colors'
 
 interface SSInfo {
   isMovie?: boolean
