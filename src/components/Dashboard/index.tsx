@@ -5,6 +5,8 @@ import Filter from 'components/Filter'
 import { getAll, updateTV, updateMovie, getOne } from 'lib/db'
 
 import { useModalStatus } from 'context/modalStatusContext'
+import { useRouter } from 'next/router'
+
 import { StatusProps } from 'types'
 import { searchTV } from 'lib/tmdb'
 import { MdClose, MdSearch } from 'react-icons/md'
@@ -35,6 +37,7 @@ const Dashboard = () => {
     episode,
     setStatusFunction,
   } = useModalStatus()
+  const router = useRouter()
 
   const [data, setData] = useState<StatusProps[]>([])
   const [dataSearchCard, setDataSearchCard] = useState<StatusProps[]>([])
@@ -111,6 +114,7 @@ const Dashboard = () => {
 
               toggle()
               setLoading(false)
+              router.push('/dashboard')
 
               return
             }
@@ -137,6 +141,7 @@ const Dashboard = () => {
 
         toggle()
         setLoading(false)
+        router.push('/dashboard')
       }
 
       if (type === 'movie') {
@@ -159,6 +164,7 @@ const Dashboard = () => {
 
         toggle()
         setLoading(false)
+        router.push('/dashboard')
       }
     } catch (err: any) {
       setLoading(false)
@@ -247,6 +253,14 @@ const Dashboard = () => {
       console.log(err.message)
       alert('An error occcurred while updating episode')
     }
+  }
+
+  const deletedMedia = (id: string) => {
+    const updateData = data.filter(d => d.id !== id)
+    const updateDataSearchCard = dataSearchCard.filter(d => d.id !== id)
+
+    setData(updateData)
+    setDataSearchCard(updateDataSearchCard)
   }
 
   useEffect(() => {
@@ -360,6 +374,7 @@ const Dashboard = () => {
           </p>
         </SStatusTitle>
         <Status
+          deletedMedia={deletedMedia}
           data={!searchCardQuery ? watching : watchingCard}
           addOneSeason={addOneSeason}
           addOneEpisode={addOneEpisode}
@@ -373,6 +388,7 @@ const Dashboard = () => {
           </p>
         </SStatusTitle>
         <Status
+          deletedMedia={deletedMedia}
           data={!searchCardQuery ? completed : completedCard}
           addOneSeason={addOneSeason}
           addOneEpisode={addOneEpisode}
@@ -385,6 +401,7 @@ const Dashboard = () => {
           </p>
         </SStatusTitle>
         <Status
+          deletedMedia={deletedMedia}
           data={!searchCardQuery ? onhold : onholdCard}
           addOneSeason={addOneSeason}
           addOneEpisode={addOneEpisode}
@@ -397,6 +414,7 @@ const Dashboard = () => {
           </p>
         </SStatusTitle>
         <Status
+          deletedMedia={deletedMedia}
           data={!searchCardQuery ? dropped : droppedCard}
           addOneSeason={addOneSeason}
           addOneEpisode={addOneEpisode}
@@ -409,6 +427,7 @@ const Dashboard = () => {
           </p>
         </SStatusTitle>
         <Status
+          deletedMedia={deletedMedia}
           data={!searchCardQuery ? ptw : ptwCard}
           addOneSeason={addOneSeason}
           addOneEpisode={addOneEpisode}

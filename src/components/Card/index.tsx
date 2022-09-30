@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import padNumber from 'utils/padNumber'
 import { StatusProps } from 'types'
 import parseDate from 'utils/parseDate'
+import { deleteMedia } from 'lib/db'
 
 import { useDimension } from 'context/dimensionContext'
 import { useModalStatus } from 'context/modalStatusContext'
@@ -15,12 +16,14 @@ interface CardProps {
   props: StatusProps
   addOneSeason: (id: string) => Promise<void>
   addOneEpisode: (id: string) => Promise<void>
+  deletedMedia: (id: string) => void
 }
 
 export default function Card({
   props,
   addOneSeason,
   addOneEpisode,
+  deletedMedia,
 }: CardProps) {
   const router = useRouter()
   const { width } = useDimension()
@@ -62,6 +65,24 @@ export default function Card({
     toggle()
   }
 
+  const handleDelete = async (id: string) => {
+    // If false
+    if (!confirm('Are you sure you want to delete?')) return
+
+    try {
+      await deleteMedia(id)
+
+      deletedMedia(id)
+    } catch (err: any) {
+      console.log(err.message)
+
+      alert('An error occurred when deleting')
+      return
+    }
+
+    router.push('/dashboard')
+  }
+
   return (
     <SContainer>
       <SImage>
@@ -79,6 +100,7 @@ export default function Card({
           <MdDeleteForever
             className="icon delete"
             size={width >= 500 ? 35 : 24}
+            onClick={() => handleDelete(props.id)}
           />
         )}
         <h1>{props.title}</h1>

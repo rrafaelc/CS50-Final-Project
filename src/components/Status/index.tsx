@@ -18,9 +18,15 @@ interface Props {
   data: StatusProps[]
   addOneSeason: (id: string) => Promise<void>
   addOneEpisode: (id: string) => Promise<void>
+  deletedMedia: (id: string) => void
 }
 
-export default function Status({ data, addOneSeason, addOneEpisode }: Props) {
+export default function Status({
+  data,
+  addOneSeason,
+  addOneEpisode,
+  deletedMedia,
+}: Props) {
   const { width } = useDimension()
 
   const settings: SwiperProps = {
@@ -48,6 +54,7 @@ export default function Status({ data, addOneSeason, addOneEpisode }: Props) {
             props={elem}
             addOneSeason={addOneSeason}
             addOneEpisode={addOneEpisode}
+            deletedMedia={deletedMedia}
           />
         </SwiperSlide>
       ))}
