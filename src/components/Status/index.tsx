@@ -37,13 +37,13 @@ export default function Status({ data, addOneSeason, addOneEpisode }: Props) {
   }
 
   // Limit the total data show in the browser
-  // const maxData = data.filter((d, index) => {
-  //   if (index <= 9) {
-  //     return d
-  //   }
-  // })
+  const maxData = data.filter((d, index) => {
+    if (index <= 9) {
+      return d
+    }
+  })
 
-  const sortedByDateDesc = data.sort(
+  const sortedByDateDesc = maxData.sort(
     (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
   )
 
