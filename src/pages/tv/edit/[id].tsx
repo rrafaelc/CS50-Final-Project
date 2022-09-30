@@ -1,8 +1,4 @@
-import type {
-  GetServerSideProps,
-  NextPage,
-  InferGetServerSidePropsType,
-} from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 
 import Edit from 'components/Edit'
 

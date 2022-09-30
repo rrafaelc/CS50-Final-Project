@@ -1,8 +1,4 @@
-import type {
-  GetServerSideProps,
-  NextPage,
-  InferGetServerSidePropsType,
-} from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Add from 'components/Add'
 
 export const getServerSideProps: GetServerSideProps = async context => {
