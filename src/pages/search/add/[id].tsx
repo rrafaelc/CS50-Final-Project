@@ -8,6 +8,8 @@ import Add from 'components/Add'
 export const getServerSideProps: GetServerSideProps = async context => {
   const { query } = context
 
+  console.log(query)
+
   // If is not number
   if (!Number(query.id) || !query.type) {
     return {
