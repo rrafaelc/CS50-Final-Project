@@ -67,10 +67,10 @@ const ModalStatusProvider = ({ children }: Props) => {
   )
 
   useEffect(() => {
-    const body = document.querySelector('body')
+    const html = document.querySelector('html')
 
-    if (body) {
-      body.style.overflow = isOpen ? 'hidden' : 'auto'
+    if (html) {
+      html.style.overflow = isOpen ? 'hidden' : 'auto'
     }
   }, [isOpen])
 
