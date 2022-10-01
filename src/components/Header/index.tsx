@@ -1,19 +1,26 @@
-import { FormEventHandler, useEffect } from 'react'
+import { FormEventHandler, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import { MdOutlineAccountCircle, MdSearch } from 'react-icons/md'
+import { MdClose, MdOutlineAccountCircle, MdSearch } from 'react-icons/md'
 
 import { useDimension } from 'context/dimensionContext'
 import { useHeader } from 'context/headerContext'
 
-import { SMobileContainer, SDesktopContainer, SSearch, Menu } from './styles'
 import colors from 'styles/colors'
+import {
+  SMobileContainer,
+  SMenu,
+  SDesktopContainer,
+  SSearch,
+  Menu,
+} from './styles'
 
 export default function Header() {
   const router = useRouter()
   const { width, setWidth } = useDimension()
   const { query, setHeaderQuery } = useHeader()
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
@@ -25,6 +32,16 @@ export default function Header() {
   }
 
   useEffect(() => {
+    const html = document.querySelector('html')
+
+    if (width >= 500) {
+      setMenuOpen(false)
+    }
+
+    if (html) {
+      html.style.overflow = menuOpen && width <= 500 ? 'hidden' : 'auto'
+    }
+
     if (typeof window !== undefined) {
       setWidth(window.innerWidth)
 
@@ -33,10 +50,31 @@ export default function Header() {
       return () =>
         window.removeEventListener('resize', () => setWidth(window.innerWidth))
     }
-  }, [setWidth])
+  }, [setWidth, menuOpen, width])
 
   return width < 500 ? (
     <SMobileContainer>
+      {menuOpen && (
+        <SMenu>
+          <div className="container">
+            <div className="header">
+              <h1>Menu</h1>
+
+              <button onClick={() => setMenuOpen(false)}>
+                <MdClose size={24} />
+              </button>
+            </div>
+
+            <div className="buttons">
+              <button>Account</button>
+              <button>About</button>
+              <button className="logout" onClick={() => signOut()}>
+                Logout
+              </button>
+            </div>
+          </div>
+        </SMenu>
+      )}
       <div
         className="logo"
         onClick={() => {
@@ -57,7 +95,7 @@ export default function Header() {
           <MdSearch size={24} color={colors.more_weak} />
         </button>
       </SSearch>
-      <button className="account">
+      <button className="account" onClick={() => setMenuOpen(true)}>
         <MdOutlineAccountCircle size={36} color={colors.white} />
       </button>
     </SMobileContainer>
@@ -96,8 +134,8 @@ export default function Header() {
         >
           Home
         </span>
-        <span>About</span>
         <span>Account</span>
+        <span>About</span>
         <span onClick={() => signOut()}>Logout</span>
       </Menu>
     </SDesktopContainer>

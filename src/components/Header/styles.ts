@@ -29,6 +29,63 @@ export const SMobileContainer = styled.header`
   }
 `
 
+export const SMenu = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 9999;
+
+  padding: 0 15px;
+
+  .container {
+    /* width: 100%; */
+    border-radius: 10px;
+    margin-top: 80px;
+    padding: 20px;
+    background: ${colors.black};
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h1 {
+        font-size: 20px;
+        font-weight: 500;
+        color: ${colors.white};
+      }
+
+      button {
+        display: flex;
+        background: transparent;
+      }
+    }
+
+    .buttons {
+      margin-top: 25px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      button {
+        font-size: 20px;
+        font-weight: 500;
+        border-radius: 6px;
+        padding: 10px 0;
+        color: ${colors.white};
+        background-color: ${colors.more_weak};
+      }
+
+      .logout {
+        background: ${colors.red};
+      }
+    }
+  }
+`
+
 export const SSearch = styled.form<{ isDesktop: boolean }>`
   flex: 1;
   display: flex;
