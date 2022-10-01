@@ -12,9 +12,6 @@ interface TvProps {
   id: number
   name: string
   poster_path: string
-  genres: {
-    name: string
-  }[]
   number_of_seasons: number
   seasons: {
     episode_count: number
@@ -26,9 +23,6 @@ interface MovieProps {
   id: number
   title: string
   poster_path: string
-  genres: {
-    name: string
-  }[]
 }
 
 type StatusProps = 'watching' | 'completed' | 'dropped' | 'onhold' | 'ptw'
@@ -52,25 +46,11 @@ export default function Add() {
     }
 
     if (type === 'tv') {
-      // For add to the database genre
-      // Like: Drama,Crime,Action
-      let genre = ''
-
       if (!Number(season) || !Number(episode)) {
         alert('Season and episode must be only numbers')
 
         return
       }
-
-      tv.genres.forEach((g, index) => {
-        if (index + 1 !== tv.genres.length) {
-          genre += `${g.name},`
-
-          return
-        }
-
-        genre += g.name
-      })
 
       setLoading(true)
 
@@ -78,7 +58,6 @@ export default function Add() {
         apiId: tv.id,
         mediaType: type,
         title: tv.name,
-        genre,
         status,
         season: Number(season),
         episode: Number(episode),
@@ -97,27 +76,13 @@ export default function Add() {
     }
 
     if (type === 'movie') {
-      // For add to the database genre
-      // Like: Drama,Crime,Action
-      let genre = ''
-
-      movie.genres.forEach((g, index) => {
-        if (index + 1 !== movie.genres.length) {
-          genre += `${g.name},`
-
-          return
-        }
-
-        genre += g.name
-      })
-
       setLoading(true)
 
       createTVorMovie({
         apiId: movie.id,
         mediaType: type,
         title: movie.title,
-        genre,
+
         status,
         poster: movie.poster_path,
       })
@@ -155,7 +120,6 @@ export default function Add() {
               id: data.id,
               name: data.name,
               poster_path: data.poster_path,
-              genres: data.genres,
               number_of_seasons: data.number_of_seasons,
               seasons: data.seasons,
             })
@@ -175,7 +139,6 @@ export default function Add() {
               id: data.id,
               title: data.title,
               poster_path: data.poster_path,
-              genres: data.genres,
             })
             setLoading(false)
           })

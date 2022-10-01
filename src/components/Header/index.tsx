@@ -1,11 +1,10 @@
-import { FormEventHandler, useEffect, useState } from 'react'
+import { FormEventHandler, useEffect } from 'react'
 import Image from 'next/image'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import { MdMenu, MdFilterList, MdSearch } from 'react-icons/md'
+import { MdMenu, MdSearch } from 'react-icons/md'
 
 import { useDimension } from 'context/dimensionContext'
-import { useFilter } from 'context/filterContext'
 import { useHeader } from 'context/headerContext'
 
 import { SMobileContainer, SDesktopContainer, SSearch, Menu } from './styles'
@@ -15,8 +14,6 @@ export default function Header() {
   const router = useRouter()
   const { width, setWidth } = useDimension()
   const { query, setHeaderQuery } = useHeader()
-  const { toggle } = useFilter()
-  // const [query, setQuery] = useState('')
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
@@ -56,7 +53,6 @@ export default function Header() {
           <MdSearch size={24} color={colors.more_weak} />
         </button>
       </SSearch>
-      <MdFilterList size={36} color={colors.white} onClick={toggle} />
     </SMobileContainer>
   ) : (
     <SDesktopContainer>

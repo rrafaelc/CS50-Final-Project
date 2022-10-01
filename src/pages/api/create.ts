@@ -19,8 +19,7 @@ export default async function createTVorMovie(
 
   const userId = session.user.id
 
-  const { apiId, mediaType, title, genre, status, season, episode, poster } =
-    req.body
+  const { apiId, mediaType, title, status, season, episode, poster } = req.body
 
   // If is not number
   !Number(apiId) && res.status(400).send('apiId must be number')
@@ -49,7 +48,7 @@ export default async function createTVorMovie(
         userId,
         tvApiId,
         title,
-        genre,
+
         status,
         season,
         episode,
@@ -83,7 +82,6 @@ export default async function createTVorMovie(
         userId,
         movieApiId,
         title,
-        genre,
         status,
         poster,
         type: mediaType,

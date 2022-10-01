@@ -13,7 +13,6 @@ interface CreateTVorMovieProps {
   apiId: number
   mediaType: string
   title: string
-  genre: string
   status: string
   season?: number
   episode?: number
@@ -94,7 +93,6 @@ export const createTVorMovie = async ({
   apiId,
   mediaType,
   title,
-  genre,
   status,
   season,
   episode,
@@ -105,7 +103,6 @@ export const createTVorMovie = async ({
       apiId,
       mediaType,
       title,
-      genre,
       status,
       season,
       episode,

@@ -13,12 +13,13 @@ export const SSearchCards = styled.div`
   padding: 5px 10px;
   border: 1px solid ${colors.weak};
   border-radius: 8px;
-  margin-bottom: 30px;
+  margin: 30px 0 20px 0;
 
   transition: border-color 200ms ease-in;
 
   @media (min-width: 500px) {
     padding: 8px 12px;
+    margin-top: 50px;
   }
 
   &:hover {

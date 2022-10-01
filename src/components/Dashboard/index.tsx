@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Status from '../Status'
-import Filter from 'components/Filter'
 import { getAll, updateTV, updateMovie, getOne } from 'lib/db'
 
 import { useModalStatus } from 'context/modalStatusContext'
@@ -291,7 +290,6 @@ const Dashboard = () => {
 
   return (
     <SContainer>
-      <Filter />
       <SSearchCards>
         <input
           placeholder="Search cards"

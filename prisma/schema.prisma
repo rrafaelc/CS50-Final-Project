@@ -27,7 +27,6 @@ model TvShow {
   id        String   @id @default(uuid())
   tvApiId   Int
   title     String
-  genre     String
   status    String
   season    Int
   episode   Int
@@ -43,7 +42,6 @@ model Movie {
   id         String   @id @default(uuid())
   movieApiId Int
   title      String
-  genre      String
   status     String
   poster     String
   type       String
