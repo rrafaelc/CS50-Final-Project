@@ -2,7 +2,7 @@ import { FormEventHandler, useEffect } from 'react'
 import Image from 'next/image'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import { MdMenu, MdOutlineAccountCircle, MdSearch } from 'react-icons/md'
+import { MdOutlineAccountCircle, MdSearch } from 'react-icons/md'
 
 import { useDimension } from 'context/dimensionContext'
 import { useHeader } from 'context/headerContext'
@@ -37,12 +37,16 @@ export default function Header() {
 
   return width < 500 ? (
     <SMobileContainer>
-      {/* menu go to dashboard temp for mobile */}
-      <MdMenu
-        size={36}
-        color={colors.white}
-        onClick={() => router.push('/dashboard')}
-      />
+      <div
+        className="logo"
+        onClick={() => {
+          setHeaderQuery('')
+          router.push('/dashboard')
+        }}
+      >
+        <Image src="/logo.svg" alt="Logo" layout="fill" />
+      </div>
+
       <SSearch onSubmit={handleSubmit} isDesktop={false}>
         <input
           placeholder="Search"

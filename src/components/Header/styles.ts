@@ -9,7 +9,16 @@ export const SMobileContainer = styled.header`
   max-width: 500px;
 
   margin: 20px auto;
-  gap: 15px;
+  gap: 10px;
+
+  .logo {
+    position: relative;
+    width: 50px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+  }
 
   .account {
     background: transparent;
