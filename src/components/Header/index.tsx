@@ -2,7 +2,7 @@ import { FormEventHandler, useEffect } from 'react'
 import Image from 'next/image'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import { MdMenu, MdSearch } from 'react-icons/md'
+import { MdMenu, MdOutlineAccountCircle, MdSearch } from 'react-icons/md'
 
 import { useDimension } from 'context/dimensionContext'
 import { useHeader } from 'context/headerContext'
@@ -53,6 +53,9 @@ export default function Header() {
           <MdSearch size={24} color={colors.more_weak} />
         </button>
       </SSearch>
+      <button className="account">
+        <MdOutlineAccountCircle size={36} color={colors.white} />
+      </button>
     </SMobileContainer>
   ) : (
     <SDesktopContainer>

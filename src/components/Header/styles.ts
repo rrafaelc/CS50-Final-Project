@@ -11,6 +11,10 @@ export const SMobileContainer = styled.header`
   margin: 20px auto;
   gap: 15px;
 
+  .account {
+    background: transparent;
+  }
+
   svg {
     cursor: pointer;
   }
