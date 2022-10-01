@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useContext, useState } from 'react'
+import { useEffect } from 'react'
 
 interface ItemProps {
   id: string
@@ -64,6 +65,14 @@ const ModalStatusProvider = ({ children }: Props) => {
     },
     [id, name, poster, type, season, episode]
   )
+
+  useEffect(() => {
+    const body = document.querySelector('body')
+
+    if (body) {
+      body.style.overflow = isOpen ? 'hidden' : 'auto'
+    }
+  }, [isOpen])
 
   return (
     <ModalStatusContext.Provider
