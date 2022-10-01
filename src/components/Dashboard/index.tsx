@@ -364,7 +364,13 @@ const Dashboard = () => {
           </div>
         </SModal>
       )}
-      <SStatus>
+      <SStatus
+        style={
+          searchCardQuery && watchingCard.length === 0
+            ? { display: 'none' }
+            : { display: 'block' }
+        }
+      >
         <SStatusTitle>
           <p>
             Watching ({!searchCardQuery ? watching.length : watchingCard.length}
@@ -378,7 +384,13 @@ const Dashboard = () => {
           addOneEpisode={addOneEpisode}
         />
       </SStatus>
-      <SStatus>
+      <SStatus
+        style={
+          searchCardQuery && completedCard.length === 0
+            ? { display: 'none' }
+            : { display: 'block' }
+        }
+      >
         <SStatusTitle>
           <p>
             Completed (
@@ -392,7 +404,13 @@ const Dashboard = () => {
           addOneEpisode={addOneEpisode}
         />
       </SStatus>
-      <SStatus>
+      <SStatus
+        style={
+          searchCardQuery && onholdCard.length === 0
+            ? { display: 'none' }
+            : { display: 'block' }
+        }
+      >
         <SStatusTitle>
           <p>
             On Hold ({!searchCardQuery ? onhold.length : onholdCard.length})
@@ -405,7 +423,13 @@ const Dashboard = () => {
           addOneEpisode={addOneEpisode}
         />
       </SStatus>
-      <SStatus>
+      <SStatus
+        style={
+          searchCardQuery && droppedCard.length === 0
+            ? { display: 'none' }
+            : { display: 'block' }
+        }
+      >
         <SStatusTitle>
           <p>
             Dropped ({!searchCardQuery ? dropped.length : droppedCard.length})
@@ -418,7 +442,13 @@ const Dashboard = () => {
           addOneEpisode={addOneEpisode}
         />
       </SStatus>
-      <SStatus>
+      <SStatus
+        style={
+          searchCardQuery && ptwCard.length === 0
+            ? { display: 'none' }
+            : { display: 'block' }
+        }
+      >
         <SStatusTitle>
           <p>
             Plan to watch ({!searchCardQuery ? ptw.length : ptwCard.length})
