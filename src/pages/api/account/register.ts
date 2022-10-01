@@ -22,6 +22,10 @@ export default async function register(
     return res.status(400).send('Only alphanumeric is allowed')
   }
 
+  if (String(password).length < 3) {
+    return res.status(400).send('Password should have at least 3 characters')
+  }
+
   try {
     const user = await prisma.user.findUnique({
       where: {

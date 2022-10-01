@@ -118,7 +118,7 @@ const Login = () => {
 
         <SLink>
           <p>Don&#39;t have an account?</p>
-          <Link href="/register">
+          <Link href="/account/register">
             <a>Register</a>
           </Link>
         </SLink>

@@ -1,5 +1,6 @@
 import { FormEventHandler, useEffect, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { MdClose, MdOutlineAccountCircle, MdSearch } from 'react-icons/md'
@@ -66,7 +67,14 @@ export default function Header() {
             </div>
 
             <div className="buttons">
-              <button>Account</button>
+              <button
+                onClick={() => {
+                  setMenuOpen(false)
+                  router.push('/account/edit')
+                }}
+              >
+                Account
+              </button>
               <button>About</button>
               <button className="logout" onClick={() => signOut()}>
                 Logout
@@ -126,17 +134,21 @@ export default function Header() {
         </button>
       </SSearch>
       <Menu>
-        <span
-          onClick={() => {
-            setHeaderQuery('')
-            router.push('/dashboard')
-          }}
-        >
-          Home
-        </span>
-        <span>Account</span>
-        <span>About</span>
-        <span onClick={() => signOut()}>Logout</span>
+        <Link href="/dashboard">
+          <a
+            onClick={() => {
+              setHeaderQuery('')
+              router.push('/dashboard')
+            }}
+          >
+            Home
+          </a>
+        </Link>
+        <Link href="/account/edit">
+          <a>Account</a>
+        </Link>
+        <a>About</a>
+        <a onClick={() => signOut()}>Logout</a>
       </Menu>
     </SDesktopContainer>
   )

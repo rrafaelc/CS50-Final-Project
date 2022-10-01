@@ -154,11 +154,12 @@ export const Menu = styled.nav`
   align-items: center;
   gap: 20px;
 
-  span {
+  a {
     font-weight: 500;
     font-size: 26px;
     cursor: pointer;
     color: ${colors.white};
+    text-decoration: none;
 
     transition: color 200ms ease-in;
 
@@ -170,7 +171,7 @@ export const Menu = styled.nav`
   @media only screen and (max-width: 1000px) {
     gap: 15px;
 
-    span {
+    a {
       font-size: 22px;
     }
   }
@@ -178,7 +179,7 @@ export const Menu = styled.nav`
   @media only screen and (max-width: 800px) {
     gap: 10px;
 
-    span {
+    a {
       font-size: 18px;
     }
   }

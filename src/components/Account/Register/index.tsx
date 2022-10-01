@@ -47,6 +47,11 @@ const Register = () => {
       return
     }
 
+    if (formState.password.length < 3) {
+      alert('Password should have at least 3 characters')
+      return
+    }
+
     setPageState({ error_name: false, error_password: false, processing: true })
 
     // Check if passwords match
