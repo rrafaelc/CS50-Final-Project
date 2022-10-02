@@ -9,6 +9,8 @@ interface RegisterAccountProps {
   password: string
 }
 
+type ChangeUsernameProps = RegisterAccountProps
+
 interface CreateTVorMovieProps {
   apiId: number
   mediaType: string
@@ -37,6 +39,28 @@ export const registerAccount = async ({
 }: RegisterAccountProps) => {
   try {
     await axios.post('/api/account/register', {
+      name,
+      password,
+    })
+  } catch (err) {
+    const error = err as AxiosError
+
+    throw new AxiosError(
+      error.message,
+      error.code,
+      error.config,
+      error.request,
+      error.response
+    )
+  }
+}
+
+export const changeUsername = async ({
+  name,
+  password,
+}: ChangeUsernameProps) => {
+  try {
+    await axios.put('/api/account/username/change', {
       name,
       password,
     })

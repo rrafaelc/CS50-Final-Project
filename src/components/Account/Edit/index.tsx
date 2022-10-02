@@ -1,44 +1,99 @@
 import { FormEventHandler, useState } from 'react'
+
+import { signOut } from 'next-auth/react'
 import Input from './Input'
+import { changeUsername } from 'lib/db'
 
 import { SContainer, SForm } from './styles'
 
+const errors = [
+  'Incorrect password',
+  'Passwords does not match',
+  'Username already exists',
+  'At least 3 characters',
+]
+
 export default function Edit() {
-  const [error, setError] = useState({
-    username: {
-      name: {
-        status: false,
-        message: 'Username already exists',
-      },
-      password: {
-        status: false,
-        message: 'Incorrect password',
-      },
-    },
-    password: {
-      old: {
-        status: false,
-        message: 'Incorrect password',
-      },
-      new: {
-        status: false,
-        message: 'Passwords does not match / At least 3 characters',
-      },
-      confirm: {
-        status: false,
-        message: 'Passwords does not match',
-      },
-    },
-    delete: {
-      password: {
-        status: false,
-        message: 'Incorrect password',
-      },
-    },
+  const [usernameError, setUsernameError] = useState({
+    name: '',
+    password: '',
+  })
+  const [username, setUsername] = useState({
+    name: '',
+    password: '',
   })
 
-  const handleChangeUsername: FormEventHandler<HTMLFormElement> = e => {
+  const [passwordError, setPasswordError] = useState({
+    old: '',
+    new: '',
+    confirm: '',
+  })
+
+  const [deleteError, setDeleteError] = useState('')
+
+  const [loading, setLoading] = useState(false)
+
+  const handleChangeUsername: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault()
+
+    setUsernameError({
+      name: '',
+      password: '',
+    })
+
+    if (!/^[a-zA-Z].*/.test(username.name)) {
+      alert('First character must be alphabetical!')
+      return
+    }
+
+    if (!/^[a-zA-Z0-9_]*$/.test(username.name)) {
+      alert('Only alphanumerics and underscores are allowed!')
+      return
+    }
+
+    if (username.password.length < 3) {
+      alert('Password should have at least 3 characters')
+      return
+    }
+
+    const name = username.name
+    const password = username.password
+
+    setLoading(true)
+
+    try {
+      await changeUsername({ name, password })
+
+      alert('Username changed, please log-in again')
+
+      await signOut()
+    } catch (err: any) {
+      if (err.response.status === 403) {
+        setUsernameError({
+          name: 'Username already exists',
+          password: '',
+        })
+
+        setLoading(false)
+        return
+      }
+
+      if (err.response.status === 400) {
+        setUsernameError({
+          name: '',
+          password: 'Incorrect password',
+        })
+
+        setLoading(false)
+        return
+      }
+
+      console.log(err)
+      console.log(err.message)
+
+      setLoading(false)
+      alert('An error occurred while change username')
+    }
   }
 
   const handleChangePassword: FormEventHandler<HTMLFormElement> = e => {
@@ -57,18 +112,39 @@ export default function Edit() {
             type="text"
             labelName="New username"
             placeholder="Type a new username"
-            error={error.username.name.status}
-            errorMessage={error.username.name.message}
+            value={username.name}
+            onChange={e => {
+              setUsernameError({
+                name: '',
+                password: '',
+              })
+              setUsername(prevState => ({ ...prevState, name: e.target.value }))
+            }}
+            error={!!usernameError.name}
+            errorMessage={usernameError.name}
           />
           <Input
             type="password"
             labelName="Password"
             placeholder="Type your password"
-            error={error.username.password.status}
-            errorMessage={error.username.password.message}
+            value={username.password}
+            onChange={e => {
+              setUsernameError({
+                name: '',
+                password: '',
+              })
+              setUsername(prevState => ({
+                ...prevState,
+                password: e.target.value,
+              }))
+            }}
+            error={!!usernameError.password}
+            errorMessage={usernameError.password}
           />
         </div>
-        <button type="submit">Change username</button>
+        <button disabled={loading} type="submit">
+          {loading ? 'Loading' : 'Change username'}
+        </button>
       </SForm>
 
       <SForm onSubmit={handleChangePassword}>
@@ -77,25 +153,27 @@ export default function Edit() {
             type="password"
             labelName="Old password"
             placeholder="Type your old password"
-            error={error.password.old.status}
-            errorMessage={error.password.old.message}
+            error={!!passwordError.old}
+            errorMessage={passwordError.old}
           />
           <Input
             type="password"
             labelName="New password"
             placeholder="Type your new password"
-            error={error.password.new.status}
-            errorMessage={error.password.new.message}
+            error={!!passwordError.new}
+            errorMessage={passwordError.new}
           />
           <Input
             type="password"
             labelName="New password (again)"
             placeholder="Type your new password (again)"
-            error={error.password.confirm.status}
-            errorMessage={error.password.confirm.message}
+            error={!!passwordError.confirm}
+            errorMessage={passwordError.confirm}
           />
         </div>
-        <button type="submit">Change password</button>
+        <button disabled={loading} type="submit">
+          {loading ? 'Loading' : 'Change password'}
+        </button>
       </SForm>
 
       <SForm onSubmit={handleDeleteAccount}>
@@ -104,12 +182,12 @@ export default function Edit() {
             type="password"
             labelName="Password"
             placeholder="Type your password"
-            error={error.delete.password.status}
-            errorMessage={error.delete.password.message}
+            error={!!deleteError}
+            errorMessage={deleteError}
           />
         </div>
-        <button className="delete" type="submit">
-          Delete Account
+        <button disabled={loading} className="delete" type="submit">
+          {loading ? 'Loading' : 'Delete Account'}
         </button>
       </SForm>
     </SContainer>

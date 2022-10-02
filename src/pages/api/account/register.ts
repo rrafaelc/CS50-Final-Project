@@ -19,7 +19,7 @@ export default async function register(
 
   // Only alphanumeric is allowed
   if (!/^[a-zA-Z0-9_]*$/.test(name)) {
-    return res.status(400).send('Only alphanumeric is allowed')
+    return res.status(400).send('Only alphanumeric and underscore is allowed')
   }
 
   if (String(password).length < 3) {
@@ -49,7 +49,7 @@ export default async function register(
       // Create the new user
       await prisma.user.create({
         data: {
-          name,
+          name: String(name).toLowerCase(),
           hash,
         },
       })
