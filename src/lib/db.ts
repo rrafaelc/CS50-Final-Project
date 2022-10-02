@@ -227,3 +227,23 @@ export const deleteMedia = async (id: string) => {
     )
   }
 }
+
+export const deleteAccount = async (password: string) => {
+  try {
+    await axios.delete('/api/account/delete', {
+      data: {
+        password,
+      },
+    })
+  } catch (err) {
+    const error = err as AxiosError
+
+    throw new AxiosError(
+      error.message,
+      error.code,
+      error.config,
+      error.request,
+      error.response
+    )
+  }
+}

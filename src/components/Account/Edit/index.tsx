@@ -2,7 +2,7 @@ import { FormEventHandler, useState } from 'react'
 
 import { signOut } from 'next-auth/react'
 import Input from './Input'
-import { editUsername, editPassword } from 'lib/db'
+import { editUsername, editPassword, deleteAccount } from 'lib/db'
 
 import { SContainer, SForm } from './styles'
 
@@ -27,7 +27,8 @@ export default function Edit() {
     confirm: '',
   })
 
-  const [deleteError, setDeleteError] = useState('')
+  const [delError, setDelError] = useState('')
+  const [del, setDel] = useState('')
 
   const [loading, setLoading] = useState(false)
 
@@ -153,6 +154,36 @@ export default function Edit() {
 
   const handleDeleteAccount: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault()
+
+    if (!del) {
+      alert('Password required')
+
+      return
+    }
+
+    if (!confirm('Are you sure you want to delete your account?')) return
+
+    setLoading(true)
+    try {
+      await deleteAccount(del)
+
+      await signOut()
+    } catch (err: any) {
+      if (err.response.status === 400) {
+        setDelError('Incorrect password')
+
+        setLoading(false)
+        return
+      }
+
+      console.log(err.message)
+      console.log(err)
+
+      setLoading(false)
+      alert('An error occurred when deleting account')
+    }
+
+    setLoading(false)
   }
 
   return (
@@ -265,11 +296,17 @@ export default function Edit() {
       <SForm onSubmit={handleDeleteAccount}>
         <div className="inputs">
           <Input
+            required
             type="password"
             labelName="Password"
             placeholder="Type your password"
-            error={!!deleteError}
-            errorMessage={deleteError}
+            value={del}
+            onChange={e => {
+              setDelError('')
+              setDel(e.target.value)
+            }}
+            error={!!delError}
+            errorMessage={delError}
           />
         </div>
         <button disabled={loading} className="delete" type="submit">
