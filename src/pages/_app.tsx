@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       <AppProvider>
         <GlobalStyle />
         {router.pathname !== '/' &&
-          router.pathname !== '/register' &&
+          router.pathname !== '/account/register' &&
           router.pathname !== '/_error' && <Header />}
         <Component {...pageProps} />
       </AppProvider>
