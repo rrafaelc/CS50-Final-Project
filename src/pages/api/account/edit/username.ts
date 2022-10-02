@@ -4,7 +4,7 @@ import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { prisma } from 'lib/prisma'
 import bcrypt from 'bcrypt'
 
-export default async function changeUsername(
+export default async function editUsername(
   req: NextApiRequest,
   res: NextApiResponse
 ) {

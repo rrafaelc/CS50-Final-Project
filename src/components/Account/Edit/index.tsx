@@ -2,7 +2,7 @@ import { FormEventHandler, useState } from 'react'
 
 import { signOut } from 'next-auth/react'
 import Input from './Input'
-import { changeUsername } from 'lib/db'
+import { editUsername } from 'lib/db'
 
 import { SContainer, SForm } from './styles'
 
@@ -33,7 +33,7 @@ export default function Edit() {
 
   const [loading, setLoading] = useState(false)
 
-  const handleChangeUsername: FormEventHandler<HTMLFormElement> = async e => {
+  const handleEditUsername: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault()
 
     setUsernameError({
@@ -62,7 +62,7 @@ export default function Edit() {
     setLoading(true)
 
     try {
-      await changeUsername({ name, password })
+      await editUsername({ name, password })
 
       alert('Username changed, please log-in again')
 
@@ -106,7 +106,7 @@ export default function Edit() {
 
   return (
     <SContainer>
-      <SForm onSubmit={handleChangeUsername}>
+      <SForm onSubmit={handleEditUsername}>
         <div className="inputs">
           <Input
             type="text"

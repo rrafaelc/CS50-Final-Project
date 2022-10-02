@@ -9,7 +9,7 @@ interface RegisterAccountProps {
   password: string
 }
 
-type ChangeUsernameProps = RegisterAccountProps
+type EditUsernameProps = RegisterAccountProps
 
 interface CreateTVorMovieProps {
   apiId: number
@@ -55,12 +55,9 @@ export const registerAccount = async ({
   }
 }
 
-export const changeUsername = async ({
-  name,
-  password,
-}: ChangeUsernameProps) => {
+export const editUsername = async ({ name, password }: EditUsernameProps) => {
   try {
-    await axios.put('/api/account/username/change', {
+    await axios.put('/api/account/edit/username', {
       name,
       password,
     })
