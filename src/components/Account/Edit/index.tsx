@@ -2,16 +2,9 @@ import { FormEventHandler, useState } from 'react'
 
 import { signOut } from 'next-auth/react'
 import Input from './Input'
-import { editUsername } from 'lib/db'
+import { editUsername, editPassword } from 'lib/db'
 
 import { SContainer, SForm } from './styles'
-
-const errors = [
-  'Incorrect password',
-  'Passwords does not match',
-  'Username already exists',
-  'At least 3 characters',
-]
 
 export default function Edit() {
   const [usernameError, setUsernameError] = useState({
@@ -24,6 +17,11 @@ export default function Edit() {
   })
 
   const [passwordError, setPasswordError] = useState({
+    old: '',
+    new: '',
+    confirm: '',
+  })
+  const [password, setPassword] = useState({
     old: '',
     new: '',
     confirm: '',
@@ -52,7 +50,7 @@ export default function Edit() {
     }
 
     if (username.password.length < 3) {
-      alert('Password should have at least 3 characters')
+      alert('Password must be at least 3 characters long')
       return
     }
 
@@ -96,11 +94,64 @@ export default function Edit() {
     }
   }
 
-  const handleChangePassword: FormEventHandler<HTMLFormElement> = e => {
+  const handleChangePassword: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault()
+
+    setPasswordError({
+      old: '',
+      new: '',
+      confirm: '',
+    })
+
+    if (password.new.length < 3) {
+      setPasswordError({
+        old: '',
+        new: 'Must be at least 3 characters long',
+        confirm: '',
+      })
+
+      return
+    }
+
+    if (password.new !== password.confirm) {
+      setPasswordError({
+        old: '',
+        new: '',
+        confirm: 'Passwords are not the same',
+      })
+
+      return
+    }
+
+    setLoading(true)
+
+    try {
+      await editPassword({ password: password.old, newPassword: password.new })
+
+      alert('Password changed, please log-in again')
+
+      await signOut()
+    } catch (err: any) {
+      if (err.response.status === 400) {
+        setPasswordError({
+          old: 'Incorrect password',
+          new: '',
+          confirm: '',
+        })
+
+        setLoading(false)
+        return
+      }
+
+      console.log(err)
+      console.log(err.message)
+
+      setLoading(false)
+      alert('An error occurred while change username')
+    }
   }
 
-  const handleDeleteAccount: FormEventHandler<HTMLFormElement> = e => {
+  const handleDeleteAccount: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault()
   }
 
@@ -109,6 +160,7 @@ export default function Edit() {
       <SForm onSubmit={handleEditUsername}>
         <div className="inputs">
           <Input
+            required
             type="text"
             labelName="New username"
             placeholder="Type a new username"
@@ -124,6 +176,7 @@ export default function Edit() {
             errorMessage={usernameError.name}
           />
           <Input
+            required
             type="password"
             labelName="Password"
             placeholder="Type your password"
@@ -150,23 +203,56 @@ export default function Edit() {
       <SForm onSubmit={handleChangePassword}>
         <div className="inputs">
           <Input
+            required
             type="password"
             labelName="Old password"
             placeholder="Type your old password"
+            value={password.old}
+            onChange={e => {
+              setPasswordError({
+                old: '',
+                new: '',
+                confirm: '',
+              })
+              setPassword(prevState => ({ ...prevState, old: e.target.value }))
+            }}
             error={!!passwordError.old}
             errorMessage={passwordError.old}
           />
           <Input
+            required
             type="password"
             labelName="New password"
             placeholder="Type your new password"
+            value={password.new}
+            onChange={e => {
+              setPasswordError({
+                old: '',
+                new: '',
+                confirm: '',
+              })
+              setPassword(prevState => ({ ...prevState, new: e.target.value }))
+            }}
             error={!!passwordError.new}
             errorMessage={passwordError.new}
           />
           <Input
+            required
             type="password"
             labelName="New password (again)"
             placeholder="Type your new password (again)"
+            value={password.confirm}
+            onChange={e => {
+              setPasswordError({
+                old: '',
+                new: '',
+                confirm: '',
+              })
+              setPassword(prevState => ({
+                ...prevState,
+                confirm: e.target.value,
+              }))
+            }}
             error={!!passwordError.confirm}
             errorMessage={passwordError.confirm}
           />

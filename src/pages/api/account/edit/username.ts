@@ -34,10 +34,6 @@ export default async function editUsername(
     return res.status(400).send('Only alphanumeric and underscore is allowed')
   }
 
-  if (String(password).length < 3) {
-    return res.status(400).send('Password must have at least 3 characters')
-  }
-
   try {
     const hasUser = await prisma.user.findFirst({
       where: {

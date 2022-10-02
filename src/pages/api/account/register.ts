@@ -23,7 +23,7 @@ export default async function register(
   }
 
   if (String(password).length < 3) {
-    return res.status(400).send('Password should have at least 3 characters')
+    return res.status(400).send('Password must be at least 3 characters long')
   }
 
   try {
