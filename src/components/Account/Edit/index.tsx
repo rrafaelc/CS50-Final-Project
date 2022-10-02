@@ -55,7 +55,7 @@ export default function Edit() {
         <div className="inputs">
           <Input
             type="text"
-            labelName="Change username"
+            labelName="New username"
             placeholder="Type a new username"
             error={error.username.name.status}
             errorMessage={error.username.name.message}
