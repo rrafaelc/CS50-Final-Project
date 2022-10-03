@@ -148,6 +148,7 @@ export const SModal = styled.div`
         border-radius: 6px;
         font-size: 16px;
         font-weight: 500;
+        color: ${colors.white};
 
         &:last-child {
           background-color: ${colors.black};
