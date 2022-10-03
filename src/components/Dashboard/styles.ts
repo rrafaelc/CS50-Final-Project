@@ -130,6 +130,10 @@ export const SModal = styled.div`
         position: relative;
         width: 100px;
         height: 150px;
+
+        outline: 1px solid ${colors.white};
+        border-radius: 5px;
+        overflow: hidden;
       }
     }
 
