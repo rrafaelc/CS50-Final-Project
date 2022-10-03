@@ -110,6 +110,7 @@ export const SButtons = styled.div`
     border-radius: 6px;
     font-size: 20px;
     font-weight: 500;
+    color: ${colors.white};
 
     &:last-child {
       background-color: ${colors.black};
