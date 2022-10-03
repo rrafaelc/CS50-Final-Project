@@ -75,7 +75,14 @@ export default function Header() {
               >
                 Account
               </button>
-              <button>About</button>
+              <button
+                onClick={() => {
+                  setMenuOpen(false)
+                  router.push('/about')
+                }}
+              >
+                About
+              </button>
               <button className="logout" onClick={() => signOut()}>
                 Logout
               </button>
@@ -147,7 +154,9 @@ export default function Header() {
         <Link href="/account/edit">
           <a>Account</a>
         </Link>
-        <a>About</a>
+        <Link href="/about">
+          <a>About</a>
+        </Link>
         <a onClick={() => signOut()}>Logout</a>
       </Menu>
     </SDesktopContainer>
