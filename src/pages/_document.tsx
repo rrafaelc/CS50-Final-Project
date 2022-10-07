@@ -27,8 +27,7 @@ class MyDocument extends Document {
             sizes="16x16"
             href="favicon/favicon-16x16.png"
           />
-          <link rel="manifest" href="/site.webmanifest"></link>
-          <title>CS50 Final Project</title>
+          <link rel="manifest" href="/site.webmanifest" />
         </Head>
         <body>
           <Main />
