@@ -1,6 +1,6 @@
-import { FormEventHandler, useState } from 'react'
+import { FormEventHandler, useEffect, useState } from 'react'
 import Link from 'next/link'
-import { signIn } from 'next-auth/react'
+import { useSession, signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
 import {
@@ -20,6 +20,7 @@ interface LoginProps {
 
 const Login = () => {
   const router = useRouter()
+  const { data: session } = useSession()
   const [authState, setAuthState] = useState<LoginProps>({
     name: '',
     password: '',
@@ -66,6 +67,12 @@ const Login = () => {
         alert('Something went wrong! Check the logs')
       })
   }
+
+  useEffect(() => {
+    if (session) {
+      router.replace('/dashboard')
+    }
+  }, [session])
 
   return (
     <SMain>

@@ -1,5 +1,6 @@
-import { FormEventHandler, useState } from 'react'
+import { FormEventHandler, useEffect, useState } from 'react'
 import { AxiosError } from 'axios'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -22,6 +23,7 @@ interface RegisterProps {
 
 const Register = () => {
   const router = useRouter()
+  const { data: session } = useSession()
   const [formState, setFormState] = useState<RegisterProps>({
     name: '',
     password: '',
@@ -97,6 +99,12 @@ const Register = () => {
       processing: false,
     })
   }
+
+  useEffect(() => {
+    if (session) {
+      router.replace('/dashboard')
+    }
+  }, [session])
 
   return (
     <SMain>
