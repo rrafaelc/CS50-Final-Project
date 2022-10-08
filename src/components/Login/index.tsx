@@ -11,6 +11,7 @@ import {
   SSpanError,
   SButton,
   SLink,
+  SInformation,
 } from './styles'
 
 interface LoginProps {
@@ -122,7 +123,6 @@ const Login = () => {
             {pageState.processing ? 'Loading' : 'Login'}
           </SButton>
         </SForm>
-
         <SLink>
           <p>Don&#39;t have an account?</p>
           <Link href="/account/register">
@@ -130,6 +130,14 @@ const Login = () => {
           </Link>
         </SLink>
       </section>
+
+      <SInformation>
+        <p>This is a final project for CS50</p>
+        <p>
+          Accounts that were created more than 10 days ago will be automatically
+          deleted
+        </p>
+      </SInformation>
     </SMain>
   )
 }

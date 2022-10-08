@@ -166,3 +166,21 @@ export const SLink = styled.div`
     }
   }
 `
+
+export const SInformation = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  max-width: 400px;
+  padding: 10px 5px;
+  border: 1px solid ${colors.yellow};
+  border-radius: 5px;
+  margin-top: 20px;
+
+  text-align: center;
+
+  p {
+    color: ${colors.white};
+  }
+`
