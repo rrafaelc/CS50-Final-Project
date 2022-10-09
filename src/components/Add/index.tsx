@@ -130,6 +130,7 @@ export default function Add() {
             console.log(err)
             setLoading(false)
             toast.error('Error to get TV')
+            router.push('/dashboard')
           })
       }
 
@@ -147,6 +148,7 @@ export default function Add() {
             console.log(err)
             setLoading(false)
             toast.error('Error to get Movie')
+            router.push('/dashboard')
           })
       }
     }
