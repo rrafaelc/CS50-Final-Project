@@ -2,6 +2,7 @@ import type { GetStaticProps, NextPage } from 'next'
 import axios from 'services/axios'
 
 import Login from 'components/Login'
+import CookieConsent from 'components/CookieConsent'
 
 const path_to_delete = process.env.PATH_TO_DELETE_ACCCOUNTS
 
@@ -20,7 +21,12 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const LoginPage: NextPage = () => {
-  return <Login />
+  return (
+    <>
+      <CookieConsent />
+      <Login />
+    </>
+  )
 }
 
 export default LoginPage

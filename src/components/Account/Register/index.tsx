@@ -3,6 +3,7 @@ import { AxiosError } from 'axios'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useCookieConsent } from 'context/cookieConsentContext'
 
 import {
   SMain,
@@ -23,6 +24,7 @@ interface RegisterProps {
 
 const Register = () => {
   const router = useRouter()
+  const { getCookieConsent } = useCookieConsent()
   const { data: session } = useSession()
   const [formState, setFormState] = useState<RegisterProps>({
     name: '',
@@ -38,6 +40,13 @@ const Register = () => {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault()
+
+    // Check if cookies was accepted
+    const cookieConsent = getCookieConsent()
+    if (cookieConsent !== 'true') {
+      alert('To register you need to accept the cookies')
+      return
+    }
 
     if (!/^[a-zA-Z].*/.test(formState.name)) {
       alert('First character must be alphabetical!')

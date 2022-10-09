@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { useSession, signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
+import { useCookieConsent } from 'context/cookieConsentContext'
+
 import {
   SMain,
   STitle,
@@ -21,6 +23,7 @@ interface LoginProps {
 
 const Login = () => {
   const router = useRouter()
+  const { getCookieConsent } = useCookieConsent()
   const { data: session } = useSession()
   const [authState, setAuthState] = useState<LoginProps>({
     name: '',
@@ -34,6 +37,13 @@ const Login = () => {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault()
+
+    // Check if cookies was accepted
+    const cookieConsent = getCookieConsent()
+    if (cookieConsent !== 'true') {
+      alert('To login you need to accept the cookies')
+      return
+    }
 
     if (!/^[a-zA-Z].*/.test(authState.name)) {
       alert('First character must be alphabetical!')
