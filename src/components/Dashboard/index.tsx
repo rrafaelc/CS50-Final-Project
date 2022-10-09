@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { toast } from 'react-toastify'
 import Status from '../Status'
 import { getAll, updateTV, updateMovie, getOne } from 'lib/db'
 
@@ -169,7 +170,7 @@ const Dashboard = () => {
       setLoading(false)
       console.log(err.message)
 
-      alert('An error occcurred while updating status')
+      toast.error('An error occcurred while updating status')
     }
   }
 
@@ -212,7 +213,7 @@ const Dashboard = () => {
     } catch (err: any) {
       setLoading(false)
       console.log(err.message)
-      alert('An error occcurred while updating season')
+      toast.error('An error occcurred while updating season')
     }
   }
 
@@ -250,7 +251,7 @@ const Dashboard = () => {
     } catch (err: any) {
       setLoading(false)
       console.log(err.message)
-      alert('An error occcurred while updating episode')
+      toast.error('An error occcurred while updating episode')
     }
   }
 

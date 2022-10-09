@@ -4,6 +4,7 @@ import { useSession, signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
 import { useCookieConsent } from 'context/cookieConsentContext'
+import { toast } from 'react-toastify'
 
 import {
   SMain,
@@ -41,17 +42,17 @@ const Login = () => {
     // Check if cookies was accepted
     const cookieConsent = getCookieConsent()
     if (cookieConsent !== 'true') {
-      alert('To login you need to accept the cookies')
+      toast.warn('To login you need to accept the cookies')
       return
     }
 
     if (!/^[a-zA-Z].*/.test(authState.name)) {
-      alert('First character must be alphabetical!')
+      toast.warn('First character must be alphabetical!')
       return
     }
 
     if (!/^[a-zA-Z0-9_]*$/.test(authState.name)) {
-      alert('Only alphanumerics and underscores are allowed!')
+      toast.warn('Only alphanumerics and underscores are allowed!')
       return
     }
 
@@ -75,7 +76,7 @@ const Login = () => {
           error: false,
           processing: false,
         })
-        alert('Something went wrong! Check the logs')
+        toast.error('Something went wrong! Please check the logs')
       })
   }
 

@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useCookieConsent } from 'context/cookieConsentContext'
+import { toast } from 'react-toastify'
 
 import {
   SMain,
@@ -44,22 +45,22 @@ const Register = () => {
     // Check if cookies was accepted
     const cookieConsent = getCookieConsent()
     if (cookieConsent !== 'true') {
-      alert('To register you need to accept the cookies')
+      toast.warn('To register you need to accept the cookies')
       return
     }
 
     if (!/^[a-zA-Z].*/.test(formState.name)) {
-      alert('First character must be alphabetical!')
+      toast.warn('First character must be alphabetical!')
       return
     }
 
     if (!/^[a-zA-Z0-9_]*$/.test(formState.name)) {
-      alert('Only alphanumerics and underscores are allowed!')
+      toast.warn('Only alphanumerics and underscores are allowed!')
       return
     }
 
     if (formState.password.length < 3) {
-      alert('Password must be at least 3 characters long')
+      toast.warn('Password must be at least 3 characters long')
       return
     }
 
@@ -81,7 +82,7 @@ const Register = () => {
         password: formState.password,
       })
 
-      alert('Account created, you can now login')
+      toast.success('Account created, you can now login')
 
       router.push('/')
     } catch (err) {
@@ -99,7 +100,7 @@ const Register = () => {
         return
       }
 
-      alert('Unknowm error occurred! Check the logs')
+      toast.error('Unknowm error occurred! Check the logs')
     }
 
     setPageState({

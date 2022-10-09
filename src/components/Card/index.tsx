@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { MdAddCircleOutline, MdEdit, MdDeleteForever } from 'react-icons/md'
+import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import padNumber from 'utils/padNumber'
 import { StatusProps } from 'types'
@@ -76,7 +77,7 @@ export default function Card({
     } catch (err: any) {
       console.log(err.message)
 
-      alert('An error occurred when deleting')
+      toast.error('An error occurred when deleting')
       return
     }
 

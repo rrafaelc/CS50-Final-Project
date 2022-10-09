@@ -1,6 +1,7 @@
 import { FormEventHandler, useState } from 'react'
-
 import { signOut } from 'next-auth/react'
+import { toast } from 'react-toastify'
+
 import Input from './Input'
 import { editUsername, editPassword, deleteAccount } from 'lib/db'
 
@@ -41,17 +42,17 @@ export default function Edit() {
     })
 
     if (!/^[a-zA-Z].*/.test(username.name)) {
-      alert('First character must be alphabetical!')
+      toast.warn('First character must be alphabetical!')
       return
     }
 
     if (!/^[a-zA-Z0-9_]*$/.test(username.name)) {
-      alert('Only alphanumerics and underscores are allowed!')
+      toast.warn('Only alphanumerics and underscores are allowed!')
       return
     }
 
     if (username.password.length < 3) {
-      alert('Password must be at least 3 characters long')
+      toast.warn('Password must be at least 3 characters long')
       return
     }
 
@@ -63,7 +64,7 @@ export default function Edit() {
     try {
       await editUsername({ name, password })
 
-      alert('Username changed, please log-in again')
+      toast.info('Username changed, please log-in again')
 
       await signOut()
     } catch (err: any) {
@@ -91,7 +92,7 @@ export default function Edit() {
       console.log(err.message)
 
       setLoading(false)
-      alert('An error occurred while change username')
+      toast.error('An error occurred while change username')
     }
   }
 
@@ -129,7 +130,7 @@ export default function Edit() {
     try {
       await editPassword({ password: password.old, newPassword: password.new })
 
-      alert('Password changed, please log-in again')
+      toast.info('Password changed, please log-in again')
 
       await signOut()
     } catch (err: any) {
@@ -148,7 +149,7 @@ export default function Edit() {
       console.log(err.message)
 
       setLoading(false)
-      alert('An error occurred while change username')
+      toast.error('An error occurred while change username')
     }
   }
 
@@ -156,7 +157,7 @@ export default function Edit() {
     e.preventDefault()
 
     if (!del) {
-      alert('Password required')
+      toast.warn('Password required')
 
       return
     }
@@ -180,7 +181,7 @@ export default function Edit() {
       console.log(err)
 
       setLoading(false)
-      alert('An error occurred when deleting account')
+      toast.error('An error occurred when deleting account')
     }
 
     setLoading(false)

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
 import { deleteMedia, getOne, updateTV } from 'lib/db'
 import Image from 'next/image'
 
@@ -31,7 +32,7 @@ export default function Edit() {
     setLoading(true)
 
     if (!Number(season) || !Number(episode)) {
-      alert('Season or Episode must be only numbers')
+      toast.info('Season or Episode must be only numbers')
 
       return
     }
@@ -48,7 +49,7 @@ export default function Edit() {
     } catch (err: any) {
       console.log(err.message)
       setLoading(false)
-      alert('An error occurred while updating')
+      toast.error('An error occurred while updating')
     }
   }
 
@@ -64,7 +65,7 @@ export default function Edit() {
       console.log(err.message)
       setLoading(false)
 
-      alert('An error occurred when deleting')
+      toast.error('An error occurred when deleting')
       return
     }
 
@@ -82,7 +83,7 @@ export default function Edit() {
           const tv = await getOne<ApiProps>(String(id))
 
           if (tv.type === 'movie') {
-            alert('Only tv show can be edited')
+            toast.warn('Only tv show can be edited')
             router.push('/dashboard')
           }
 
@@ -92,7 +93,7 @@ export default function Edit() {
 
           setLoading(false)
         } catch {
-          alert('ID not found')
+          toast.error('ID not found')
           router.push('/dashboard')
         }
       }

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { createTVorMovie } from 'lib/db'
 import { searchTV, searchMovie } from 'lib/tmdb'
 import Image from 'next/image'
+import { toast } from 'react-toastify'
 
 import { useHeader } from 'context/headerContext'
 
@@ -41,13 +42,13 @@ export default function Add() {
 
   const handleSave = () => {
     if (!status) {
-      alert('Please select one status')
+      toast.info('Please select one status')
       return
     }
 
     if (type === 'tv') {
       if (!Number(season) || !Number(episode)) {
-        alert('Season and episode must be only numbers')
+        toast.info('Season and episode must be only numbers')
 
         return
       }
@@ -71,7 +72,7 @@ export default function Add() {
           console.log(err)
           setLoading(false)
 
-          alert(err.response.data)
+          toast.error(err.response.data)
         })
     }
 
@@ -94,7 +95,7 @@ export default function Add() {
           console.log(err)
           setLoading(false)
 
-          alert(err.response.data)
+          toast.error(err.response.data)
         })
     }
   }
@@ -128,7 +129,7 @@ export default function Add() {
           .catch(err => {
             console.log(err)
             setLoading(false)
-            alert('Error to get TV')
+            toast.error('Error to get TV')
           })
       }
 
@@ -145,7 +146,7 @@ export default function Add() {
           .catch(err => {
             console.log(err)
             setLoading(false)
-            alert('Error to get Movie')
+            toast.error('Error to get Movie')
           })
       }
     }
