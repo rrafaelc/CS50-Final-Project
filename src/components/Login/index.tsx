@@ -58,7 +58,7 @@ const Login = () => {
 
     setPageState({ error: false, processing: true })
 
-    await signIn('credentials', {
+    signIn('credentials', {
       name: authState.name.toLowerCase(),
       password: authState.password,
       redirect: false,
