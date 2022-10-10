@@ -13,7 +13,7 @@ export default function CookieConsent() {
       </p>
       <p>
         To find out more, read our{' '}
-        <Link href="/">
+        <Link href="/privacy-policy">
           <a>privacy policy</a>
         </Link>{' '}
         and{' '}

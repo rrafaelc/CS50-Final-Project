@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <>
       <Head>
-        <title>CS50 Final Project</title>
+        <title>Tv & Movie tracker | CS50 Final Project</title>
       </Head>
 
       <SessionProvider session={pageProps.session}>
@@ -24,6 +24,8 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           <ToastContainer />
           {router.pathname !== '/' &&
             router.pathname !== '/account/register' &&
+            router.pathname !== '/privacy-policy' &&
+            router.pathname !== '/cookie-policy' &&
             router.pathname !== '/_error' && <Header />}
 
           <Component {...pageProps} />
