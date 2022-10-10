@@ -4,6 +4,8 @@ import { SContainer } from './styles'
 export default function PrivacyPolicy() {
   return (
     <SContainer>
+      <h1>Privacy Policy</h1>
+
       <div className="content">
         <div>
           <h3>1. What information is collected?</h3>

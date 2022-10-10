@@ -24,8 +24,8 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           <ToastContainer />
           {router.pathname !== '/' &&
             router.pathname !== '/account/register' &&
-            router.pathname !== '/privacy-policy' &&
-            router.pathname !== '/cookie-policy' &&
+            router.pathname !== '/privacypolicy' &&
+            router.pathname !== '/cookiespolicy' &&
             router.pathname !== '/_error' && <Header />}
 
           <Component {...pageProps} />
