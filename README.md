@@ -50,49 +50,7 @@ yarn build && yarn start
 
 ## How to use
 
-### 1 - Register
-
-![Register](https://raw.githubusercontent.com/rrafaelc/CS50-Final-Project/main/public/readme/register.png)
-
-### 2 - Login
-
-![Login](https://raw.githubusercontent.com/rrafaelc/CS50-Final-Project/main/public/readme/login.png)
-
-### 3 - Dashboard
-
-![Dashboard](https://raw.githubusercontent.com/rrafaelc/CS50-Final-Project/main/public/readme/dashboard.png)
-
-### 4 - Search
-
-![Search](https://raw.githubusercontent.com/rrafaelc/CS50-Final-Project/main/public/readme/search.png)
-
-### 5 - Add Movie
-
-![Add Movie](https://raw.githubusercontent.com/rrafaelc/CS50-Final-Project/main/public/readme/add_movie.png)
-
-### 6 - Add TV show
-
-![Add TV show](https://raw.githubusercontent.com/rrafaelc/CS50-Final-Project/main/public/readme/add_tv.png)
-
-### 7 - Search in cards
-
-![Search in cards](https://raw.githubusercontent.com/rrafaelc/CS50-Final-Project/main/public/readme/search_cards.png)
-
-### 8 - Edit Status
-
-![Edit Status](https://raw.githubusercontent.com/rrafaelc/CS50-Final-Project/main/public/readme/status.png)
-
-### 9 - Edit Media
-
-![Edit Media](https://raw.githubusercontent.com/rrafaelc/CS50-Final-Project/main/public/readme/edit_media.png)
-
-### 10 - Change username or password
-
-![Change username or password](https://raw.githubusercontent.com/rrafaelc/CS50-Final-Project/main/public/readme/change_username_or_password.png)
-
-### 11 - Delete account
-
-![Delete account](https://raw.githubusercontent.com/rrafaelc/CS50-Final-Project/main/public/readme/delete_account.png)
+[![CS50 Final Project](https://img.youtube.com/vi/BlPotl8ULyg/0.jpg)](https://www.youtube.com/watch?v=BlPotl8ULyg 'CS50 Final Project - Youtube')
 
 ## Deploy on Vercel
 
