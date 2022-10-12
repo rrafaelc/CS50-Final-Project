@@ -157,7 +157,7 @@ const Register = () => {
             </label>
 
             <label>
-              <span>Password</span>
+              <span>Password (again)</span>
               <input
                 id="confirm"
                 type="password"
