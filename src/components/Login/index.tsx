@@ -6,6 +6,9 @@ import { useRouter } from 'next/router'
 import { useCookieConsent } from 'context/cookieConsentContext'
 import { toast } from 'react-toastify'
 
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
+import colors from 'styles/colors'
+
 import {
   SMain,
   STitle,
@@ -35,6 +38,12 @@ const Login = () => {
     error: false,
     processing: false,
   })
+
+  const [passwordShown, setPasswordShown] = useState(false)
+
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown)
+  }
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault()
@@ -114,16 +123,25 @@ const Login = () => {
 
             <label>
               <span>Password</span>
-              <input
-                id="password"
-                type="password"
-                placeholder="Password"
-                required
-                value={authState.password}
-                onChange={e =>
-                  setAuthState(old => ({ ...old, password: e.target.value }))
-                }
-              />
+              <div>
+                <input
+                  id="password"
+                  type={passwordShown ? 'text' : 'password'}
+                  placeholder="Password"
+                  required
+                  value={authState.password}
+                  onChange={e =>
+                    setAuthState(old => ({ ...old, password: e.target.value }))
+                  }
+                />
+                <button type="button" onClick={togglePassword}>
+                  {passwordShown ? (
+                    <AiFillEye size={24} color={colors.weak} />
+                  ) : (
+                    <AiFillEyeInvisible size={24} color={colors.weak} />
+                  )}
+                </button>
+              </div>
               <SSpanError className={pageState.error ? 'error' : ''}>
                 Incorrect username or password
               </SSpanError>

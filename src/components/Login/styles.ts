@@ -51,6 +51,35 @@ export const SInputs = styled.div`
     }
   }
 
+  div {
+    display: flex;
+    border: 1px solid ${colors.weak};
+    border-radius: 7px;
+    margin-top: 3px;
+
+    transition: border-color 200ms ease-in;
+
+    &:hover {
+      border-color: ${colors.white};
+    }
+
+    &:focus {
+      border-color: ${colors.white};
+    }
+
+    input {
+      border: 0;
+      margin-top: 0;
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      background: transparent;
+      padding-right: 10px;
+    }
+  }
+
   input {
     margin-top: 3px;
     width: 100%;

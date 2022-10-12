@@ -9,7 +9,37 @@ export const SContainer = styled.div<{ error?: boolean }>`
     display: flex;
     flex-direction: column;
 
+    div {
+      display: flex;
+      border: 1px solid ${colors.weak};
+      border-radius: 7px;
+      margin-top: 3px;
+
+      transition: border-color 200ms ease-in;
+
+      &:hover {
+        border-color: ${colors.white};
+      }
+
+      &:focus {
+        border-color: ${colors.white};
+      }
+
+      input {
+        outline: 0;
+        margin-top: 0;
+      }
+
+      button {
+        display: flex;
+        align-items: center;
+        background: transparent;
+        padding-right: 10px;
+      }
+    }
+
     input {
+      flex: 1;
       margin-top: 5px;
       padding: 8px;
       font-size: 18px;

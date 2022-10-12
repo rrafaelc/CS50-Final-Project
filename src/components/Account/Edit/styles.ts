@@ -23,7 +23,7 @@ export const SForm = styled.form`
     gap: 10px;
   }
 
-  button {
+  button[type='submit'] {
     width: 100%;
     font-size: 18px;
     font-weight: 500;
@@ -56,7 +56,7 @@ export const SForm = styled.form`
       gap: 15px;
     }
 
-    button {
+    button[type='submit'] {
       font-size: 28px;
       padding: 16px 0;
       border-radius: 8px;

@@ -6,6 +6,9 @@ import { useRouter } from 'next/router'
 import { useCookieConsent } from 'context/cookieConsentContext'
 import { toast } from 'react-toastify'
 
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
+import colors from 'styles/colors'
+
 import {
   SMain,
   STitle,
@@ -38,6 +41,12 @@ const Register = () => {
     error_password: false,
     processing: false,
   })
+
+  const [passwordShown, setPasswordShown] = useState(false)
+
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown)
+  }
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault()
@@ -144,33 +153,51 @@ const Register = () => {
 
             <label>
               <span>Password</span>
-              <input
-                id="password"
-                type="password"
-                required
-                placeholder="Password"
-                value={formState.password}
-                onChange={e =>
-                  setFormState(old => ({ ...old, password: e.target.value }))
-                }
-              />
+              <div>
+                <input
+                  id="password"
+                  type={passwordShown ? 'text' : 'password'}
+                  required
+                  placeholder="Password"
+                  value={formState.password}
+                  onChange={e =>
+                    setFormState(old => ({ ...old, password: e.target.value }))
+                  }
+                />
+                <button type="button" onClick={togglePassword}>
+                  {passwordShown ? (
+                    <AiFillEye size={24} color={colors.weak} />
+                  ) : (
+                    <AiFillEyeInvisible size={24} color={colors.weak} />
+                  )}
+                </button>
+              </div>
             </label>
 
             <label>
               <span>Password (again)</span>
-              <input
-                id="confirm"
-                type="password"
-                required
-                placeholder="Password (again)"
-                value={formState.confirm_password}
-                onChange={e =>
-                  setFormState(old => ({
-                    ...old,
-                    confirm_password: e.target.value,
-                  }))
-                }
-              />
+              <div>
+                <input
+                  id="confirm"
+                  type={passwordShown ? 'text' : 'password'}
+                  required
+                  placeholder="Password (again)"
+                  value={formState.confirm_password}
+                  onChange={e =>
+                    setFormState(old => ({
+                      ...old,
+                      confirm_password: e.target.value,
+                    }))
+                  }
+                />
+                <button type="button" onClick={togglePassword}>
+                  {passwordShown ? (
+                    <AiFillEye size={24} color={colors.weak} />
+                  ) : (
+                    <AiFillEyeInvisible size={24} color={colors.weak} />
+                  )}
+                </button>
+              </div>
               <SSpanError className={pageState.error_password ? 'error' : ''}>
                 Passwords are different
               </SSpanError>
