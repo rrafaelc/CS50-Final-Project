@@ -18,7 +18,7 @@ export default function About() {
       </div>
 
       <div className="social">
-        <Link href="https://github.com/rrafaelc/CS50-FInal-Project">
+        <Link href="https://github.com/rrafaelc/CS50-Final-Project">
           <a target="_blank" rel="noreferrer noopener" className="github">
             <Image src="/github-logo.svg" layout="fill" />
           </a>
