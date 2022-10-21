@@ -9,14 +9,14 @@ const path_to_delete = process.env.PATH_TO_DELETE_ACCCOUNTS
 export const getStaticProps: GetStaticProps = async () => {
   // This project is just an example, I don't need the data for the users for too long
   // So every account that was created 10 days or more will be deleted
-  // And revalidate this page every 5 days in order to check
+  // And revalidate this page every 1 days in order to check
   try {
     path_to_delete && (await axios.delete(path_to_delete))
   } catch {}
 
   return {
     props: {},
-    revalidate: 60 * 60 * 24 * 5, // 5 days
+    revalidate: 60 * 60 * 24 * 1, // 1 day
   }
 }
 
