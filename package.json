@@ -9,12 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^4.4.0",
-    "axios": "^0.27.2",
-    "bcrypt": "^5.0.1",
+    "@prisma/client": "^6.9.0",
+    "axios": "^1.9.0",
+    "bcrypt": "^6.0.0",
     "moviedb-promise": "^3.1.18",
-    "next": "12.2.5",
-    "next-auth": "^4.10.3",
+    "next": "15.3.3",
+    "next-auth": "^4.24.11",
     "polished": "^4.2.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -25,14 +25,14 @@
     "swiper": "^8.3.2"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.0",
-    "@types/node": "18.7.13",
-    "@types/react": "18.0.17",
-    "@types/react-dom": "18.0.6",
-    "@types/styled-components": "^5.1.26",
-    "eslint": "8.23.0",
-    "eslint-config-next": "12.2.5",
-    "prisma": "^4.4.0",
-    "typescript": "4.8.2"
+    "@types/bcrypt": "^5.0.2",
+    "@types/node": "24.0.0",
+    "@types/react": "19.1.7",
+    "@types/react-dom": "19.1.6",
+    "@types/styled-components": "^5.1.34",
+    "eslint": "9.28.0",
+    "eslint-config-next": "15.3.3",
+    "prisma": "^6.9.0",
+    "typescript": "5.8.3"
   }
 }
