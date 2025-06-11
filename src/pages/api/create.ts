@@ -22,11 +22,17 @@ export default async function createTVorMovie(
   const { apiId, mediaType, title, status, season, episode, poster } = req.body
 
   // If is not number
-  !Number(apiId) && res.status(400).send('apiId must be number')
+  if (!Number(apiId)) {
+    return res.status(400).send('apiId must be number')
+  }
 
   if (mediaType === 'tv') {
-    !Number(season) && res.status(400).send('season must be number')
-    !Number(episode) && res.status(400).send('episode must be number')
+    if (!Number(season)) {
+      return res.status(400).send('season must be number')
+    }
+    if (!Number(episode)) {
+      return res.status(400).send('episode must be number')
+    }
 
     const tvApiId = apiId
     // Check if tv show exists
