@@ -20,10 +20,15 @@ This is a project where you can track TV shows and movies, to remember which epi
 
 - PATH_TO_DELETE_ACCCOUNTS - `http://localhost:3333/api/delete_accounts`
 
+Requirements
+
+- Node.js 22 LTS
+- npm (bundled with Node 22)
+
 Install dependencies:
 
 ```bash
-yarn
+npm install
 ```
 
 Using prisma CLI:
@@ -43,9 +48,10 @@ npx prisma db push
 Start server:
 
 ```bash
-yarn dev
+npm run dev
 # Or
-yarn build && yarn start
+npm run build
+npm start
 ```
 
 ## How to use
@@ -62,10 +68,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 Project dependencies updated to run on Node.js 22 LTS and Next.js 14.x. If you are upgrading from the earlier 2022 version:
 
-- Install a Node.js 22 runtime.
+- Install Node.js 22 LTS.
 - Remove existing node_modules and lock file, then reinstall.
 - Run `npx prisma generate` (handled automatically on install via postinstall script).
-- Review environment variables (no changes required) and run `yarn dev`.
+- Review environment variables (no changes required) and run `npm run dev`.
 
 If you face issues with legacy cached Prisma clients during development, stop the dev server and remove the `.next` folder before restarting.
 
