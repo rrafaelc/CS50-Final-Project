@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components'
-import colors from './colors'
+import { createGlobalStyle } from "styled-components";
+import colors from "./colors";
 
 const GlobalStyle = createGlobalStyle`
 @media (prefers-color-scheme: dark) {
@@ -33,6 +33,6 @@ body {
 button {
   cursor: pointer;
 }
-`
+`;
 
-export default GlobalStyle
+export default GlobalStyle;

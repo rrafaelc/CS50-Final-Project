@@ -1,26 +1,26 @@
-import type { GetServerSideProps, NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from "next";
 
-import Edit from 'components/Edit'
+import Edit from "components/Edit";
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  const { id } = context.query
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { id } = context.query;
 
   if (!id) {
     return {
       redirect: {
-        destination: '/dashboard',
+        destination: "/dashboard",
         permanent: false,
       },
-    }
+    };
   }
 
   return {
     props: {},
-  }
-}
+  };
+};
 
 const Editpage: NextPage = () => {
-  return <Edit />
-}
+  return <Edit />;
+};
 
-export default Editpage
+export default Editpage;

@@ -1,9 +1,9 @@
-import type { NextPage } from 'next'
+import type { NextPage } from "next";
 
-import Edit from 'components/Account/Edit'
+import Edit from "components/Account/Edit";
 
 const EditPage: NextPage = () => {
-  return <Edit />
-}
+  return <Edit />;
+};
 
-export default EditPage
+export default EditPage;

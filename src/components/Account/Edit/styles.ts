@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import colors from 'styles/colors'
-import { lighten } from 'polished'
+import styled from "styled-components";
+import colors from "styles/colors";
+import { lighten } from "polished";
 
 export const SContainer = styled.div`
   width: 100%;
@@ -9,7 +9,7 @@ export const SContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 50px;
-`
+`;
 
 export const SForm = styled.form`
   width: 100%;
@@ -23,7 +23,7 @@ export const SForm = styled.form`
     gap: 10px;
   }
 
-  button[type='submit'] {
+  button[type="submit"] {
     width: 100%;
     font-size: 18px;
     font-weight: 500;
@@ -56,7 +56,7 @@ export const SForm = styled.form`
       gap: 15px;
     }
 
-    button[type='submit'] {
+    button[type="submit"] {
       font-size: 28px;
       padding: 16px 0;
       border-radius: 8px;
@@ -66,4 +66,4 @@ export const SForm = styled.form`
   @media (min-width: 1000px) {
     max-width: 700px;
   }
-`
+`;

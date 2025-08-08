@@ -1,30 +1,36 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { unstable_getServerSession } from 'next-auth/next'
-import { authOptions } from 'pages/api/auth/[...nextauth]'
-import { prisma } from 'lib/prisma'
+import type { NextApiRequest, NextApiResponse } from "next";
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "pages/api/auth/[...nextauth]";
+import { prisma } from "lib/prisma";
 
 export default async function updateMovie(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
-  const session = await unstable_getServerSession(req, res, authOptions)
+  const session = await unstable_getServerSession(req, res, authOptions);
 
   if (!session) {
-    return res.status(401).send('Unauthorized')
+    return res.status(401).send("Unauthorized");
   }
 
-  if (req.method !== 'PUT') {
-    return res.status(405).send(`Method ${req.method} not allowed`)
+  if (req.method !== "PUT") {
+    return res.status(405).send(`Method ${req.method} not allowed`);
   }
 
-  const statusConditions = ['watching', 'completed', 'onhold', 'dropped', 'ptw']
-  const { status } = req.body
+  const statusConditions = [
+    "watching",
+    "completed",
+    "onhold",
+    "dropped",
+    "ptw",
+  ];
+  const { status } = req.body;
 
-  if (!statusConditions.some(el => String(status).includes(el))) {
-    return res.status(400).send('Invalid status')
+  if (!statusConditions.some((el) => String(status).includes(el))) {
+    return res.status(400).send("Invalid status");
   }
 
-  const id = String(req.query.id)
+  const id = String(req.query.id);
 
   // Check if the current user has this movieId
   const userhasMovieId = await prisma.movie.findFirst({
@@ -32,10 +38,10 @@ export default async function updateMovie(
       id,
       userId: session.user.id,
     },
-  })
+  });
 
   if (!userhasMovieId) {
-    return res.status(400).send('Movie not found')
+    return res.status(400).send("Movie not found");
   }
 
   try {
@@ -46,12 +52,12 @@ export default async function updateMovie(
       data: {
         status,
       },
-    })
+    });
 
-    return res.send('resource updated successfully')
+    return res.send("resource updated successfully");
   } catch (err: any) {
-    console.log(err.message)
+    console.log(err.message);
 
-    return res.status(500).send('Database error')
+    return res.status(500).send("Database error");
   }
 }

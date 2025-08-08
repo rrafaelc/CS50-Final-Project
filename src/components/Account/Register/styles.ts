@@ -1,12 +1,12 @@
-import styled from 'styled-components'
-import colors from 'styles/colors'
+import styled from "styled-components";
+import colors from "styles/colors";
 
 export const SMain = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0 45px;
-`
+`;
 
 export const STitle = styled.h1`
   margin: 60px 0;
@@ -24,7 +24,7 @@ export const STitle = styled.h1`
   span {
     color: ${colors.green};
   }
-`
+`;
 
 export const SForm = styled.form`
   width: 300px;
@@ -34,7 +34,7 @@ export const SForm = styled.form`
     width: 400px;
     max-width: 400px;
   }
-`
+`;
 
 export const SInputs = styled.div`
   display: flex;
@@ -110,7 +110,7 @@ export const SInputs = styled.div`
       border-color: ${colors.white};
     }
   }
-`
+`;
 
 export const SSpanError = styled.span`
   display: none;
@@ -126,7 +126,7 @@ export const SSpanError = styled.span`
   &.error {
     display: block;
   }
-`
+`;
 
 export const SButton = styled.button`
   display: block;
@@ -168,7 +168,7 @@ export const SButton = styled.button`
     background-color: ${colors.green};
     color: ${colors.black};
   }
-`
+`;
 
 export const SLink = styled.div`
   margin-top: 20px;
@@ -194,4 +194,4 @@ export const SLink = styled.div`
       text-decoration-color: ${colors.green};
     }
   }
-`
+`;

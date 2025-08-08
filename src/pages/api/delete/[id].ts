@@ -1,23 +1,23 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { prisma } from 'lib/prisma'
-import { unstable_getServerSession } from 'next-auth/next'
-import { authOptions } from '@api/auth/[...nextauth]'
+import type { NextApiRequest, NextApiResponse } from "next";
+import { prisma } from "lib/prisma";
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "@api/auth/[...nextauth]";
 
 export default async function deleteTvOrMovie(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
-  const session = await unstable_getServerSession(req, res, authOptions)
+  const session = await unstable_getServerSession(req, res, authOptions);
 
   if (!session) {
-    return res.status(401).send('Unauthorized')
+    return res.status(401).send("Unauthorized");
   }
 
-  if (req.method !== 'DELETE') {
-    return res.status(405).send(`Method ${req.method} not allowed`)
+  if (req.method !== "DELETE") {
+    return res.status(405).send(`Method ${req.method} not allowed`);
   }
 
-  const id = String(req.query.id)
+  const id = String(req.query.id);
 
   try {
     try {
@@ -25,7 +25,7 @@ export default async function deleteTvOrMovie(
         where: {
           id,
         },
-      })
+      });
     } catch {}
 
     try {
@@ -33,12 +33,12 @@ export default async function deleteTvOrMovie(
         where: {
           id,
         },
-      })
+      });
     } catch {}
 
-    return res.send('resource deleted successfully')
+    return res.send("resource deleted successfully");
   } catch (err: any) {
-    console.log(err.message)
-    return res.status(404).send('ID not found')
+    console.log(err.message);
+    return res.status(404).send("ID not found");
   }
 }

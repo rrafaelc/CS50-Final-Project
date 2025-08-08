@@ -1,19 +1,19 @@
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 function useRequireAuth() {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
 
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
-    if (!session && typeof session !== 'undefined') {
-      router.push('/')
+    if (!session && typeof session !== "undefined") {
+      router.push("/");
     }
-  }, [session, router])
+  }, [session, router]);
 
-  return session
+  return session;
 }
 
-export default useRequireAuth
+export default useRequireAuth;

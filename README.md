@@ -50,13 +50,24 @@ yarn build && yarn start
 
 ## How to use
 
-[![CS50 Final Project](https://img.youtube.com/vi/BlPotl8ULyg/0.jpg)](https://www.youtube.com/watch?v=BlPotl8ULyg 'CS50 Final Project - Youtube')
+[![CS50 Final Project](https://img.youtube.com/vi/BlPotl8ULyg/0.jpg)](https://www.youtube.com/watch?v=BlPotl8ULyg "CS50 Final Project - Youtube")
 
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Upgrade (2025)
+
+Project dependencies updated to run on Node.js 22 LTS and Next.js 14.x. If you are upgrading from the earlier 2022 version:
+
+- Install a Node.js 22 runtime.
+- Remove existing node_modules and lock file, then reinstall.
+- Run `npx prisma generate` (handled automatically on install via postinstall script).
+- Review environment variables (no changes required) and run `yarn dev`.
+
+If you face issues with legacy cached Prisma clients during development, stop the dev server and remove the `.next` folder before restarting.
 
 ## License
 

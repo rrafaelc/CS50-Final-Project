@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import colors from 'styles/colors'
-import { lighten } from 'polished'
+import styled from "styled-components";
+import colors from "styles/colors";
+import { lighten } from "polished";
 
 export const SContainer = styled.ul`
   @media (min-width: 500px) {
@@ -10,7 +10,7 @@ export const SContainer = styled.ul`
     align-items: flex-end;
     gap: 50px;
   }
-`
+`;
 
 export const SCard = styled.li`
   display: flex;
@@ -30,7 +30,7 @@ export const SCard = styled.li`
     font-size: 16px;
     color: ${colors.weak};
   }
-`
+`;
 
 export const SImage = styled.div`
   position: relative;
@@ -47,7 +47,7 @@ export const SImage = styled.div`
     width: 220px;
     height: 330px;
   }
-`
+`;
 export const SButtons = styled.div`
   display: flex;
   flex-direction: column;
@@ -85,7 +85,7 @@ export const SButtons = styled.div`
       }
     }
   }
-`
+`;
 
 export const SNotFound = styled.p`
   color: ${colors.white};
@@ -94,7 +94,7 @@ export const SNotFound = styled.p`
   display: flex;
   justify-content: center;
   margin-top: 30px;
-`
+`;
 
 export const SLoading = styled.div`
   position: relative;
@@ -104,7 +104,7 @@ export const SLoading = styled.div`
 
   display: flex;
   justify-content: center;
-`
+`;
 
 export const SScrolToTop = styled.button`
   display: flex;
@@ -126,4 +126,4 @@ export const SScrolToTop = styled.button`
   &:hover {
     background-color: ${lighten(0.1, colors.black)};
   }
-`
+`;

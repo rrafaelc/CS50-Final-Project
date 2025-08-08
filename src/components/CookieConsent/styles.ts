@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const SContainer = styled.div`
   position: fixed;
@@ -43,4 +43,4 @@ export const SContainer = styled.div`
       border-radius: 8px;
     }
   }
-`
+`;

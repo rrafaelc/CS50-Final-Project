@@ -1,191 +1,191 @@
-import { FormEventHandler, useState } from 'react'
-import { signOut } from 'next-auth/react'
-import { toast } from 'react-toastify'
+import { FormEventHandler, useState } from "react";
+import { signOut } from "next-auth/react";
+import { toast } from "react-toastify";
 
-import Input from './Input'
-import { editUsername, editPassword, deleteAccount } from 'lib/db'
+import Input from "./Input";
+import { editUsername, editPassword, deleteAccount } from "lib/db";
 
-import { SContainer, SForm } from './styles'
+import { SContainer, SForm } from "./styles";
 
 export default function Edit() {
   const [usernameError, setUsernameError] = useState({
-    name: '',
-    password: '',
-  })
+    name: "",
+    password: "",
+  });
   const [username, setUsername] = useState({
-    name: '',
-    password: '',
-  })
+    name: "",
+    password: "",
+  });
 
   const [passwordError, setPasswordError] = useState({
-    old: '',
-    new: '',
-    confirm: '',
-  })
+    old: "",
+    new: "",
+    confirm: "",
+  });
   const [password, setPassword] = useState({
-    old: '',
-    new: '',
-    confirm: '',
-  })
+    old: "",
+    new: "",
+    confirm: "",
+  });
 
-  const [delError, setDelError] = useState('')
-  const [del, setDel] = useState('')
+  const [delError, setDelError] = useState("");
+  const [del, setDel] = useState("");
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
-  const handleEditUsername: FormEventHandler<HTMLFormElement> = async e => {
-    e.preventDefault()
+  const handleEditUsername: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
 
     setUsernameError({
-      name: '',
-      password: '',
-    })
+      name: "",
+      password: "",
+    });
 
     if (!/^[a-zA-Z].*/.test(username.name)) {
-      toast.warn('First character must be alphabetical!')
-      return
+      toast.warn("First character must be alphabetical!");
+      return;
     }
 
     if (!/^[a-zA-Z0-9_]*$/.test(username.name)) {
-      toast.warn('Only alphanumerics and underscores are allowed!')
-      return
+      toast.warn("Only alphanumerics and underscores are allowed!");
+      return;
     }
 
     if (username.password.length < 3) {
-      toast.warn('Password must be at least 3 characters long')
-      return
+      toast.warn("Password must be at least 3 characters long");
+      return;
     }
 
-    const name = username.name
-    const password = username.password
+    const name = username.name;
+    const password = username.password;
 
-    setLoading(true)
+    setLoading(true);
 
     try {
-      await editUsername({ name, password })
+      await editUsername({ name, password });
 
-      toast.info('Username changed, please log-in again')
+      toast.info("Username changed, please log-in again");
 
-      await signOut()
+      await signOut();
     } catch (err: any) {
       if (err.response.status === 403) {
         setUsernameError({
-          name: 'Username already exists',
-          password: '',
-        })
+          name: "Username already exists",
+          password: "",
+        });
 
-        setLoading(false)
-        return
+        setLoading(false);
+        return;
       }
 
       if (err.response.status === 400) {
         setUsernameError({
-          name: '',
-          password: 'Incorrect password',
-        })
+          name: "",
+          password: "Incorrect password",
+        });
 
-        setLoading(false)
-        return
+        setLoading(false);
+        return;
       }
 
-      console.log(err)
-      console.log(err.message)
+      console.log(err);
+      console.log(err.message);
 
-      setLoading(false)
-      toast.error('An error occurred while change username')
+      setLoading(false);
+      toast.error("An error occurred while change username");
     }
-  }
+  };
 
-  const handleChangePassword: FormEventHandler<HTMLFormElement> = async e => {
-    e.preventDefault()
+  const handleChangePassword: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
 
     setPasswordError({
-      old: '',
-      new: '',
-      confirm: '',
-    })
+      old: "",
+      new: "",
+      confirm: "",
+    });
 
     if (password.new.length < 3) {
       setPasswordError({
-        old: '',
-        new: 'Must be at least 3 characters long',
-        confirm: '',
-      })
+        old: "",
+        new: "Must be at least 3 characters long",
+        confirm: "",
+      });
 
-      return
+      return;
     }
 
     if (password.new !== password.confirm) {
       setPasswordError({
-        old: '',
-        new: '',
-        confirm: 'Passwords are not the same',
-      })
+        old: "",
+        new: "",
+        confirm: "Passwords are not the same",
+      });
 
-      return
+      return;
     }
 
-    setLoading(true)
+    setLoading(true);
 
     try {
-      await editPassword({ password: password.old, newPassword: password.new })
+      await editPassword({ password: password.old, newPassword: password.new });
 
-      toast.info('Password changed, please log-in again')
+      toast.info("Password changed, please log-in again");
 
-      await signOut()
+      await signOut();
     } catch (err: any) {
       if (err.response.status === 400) {
         setPasswordError({
-          old: 'Incorrect password',
-          new: '',
-          confirm: '',
-        })
+          old: "Incorrect password",
+          new: "",
+          confirm: "",
+        });
 
-        setLoading(false)
-        return
+        setLoading(false);
+        return;
       }
 
-      console.log(err)
-      console.log(err.message)
+      console.log(err);
+      console.log(err.message);
 
-      setLoading(false)
-      toast.error('An error occurred while change username')
+      setLoading(false);
+      toast.error("An error occurred while change username");
     }
-  }
+  };
 
-  const handleDeleteAccount: FormEventHandler<HTMLFormElement> = async e => {
-    e.preventDefault()
+  const handleDeleteAccount: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
 
     if (!del) {
-      toast.warn('Password required')
+      toast.warn("Password required");
 
-      return
+      return;
     }
 
-    if (!confirm('Are you sure you want to delete your account?')) return
+    if (!confirm("Are you sure you want to delete your account?")) return;
 
-    setLoading(true)
+    setLoading(true);
     try {
-      await deleteAccount(del)
+      await deleteAccount(del);
 
-      await signOut()
+      await signOut();
     } catch (err: any) {
       if (err.response.status === 400) {
-        setDelError('Incorrect password')
+        setDelError("Incorrect password");
 
-        setLoading(false)
-        return
+        setLoading(false);
+        return;
       }
 
-      console.log(err.message)
-      console.log(err)
+      console.log(err.message);
+      console.log(err);
 
-      setLoading(false)
-      toast.error('An error occurred when deleting account')
+      setLoading(false);
+      toast.error("An error occurred when deleting account");
     }
 
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   return (
     <SContainer>
@@ -197,12 +197,15 @@ export default function Edit() {
             labelName="New username"
             placeholder="Type a new username"
             value={username.name}
-            onChange={e => {
+            onChange={(e) => {
               setUsernameError({
-                name: '',
-                password: '',
-              })
-              setUsername(prevState => ({ ...prevState, name: e.target.value }))
+                name: "",
+                password: "",
+              });
+              setUsername((prevState) => ({
+                ...prevState,
+                name: e.target.value,
+              }));
             }}
             error={!!usernameError.name}
             errorMessage={usernameError.name}
@@ -213,22 +216,22 @@ export default function Edit() {
             labelName="Password"
             placeholder="Type your password"
             value={username.password}
-            onChange={e => {
+            onChange={(e) => {
               setUsernameError({
-                name: '',
-                password: '',
-              })
-              setUsername(prevState => ({
+                name: "",
+                password: "",
+              });
+              setUsername((prevState) => ({
                 ...prevState,
                 password: e.target.value,
-              }))
+              }));
             }}
             error={!!usernameError.password}
             errorMessage={usernameError.password}
           />
         </div>
         <button disabled={loading} type="submit">
-          {loading ? 'Loading' : 'Change username'}
+          {loading ? "Loading" : "Change username"}
         </button>
       </SForm>
 
@@ -240,13 +243,16 @@ export default function Edit() {
             labelName="Old password"
             placeholder="Type your old password"
             value={password.old}
-            onChange={e => {
+            onChange={(e) => {
               setPasswordError({
-                old: '',
-                new: '',
-                confirm: '',
-              })
-              setPassword(prevState => ({ ...prevState, old: e.target.value }))
+                old: "",
+                new: "",
+                confirm: "",
+              });
+              setPassword((prevState) => ({
+                ...prevState,
+                old: e.target.value,
+              }));
             }}
             error={!!passwordError.old}
             errorMessage={passwordError.old}
@@ -257,13 +263,16 @@ export default function Edit() {
             labelName="New password"
             placeholder="Type your new password"
             value={password.new}
-            onChange={e => {
+            onChange={(e) => {
               setPasswordError({
-                old: '',
-                new: '',
-                confirm: '',
-              })
-              setPassword(prevState => ({ ...prevState, new: e.target.value }))
+                old: "",
+                new: "",
+                confirm: "",
+              });
+              setPassword((prevState) => ({
+                ...prevState,
+                new: e.target.value,
+              }));
             }}
             error={!!passwordError.new}
             errorMessage={passwordError.new}
@@ -274,23 +283,23 @@ export default function Edit() {
             labelName="New password (again)"
             placeholder="Type your new password (again)"
             value={password.confirm}
-            onChange={e => {
+            onChange={(e) => {
               setPasswordError({
-                old: '',
-                new: '',
-                confirm: '',
-              })
-              setPassword(prevState => ({
+                old: "",
+                new: "",
+                confirm: "",
+              });
+              setPassword((prevState) => ({
                 ...prevState,
                 confirm: e.target.value,
-              }))
+              }));
             }}
             error={!!passwordError.confirm}
             errorMessage={passwordError.confirm}
           />
         </div>
         <button disabled={loading} type="submit">
-          {loading ? 'Loading' : 'Change password'}
+          {loading ? "Loading" : "Change password"}
         </button>
       </SForm>
 
@@ -302,18 +311,18 @@ export default function Edit() {
             labelName="Password"
             placeholder="Type your password"
             value={del}
-            onChange={e => {
-              setDelError('')
-              setDel(e.target.value)
+            onChange={(e) => {
+              setDelError("");
+              setDel(e.target.value);
             }}
             error={!!delError}
             errorMessage={delError}
           />
         </div>
         <button disabled={loading} className="delete" type="submit">
-          {loading ? 'Loading' : 'Delete Account'}
+          {loading ? "Loading" : "Delete Account"}
         </button>
       </SForm>
     </SContainer>
-  )
+  );
 }

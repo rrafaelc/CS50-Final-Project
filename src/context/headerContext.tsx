@@ -1,25 +1,25 @@
-import React, { createContext, useCallback, useContext, useState } from 'react'
+import React, { createContext, useCallback, useContext, useState } from "react";
 
 interface HeaderContextData {
-  query: string
-  setHeaderQuery: (query: string) => void
+  query: string;
+  setHeaderQuery: (query: string) => void;
 }
 
 interface Props {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
-const HeaderContext = createContext<HeaderContextData>({} as HeaderContextData)
+const HeaderContext = createContext<HeaderContextData>({} as HeaderContextData);
 
 const HeaderProvider = ({ children }: Props) => {
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState("");
 
   const setHeaderQuery = useCallback(
     (query: string) => {
-      setQuery(query)
+      setQuery(query);
     },
-    [query]
-  )
+    [query],
+  );
 
   return (
     <HeaderContext.Provider
@@ -30,16 +30,16 @@ const HeaderProvider = ({ children }: Props) => {
     >
       {children}
     </HeaderContext.Provider>
-  )
-}
+  );
+};
 
 const useHeader = (): HeaderContextData => {
-  const context = useContext(HeaderContext)
+  const context = useContext(HeaderContext);
   if (!context) {
-    throw new Error('useContext must be used within an HeaderProvider')
+    throw new Error("useContext must be used within an HeaderProvider");
   }
 
-  return context
-}
+  return context;
+};
 
-export { HeaderProvider, useHeader }
+export { HeaderProvider, useHeader };

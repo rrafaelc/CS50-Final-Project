@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components'
-import { lighten } from 'polished'
+import styled, { css } from "styled-components";
+import { lighten } from "polished";
 
-import colors from 'styles/colors'
+import colors from "styles/colors";
 
 export const SMobileContainer = styled.header`
   display: flex;
@@ -27,7 +27,7 @@ export const SMobileContainer = styled.header`
   svg {
     cursor: pointer;
   }
-`
+`;
 
 export const SMenu = styled.div`
   position: fixed;
@@ -84,7 +84,7 @@ export const SMenu = styled.div`
       }
     }
   }
-`
+`;
 
 export const SSearch = styled.form<{ isDesktop: boolean }>`
   flex: 1;
@@ -133,7 +133,7 @@ export const SSearch = styled.form<{ isDesktop: boolean }>`
     justify-content: center;
     align-items: center;
   }
-`
+`;
 
 export const SDesktopContainer = styled.header`
   display: flex;
@@ -147,7 +147,7 @@ export const SDesktopContainer = styled.header`
   svg {
     cursor: pointer;
   }
-`
+`;
 
 export const Menu = styled.nav`
   display: flex;
@@ -183,4 +183,4 @@ export const Menu = styled.nav`
       font-size: 18px;
     }
   }
-`
+`;

@@ -1,23 +1,23 @@
-import Image from 'next/image'
-import { MdAddCircleOutline, MdEdit, MdDeleteForever } from 'react-icons/md'
-import { toast } from 'react-toastify'
-import { useRouter } from 'next/router'
-import padNumber from 'utils/padNumber'
-import { StatusProps } from 'types'
-import parseDate from 'utils/parseDate'
-import { deleteMedia } from 'lib/db'
+import Image from "next/image";
+import { MdAddCircleOutline, MdEdit, MdDeleteForever } from "react-icons/md";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
+import padNumber from "utils/padNumber";
+import { StatusProps } from "types";
+import parseDate from "utils/parseDate";
+import { deleteMedia } from "lib/db";
 
-import { useDimension } from 'context/dimensionContext'
-import { useModalStatus } from 'context/modalStatusContext'
+import { useDimension } from "context/dimensionContext";
+import { useModalStatus } from "context/modalStatusContext";
 
-import colors from 'styles/colors'
-import { SContainer, SImage, SInfo, SStatus } from './styles'
+import colors from "styles/colors";
+import { SContainer, SImage, SInfo, SStatus } from "./styles";
 
 interface CardProps {
-  props: StatusProps
-  addOneSeason: (id: string) => Promise<void>
-  addOneEpisode: (id: string) => Promise<void>
-  deletedMedia: (id: string) => void
+  props: StatusProps;
+  addOneSeason: (id: string) => Promise<void>;
+  addOneEpisode: (id: string) => Promise<void>;
+  deletedMedia: (id: string) => void;
 }
 
 export default function Card({
@@ -26,31 +26,31 @@ export default function Card({
   addOneEpisode,
   deletedMedia,
 }: CardProps) {
-  const router = useRouter()
-  const { width } = useDimension()
-  const { toggle, setItemProps, setStatusFunction } = useModalStatus()
-  const { year, month, day } = parseDate(props.updatedAt)
+  const router = useRouter();
+  const { width } = useDimension();
+  const { toggle, setItemProps, setStatusFunction } = useModalStatus();
+  const { year, month, day } = parseDate(props.updatedAt);
 
   const statusName = () => {
     switch (props.status) {
-      case 'watching':
-        return 'Watching'
+      case "watching":
+        return "Watching";
 
-      case 'completed':
-        return 'Completed'
+      case "completed":
+        return "Completed";
 
-      case 'onhold':
-        return 'On hold'
+      case "onhold":
+        return "On hold";
 
-      case 'dropped':
-        return 'Dropped'
+      case "dropped":
+        return "Dropped";
 
-      case 'ptw':
-        return 'Plan to watch'
+      case "ptw":
+        return "Plan to watch";
       default:
-        return 'Watching'
+        return "Watching";
     }
-  }
+  };
 
   const handleEditCardProps = (
     id: string,
@@ -59,39 +59,39 @@ export default function Card({
     type: string,
     status: string,
     season?: number,
-    episode?: number
+    episode?: number,
   ) => {
-    setStatusFunction(status)
-    setItemProps({ id, name, poster, type, season, episode })
-    toggle()
-  }
+    setStatusFunction(status);
+    setItemProps({ id, name, poster, type, season, episode });
+    toggle();
+  };
 
   const handleDelete = async (id: string) => {
     // If false
-    if (!confirm('Are you sure you want to delete?')) return
+    if (!confirm("Are you sure you want to delete?")) return;
 
     try {
-      await deleteMedia(id)
+      await deleteMedia(id);
 
-      deletedMedia(id)
+      deletedMedia(id);
     } catch (err: any) {
-      console.log(err.message)
+      console.log(err.message);
 
-      toast.error('An error occurred when deleting')
-      return
+      toast.error("An error occurred when deleting");
+      return;
     }
 
-    router.push('/dashboard')
-  }
+    router.push("/dashboard");
+  };
 
   return (
     <SContainer>
       <SImage>
-        <Image src={props.poster} layout="fill" alt={props.title} />
+        <Image src={props.poster} fill alt={props.title} />
       </SImage>
 
-      <SInfo isMovie={props.type === 'movie'}>
-        {props.type === 'tv' ? (
+      <SInfo isMovie={props.type === "movie"}>
+        {props.type === "tv" ? (
           <MdEdit
             className="icon"
             size={width >= 500 ? 35 : 24}
@@ -107,14 +107,14 @@ export default function Card({
         <h1>{props.title}</h1>
 
         <div className="middle">
-          {props.type === 'tv' && (
+          {props.type === "tv" && (
             <div className="episodes">
               <p>
-                {width >= 500 ? 'Season ' : 'S '}
+                {width >= 500 ? "Season " : "S "}
                 <span>{padNumber(2, props.season)}</span>
               </p>
               <p>
-                {width >= 500 ? 'Episode ' : 'Ep '}
+                {width >= 500 ? "Episode " : "Ep "}
                 <span>{padNumber(2, props.episode)}</span>
               </p>
             </div>
@@ -129,7 +129,7 @@ export default function Card({
                 props.type,
                 props.status,
                 props.season,
-                props.episode
+                props.episode,
               )
             }
             status={props.status}
@@ -143,13 +143,13 @@ export default function Card({
           </div>
         </div>
 
-        {props.type === 'tv' && (
+        {props.type === "tv" && (
           <div className="buttons">
             <button
               className="button"
               onClick={async () => await addOneSeason(props.id)}
             >
-              Season{' '}
+              Season{" "}
               <MdAddCircleOutline
                 size={width >= 500 ? 24 : 12}
                 color={colors.black}
@@ -159,7 +159,7 @@ export default function Card({
               className="button"
               onClick={async () => await addOneEpisode(props.id)}
             >
-              Episode{' '}
+              Episode{" "}
               <MdAddCircleOutline
                 size={width >= 500 ? 24 : 12}
                 color={colors.black}
@@ -169,5 +169,5 @@ export default function Card({
         )}
       </SInfo>
     </SContainer>
-  )
+  );
 }

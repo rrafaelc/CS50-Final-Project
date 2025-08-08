@@ -1,57 +1,57 @@
-import { FormEventHandler, useEffect, useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { signOut } from 'next-auth/react'
-import { useRouter } from 'next/router'
-import { MdClose, MdOutlineAccountCircle, MdSearch } from 'react-icons/md'
+import { FormEventHandler, useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/router";
+import { MdClose, MdOutlineAccountCircle, MdSearch } from "react-icons/md";
 
-import { useDimension } from 'context/dimensionContext'
-import { useHeader } from 'context/headerContext'
+import { useDimension } from "context/dimensionContext";
+import { useHeader } from "context/headerContext";
 
-import colors from 'styles/colors'
+import colors from "styles/colors";
 import {
   SMobileContainer,
   SMenu,
   SDesktopContainer,
   SSearch,
   Menu,
-} from './styles'
+} from "./styles";
 
 export default function Header() {
-  const router = useRouter()
-  const { width, setWidth } = useDimension()
-  const { query, setHeaderQuery } = useHeader()
-  const [menuOpen, setMenuOpen] = useState(false)
+  const router = useRouter();
+  const { width, setWidth } = useDimension();
+  const { query, setHeaderQuery } = useHeader();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
-    e.preventDefault()
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
 
     router.push({
-      pathname: '/search',
+      pathname: "/search",
       query: { query },
-    })
-  }
+    });
+  };
 
   useEffect(() => {
-    const html = document.querySelector('html')
+    const html = document.querySelector("html");
 
     if (width >= 500) {
-      setMenuOpen(false)
+      setMenuOpen(false);
     }
 
     if (html) {
-      html.style.overflow = menuOpen && width <= 500 ? 'hidden' : 'auto'
+      html.style.overflow = menuOpen && width <= 500 ? "hidden" : "auto";
     }
 
     if (typeof window !== undefined) {
-      setWidth(window.innerWidth)
+      setWidth(window.innerWidth);
 
-      window.addEventListener('resize', () => setWidth(window.innerWidth))
+      window.addEventListener("resize", () => setWidth(window.innerWidth));
 
       return () =>
-        window.removeEventListener('resize', () => setWidth(window.innerWidth))
+        window.removeEventListener("resize", () => setWidth(window.innerWidth));
     }
-  }, [setWidth, menuOpen, width])
+  }, [setWidth, menuOpen, width]);
 
   return width < 500 ? (
     <SMobileContainer>
@@ -69,16 +69,16 @@ export default function Header() {
             <div className="buttons">
               <button
                 onClick={() => {
-                  setMenuOpen(false)
-                  router.push('/account/edit')
+                  setMenuOpen(false);
+                  router.push("/account/edit");
                 }}
               >
                 Account
               </button>
               <button
                 onClick={() => {
-                  setMenuOpen(false)
-                  router.push('/about')
+                  setMenuOpen(false);
+                  router.push("/about");
                 }}
               >
                 About
@@ -93,18 +93,18 @@ export default function Header() {
       <div
         className="logo"
         onClick={() => {
-          setHeaderQuery('')
-          router.push('/dashboard')
+          setHeaderQuery("");
+          router.push("/dashboard");
         }}
       >
-        <Image src="/logo.svg" alt="Logo" layout="fill" />
+        <Image src="/logo.svg" alt="Logo" fill />
       </div>
 
       <SSearch onSubmit={handleSubmit} isDesktop={false}>
         <input
           placeholder="Search"
           value={query}
-          onChange={e => setHeaderQuery(e.target.value)}
+          onChange={(e) => setHeaderQuery(e.target.value)}
         />
         <button type="submit">
           <MdSearch size={24} color={colors.more_weak} />
@@ -123,10 +123,10 @@ export default function Header() {
           height={32}
           alt="Logo"
           onClick={() => {
-            setHeaderQuery('')
-            router.push('/dashboard')
+            setHeaderQuery("");
+            router.push("/dashboard");
           }}
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: "pointer" }}
         />
       )}
 
@@ -134,31 +134,26 @@ export default function Header() {
         <input
           placeholder="Search"
           value={query}
-          onChange={e => setHeaderQuery(e.target.value)}
+          onChange={(e) => setHeaderQuery(e.target.value)}
         />
         <button type="submit">
           <MdSearch size={32} color={colors.more_weak} />
         </button>
       </SSearch>
       <Menu>
-        <Link href="/dashboard">
-          <a
-            onClick={() => {
-              setHeaderQuery('')
-              router.push('/dashboard')
-            }}
-          >
-            Home
-          </a>
+        <Link
+          href="/dashboard"
+          onClick={() => {
+            setHeaderQuery("");
+            router.push("/dashboard");
+          }}
+        >
+          Home
         </Link>
-        <Link href="/account/edit">
-          <a>Account</a>
-        </Link>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
+        <Link href="/account/edit">Account</Link>
+        <Link href="/about">About</Link>
         <a onClick={() => signOut()}>Logout</a>
       </Menu>
     </SDesktopContainer>
-  )
+  );
 }

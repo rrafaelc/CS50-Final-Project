@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import { SContainer } from './styles'
+import Link from "next/link";
+import { SContainer } from "./styles";
 
 export default function PrivacyPolicy() {
   return (
@@ -47,9 +47,7 @@ export default function PrivacyPolicy() {
         </div>
       </div>
 
-      <Link href="/">
-        <a>Return</a>
-      </Link>
+      <Link href="/">Return</Link>
     </SContainer>
-  )
+  );
 }

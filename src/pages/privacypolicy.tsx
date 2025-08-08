@@ -1,8 +1,8 @@
-import PrivacyPolicy from 'components/PrivacyPolicy'
-import type { NextPage } from 'next'
+import PrivacyPolicy from "components/PrivacyPolicy";
+import type { NextPage } from "next";
 
 const PrivacyPolicyPage: NextPage = () => {
-  return <PrivacyPolicy />
-}
+  return <PrivacyPolicy />;
+};
 
-export default PrivacyPolicyPage
+export default PrivacyPolicyPage;

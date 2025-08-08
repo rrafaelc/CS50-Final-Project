@@ -1,8 +1,8 @@
-import About from 'components/About'
-import type { NextPage } from 'next'
+import About from "components/About";
+import type { NextPage } from "next";
 
 const AboutPage: NextPage = () => {
-  return <About />
-}
+  return <About />;
+};
 
-export default AboutPage
+export default AboutPage;
