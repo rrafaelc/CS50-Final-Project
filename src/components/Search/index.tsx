@@ -158,7 +158,8 @@ const Search = () => {
               <SImage>
                 <Image
                   src={`https://image.tmdb.org/t/p/w220_and_h330_face${d.poster_path}`}
-                  layout="fill"
+                  fill
+                  alt={name}
                 />
               </SImage>
               <SButtons>
@@ -177,7 +178,7 @@ const Search = () => {
       ) : (
         page !== totalPages && (
           <SLoading ref={lastElement}>
-            <Image src="/loading.svg" layout="fill" />
+            <Image src="/loading.svg" fill alt="Loading" />
           </SLoading>
         )
       )}

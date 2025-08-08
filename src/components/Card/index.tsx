@@ -87,7 +87,7 @@ export default function Card({
   return (
     <SContainer>
       <SImage>
-        <Image src={props.poster} layout="fill" alt={props.title} />
+  <Image src={props.poster} fill alt={props.title} />
       </SImage>
 
       <SInfo isMovie={props.type === 'movie'}>

@@ -20,9 +20,7 @@ export default function CookiesPolicy() {
         </div>
       </div>
 
-      <Link href="/">
-        <a>Return</a>
-      </Link>
+  <Link href="/">Return</Link>
     </SContainer>
   )
 }

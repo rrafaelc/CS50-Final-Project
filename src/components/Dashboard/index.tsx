@@ -313,7 +313,7 @@ const Dashboard = () => {
               <h1>{name}</h1>
 
               <div className="image">
-                <Image src={poster} layout="fill" />
+                <Image src={poster} fill alt={name || 'Poster'} />
               </div>
             </div>
 

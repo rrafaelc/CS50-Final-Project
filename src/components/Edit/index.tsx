@@ -109,7 +109,8 @@ export default function Edit() {
         <SImage>
           <Image
             src={`https://image.tmdb.org/t/p/w220_and_h330_face${api.poster}`}
-            layout="fill"
+            fill
+            alt={api.title || 'Poster'}
           />
         </SImage>
       </div>

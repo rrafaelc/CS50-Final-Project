@@ -154,9 +154,7 @@ const Login = () => {
         </SForm>
         <SLink>
           <p>Don&#39;t have an account?</p>
-          <Link href="/account/register">
-            <a>Register</a>
-          </Link>
+          <Link href="/account/register">Register</Link>
         </SLink>
       </section>
 

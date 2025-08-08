@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide, SwiperProps } from 'swiper/react'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
-import { Navigation, Pagination } from 'swiper'
+import { Navigation, Pagination } from 'swiper/modules'
 import Card from 'components/Card'
 
 import 'swiper/css'

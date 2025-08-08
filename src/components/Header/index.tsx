@@ -97,7 +97,7 @@ export default function Header() {
           router.push('/dashboard')
         }}
       >
-        <Image src="/logo.svg" alt="Logo" layout="fill" />
+  <Image src="/logo.svg" alt="Logo" fill />
       </div>
 
       <SSearch onSubmit={handleSubmit} isDesktop={false}>
@@ -141,23 +141,20 @@ export default function Header() {
         </button>
       </SSearch>
       <Menu>
-        <Link href="/dashboard">
-          <a
-            onClick={() => {
-              setHeaderQuery('')
-              router.push('/dashboard')
-            }}
-          >
-            Home
-          </a>
+        <Link
+          href="/dashboard"
+          onClick={() => {
+            setHeaderQuery('')
+            router.push('/dashboard')
+          }}
+        >
+          Home
         </Link>
-        <Link href="/account/edit">
-          <a>Account</a>
-        </Link>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
-        <a onClick={() => signOut()}>Logout</a>
+        <Link href="/account/edit">Account</Link>
+        <Link href="/about">About</Link>
+        <a onClick={() => signOut()}>
+          Logout
+        </a>
       </Menu>
     </SDesktopContainer>
   )

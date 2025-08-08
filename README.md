@@ -58,6 +58,17 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
+## Upgrade (2025)
+
+Project dependencies updated to run on Node.js 22 LTS and Next.js 14.x. If you are upgrading from the earlier 2022 version:
+
+- Install a Node.js 22 runtime.
+- Remove existing node_modules and lock file, then reinstall.
+- Run `npx prisma generate` (handled automatically on install via postinstall script).
+- Review environment variables (no changes required) and run `yarn dev`.
+
+If you face issues with legacy cached Prisma clients during development, stop the dev server and remove the `.next` folder before restarting.
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)

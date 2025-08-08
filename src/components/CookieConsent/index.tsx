@@ -13,13 +13,9 @@ export default function CookieConsent() {
       </p>
       <p>
         To find out more, read our{' '}
-        <Link href="/privacypolicy">
-          <a>privacy policy</a>
-        </Link>{' '}
+  <Link href="/privacypolicy">privacy policy</Link>{' '}
         and{' '}
-        <Link href="/cookiespolicy">
-          <a>cookies policy</a>
-        </Link>
+  <Link href="/cookiespolicy">cookies policy</Link>
       </p>
       <button onClick={() => setCookieConsent(true)}>Okay</button>
     </SContainer>

@@ -177,7 +177,8 @@ export default function Add() {
               src={`https://image.tmdb.org/t/p/w220_and_h330_face${
                 type === 'tv' ? tv.poster_path : movie.poster_path
               }`}
-              layout="fill"
+              fill
+              alt={type === 'tv' ? tv.name : movie.title}
             />
           </SImage>
         </div>

@@ -211,9 +211,7 @@ const Register = () => {
 
         <SLink>
           <p>Already have an account?</p>
-          <Link href="/">
-            <a>Login</a>
-          </Link>
+          <Link href="/">Login</Link>
         </SLink>
       </section>
     </SMain>
