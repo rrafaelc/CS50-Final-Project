@@ -1,40 +1,40 @@
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import { toast } from 'react-toastify'
-import { deleteMedia, getOne, updateTV } from 'lib/db'
-import Image from 'next/image'
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import { deleteMedia, getOne, updateTV } from "lib/db";
+import Image from "next/image";
 
-import { STvEpisodes, SButtons, SCard, SImage } from './styles'
+import { STvEpisodes, SButtons, SCard, SImage } from "./styles";
 
 interface ApiProps {
-  id: string
-  title: string
-  status: string
-  season: number
-  episode: number
-  poster: string
-  type: string
+  id: string;
+  title: string;
+  status: string;
+  season: number;
+  episode: number;
+  poster: string;
+  type: string;
 }
 
 export default function Edit() {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [api, setApi] = useState({} as ApiProps)
-  const [season, setSeason] = useState('1')
-  const [episode, setEpisode] = useState('1')
-  const [loading, setLoading] = useState(false)
+  const [api, setApi] = useState({} as ApiProps);
+  const [season, setSeason] = useState("1");
+  const [episode, setEpisode] = useState("1");
+  const [loading, setLoading] = useState(false);
 
   const handleGoBack = () => {
-    router.push('/dashboard')
-  }
+    router.push("/dashboard");
+  };
 
   const handleUpdate = async () => {
-    setLoading(true)
+    setLoading(true);
 
     if (!Number(season) || !Number(episode)) {
-      toast.info('Season or Episode must be only numbers')
+      toast.info("Season or Episode must be only numbers");
 
-      return
+      return;
     }
 
     try {
@@ -43,64 +43,64 @@ export default function Edit() {
         status: api.status,
         season: Number(season),
         episode: Number(episode),
-      })
+      });
 
-      router.push('/dashboard')
+      router.push("/dashboard");
     } catch (err: any) {
-      console.log(err.message)
-      setLoading(false)
-      toast.error('An error occurred while updating')
+      console.log(err.message);
+      setLoading(false);
+      toast.error("An error occurred while updating");
     }
-  }
+  };
 
   const handleDelete = async (id: string) => {
     // If false
-    if (!confirm('Are you sure you want to delete?')) return
+    if (!confirm("Are you sure you want to delete?")) return;
 
-    setLoading(true)
+    setLoading(true);
 
     try {
-      await deleteMedia(id)
+      await deleteMedia(id);
     } catch (err: any) {
-      console.log(err.message)
-      setLoading(false)
+      console.log(err.message);
+      setLoading(false);
 
-      toast.error('An error occurred when deleting')
-      return
+      toast.error("An error occurred when deleting");
+      return;
     }
 
-    router.push('/dashboard')
-  }
+    router.push("/dashboard");
+  };
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
 
     if (router.isReady) {
-      const { id } = router.query
+      const { id } = router.query;
 
       const getTv = async () => {
         try {
-          const tv = await getOne<ApiProps>(String(id))
+          const tv = await getOne<ApiProps>(String(id));
 
-          if (tv.type === 'movie') {
-            toast.warn('Only tv show can be edited')
-            router.push('/dashboard')
+          if (tv.type === "movie") {
+            toast.warn("Only tv show can be edited");
+            router.push("/dashboard");
           }
 
-          setApi(tv)
-          setSeason(String(tv.season))
-          setEpisode(String(tv.episode))
+          setApi(tv);
+          setSeason(String(tv.season));
+          setEpisode(String(tv.episode));
 
-          setLoading(false)
+          setLoading(false);
         } catch {
-          toast.error('ID not found')
-          router.push('/dashboard')
+          toast.error("ID not found");
+          router.push("/dashboard");
         }
-      }
+      };
 
-      getTv()
+      getTv();
     }
-  }, [router.isReady])
+  }, [router.isReady]);
 
   return (
     <SCard>
@@ -110,7 +110,7 @@ export default function Edit() {
           <Image
             src={`https://image.tmdb.org/t/p/w220_and_h330_face${api.poster}`}
             fill
-            alt={api.title || 'Poster'}
+            alt={api.title || "Poster"}
           />
         </SImage>
       </div>
@@ -123,7 +123,7 @@ export default function Edit() {
               type="number"
               min={1}
               value={season}
-              onChange={e => setSeason(e.target.value)}
+              onChange={(e) => setSeason(e.target.value)}
             />
           </div>
           <div>
@@ -132,7 +132,7 @@ export default function Edit() {
               type="number"
               min={1}
               value={episode}
-              onChange={e => setEpisode(e.target.value)}
+              onChange={(e) => setEpisode(e.target.value)}
             />
           </div>
         </STvEpisodes>
@@ -143,16 +143,16 @@ export default function Edit() {
             className="delete"
             onClick={() => handleDelete(api.id)}
           >
-            {loading ? 'Loading' : 'Delete'}
+            {loading ? "Loading" : "Delete"}
           </button>
           <button disabled={loading} className="goback" onClick={handleGoBack}>
-            {loading ? 'Loading' : 'Go Back'}
+            {loading ? "Loading" : "Go Back"}
           </button>
           <button disabled={loading} className="update" onClick={handleUpdate}>
-            {loading ? 'Loading' : 'Update'}
+            {loading ? "Loading" : "Update"}
           </button>
         </SButtons>
       </div>
     </SCard>
-  )
+  );
 }

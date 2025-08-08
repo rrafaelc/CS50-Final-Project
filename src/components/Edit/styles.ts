@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import colors from 'styles/colors'
-import { lighten } from 'polished'
+import styled from "styled-components";
+import colors from "styles/colors";
+import { lighten } from "polished";
 
 export const SCard = styled.li`
   display: flex;
@@ -42,7 +42,7 @@ export const SCard = styled.li`
       gap: 40px;
     }
   }
-`
+`;
 export const SImage = styled.div`
   position: relative;
   width: 200px;
@@ -59,7 +59,7 @@ export const SImage = styled.div`
     margin: 0;
     margin-top: 20px;
   }
-`
+`;
 
 export const STvEpisodes = styled.div`
   margin-top: 20px;
@@ -100,11 +100,11 @@ export const STvEpisodes = styled.div`
     }
 
     /* Firefox */
-    input[type='number'] {
+    input[type="number"] {
       -moz-appearance: textfield;
     }
   }
-`
+`;
 
 export const SButtons = styled.div`
   display: flex;
@@ -187,4 +187,4 @@ export const SButtons = styled.div`
       }
     }
   }
-`
+`;

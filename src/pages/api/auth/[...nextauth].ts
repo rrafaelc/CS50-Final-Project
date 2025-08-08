@@ -1,38 +1,38 @@
-import NextAuth, { NextAuthOptions } from 'next-auth'
-import CredentialsProvider from 'next-auth/providers/credentials'
-import { prisma } from 'lib/prisma'
-import bcrypt from 'bcrypt'
+import NextAuth, { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { prisma } from "lib/prisma";
+import bcrypt from "bcrypt";
 
 interface CredentialProps {
-  name: string
-  password: string
+  name: string;
+  password: string;
 }
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
     maxAge: 60 * 60 * 24 * 1, // 1 day
   },
   pages: {
-    signIn: '/',
-    error: '/',
+    signIn: "/",
+    error: "/",
   },
   providers: [
     CredentialsProvider({
-      name: 'Credentials',
+      name: "Credentials",
       credentials: {},
       async authorize(credentials, req) {
-        const { name, password } = credentials as CredentialProps
+        const { name, password } = credentials as CredentialProps;
 
         // First character must be alphabetic
         if (!/^[a-zA-Z].*/.test(name)) {
-          return null
+          return null;
         }
 
         // Only alphanumeric is allowed
         if (!/^[a-zA-Z0-9_]*$/.test(name)) {
-          return null
+          return null;
         }
 
         // Search for user
@@ -40,22 +40,22 @@ export const authOptions: NextAuthOptions = {
           where: {
             name,
           },
-        })
+        });
 
         if (user) {
           // Check the password
-          const compare = await bcrypt.compare(password, user.hash)
+          const compare = await bcrypt.compare(password, user.hash);
 
           if (compare) {
             return {
               id: user.id,
               name: user.name,
-            }
+            };
           }
         }
 
         // If data is incorrect
-        return null
+        return null;
       },
     }),
   ],
@@ -64,10 +64,10 @@ export const authOptions: NextAuthOptions = {
     // https://next-auth.js.org/getting-started/typescript#module-augmentation
     jwt({ token, user }) {
       if (user) {
-        token.id = user.id
+        token.id = user.id;
       }
 
-      return token
+      return token;
     },
     session: ({ session, token }) => ({
       ...session,
@@ -77,6 +77,6 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   },
-}
+};
 
-export default NextAuth(authOptions)
+export default NextAuth(authOptions);

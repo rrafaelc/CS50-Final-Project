@@ -1,5 +1,5 @@
-import Image from 'next/image'
-import { SContainer } from './styles'
+import Image from "next/image";
+import { SContainer } from "./styles";
 
 export default function About() {
   return (
@@ -38,5 +38,5 @@ export default function About() {
         </a>
       </div>
     </SContainer>
-  )
+  );
 }

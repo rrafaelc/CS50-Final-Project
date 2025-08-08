@@ -50,7 +50,7 @@ yarn build && yarn start
 
 ## How to use
 
-[![CS50 Final Project](https://img.youtube.com/vi/BlPotl8ULyg/0.jpg)](https://www.youtube.com/watch?v=BlPotl8ULyg 'CS50 Final Project - Youtube')
+[![CS50 Final Project](https://img.youtube.com/vi/BlPotl8ULyg/0.jpg)](https://www.youtube.com/watch?v=BlPotl8ULyg "CS50 Final Project - Youtube")
 
 ## Deploy on Vercel
 

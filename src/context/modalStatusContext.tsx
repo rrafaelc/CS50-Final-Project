@@ -1,78 +1,85 @@
-import React, { createContext, useCallback, useContext, useState } from 'react'
-import { useEffect } from 'react'
+import React, { createContext, useCallback, useContext, useState } from "react";
+import { useEffect } from "react";
 
 interface ItemProps {
-  id: string
-  name: string
-  poster: string
-  type: string
-  season?: number
-  episode?: number
+  id: string;
+  name: string;
+  poster: string;
+  type: string;
+  season?: number;
+  episode?: number;
 }
 
 interface ModalStatusContextData {
-  isOpen: boolean
-  id: string
-  name: string
-  poster: string
-  status: string
-  type: string
-  season: number
-  episode: number
-  toggle: () => void
-  setStatusFunction: (status: string) => void
-  setItemProps: ({ id, name, poster, type, season, episode }: ItemProps) => void
+  isOpen: boolean;
+  id: string;
+  name: string;
+  poster: string;
+  status: string;
+  type: string;
+  season: number;
+  episode: number;
+  toggle: () => void;
+  setStatusFunction: (status: string) => void;
+  setItemProps: ({
+    id,
+    name,
+    poster,
+    type,
+    season,
+    episode,
+  }: ItemProps) => void;
 }
 
 interface Props {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const ModalStatusContext = createContext<ModalStatusContextData>(
-  {} as ModalStatusContextData
-)
+  {} as ModalStatusContextData,
+);
 
 const ModalStatusProvider = ({ children }: Props) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
-  const [id, setId] = useState('')
-  const [name, setName] = useState('')
-  const [poster, setPoster] = useState('')
-  const [status, setStatus] = useState('')
-  const [type, setType] = useState('')
-  const [season, setSeason] = useState(0)
-  const [episode, setEpisode] = useState(0)
+  const [id, setId] = useState("");
+  const [name, setName] = useState("");
+  const [poster, setPoster] = useState("");
+  const [status, setStatus] = useState("");
+  const [type, setType] = useState("");
+  const [season, setSeason] = useState(0);
+  const [episode, setEpisode] = useState(0);
 
   const toggle = useCallback(() => {
-    setIsOpen(!isOpen)
-  }, [isOpen])
+    setIsOpen(!isOpen);
+  }, [isOpen]);
 
   const setStatusFunction = useCallback(
     (status: string) => {
-      setStatus(status)
+      setStatus(status);
     },
-    [status]
-  )
+    [status],
+  );
 
   const setItemProps = useCallback(
     ({ id, name, poster, type, season, episode }: ItemProps) => {
-      setId(id)
-      setName(name)
-      setPoster(poster)
-      setType(type)
-      season ? setSeason(season) : setSeason(1)
-      episode ? setEpisode(episode) : setEpisode(1)
+      setId(id);
+      setName(name);
+      setPoster(poster);
+      setType(type);
+      season ? setSeason(season) : setSeason(1);
+      episode ? setEpisode(episode) : setEpisode(1);
     },
-    [id, name, poster, type, season, episode]
-  )
+    [id, name, poster, type, season, episode],
+  );
 
   useEffect(() => {
-    const html = document.querySelector('html')
+    const html = document.querySelector("html");
 
     if (html) {
-      html.style.overflow = isOpen ? 'hidden' : 'auto'
+      html.style.overflow = isOpen ? "hidden" : "auto";
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   return (
     <ModalStatusContext.Provider
@@ -92,16 +99,16 @@ const ModalStatusProvider = ({ children }: Props) => {
     >
       {children}
     </ModalStatusContext.Provider>
-  )
-}
+  );
+};
 
 const useModalStatus = (): ModalStatusContextData => {
-  const context = useContext(ModalStatusContext)
+  const context = useContext(ModalStatusContext);
   if (!context) {
-    throw new Error('useContext must be used within an ModalStatusProvider')
+    throw new Error("useContext must be used within an ModalStatusProvider");
   }
 
-  return context
-}
+  return context;
+};
 
-export { ModalStatusProvider, useModalStatus }
+export { ModalStatusProvider, useModalStatus };

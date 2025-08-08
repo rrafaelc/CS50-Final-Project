@@ -1,13 +1,13 @@
-import { FormEventHandler, useEffect, useState } from 'react'
-import Link from 'next/link'
-import { useSession, signIn } from 'next-auth/react'
-import { useRouter } from 'next/router'
+import { FormEventHandler, useEffect, useState } from "react";
+import Link from "next/link";
+import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
-import { useCookieConsent } from 'context/cookieConsentContext'
-import { toast } from 'react-toastify'
+import { useCookieConsent } from "context/cookieConsentContext";
+import { toast } from "react-toastify";
 
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-import colors from 'styles/colors'
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import colors from "styles/colors";
 
 import {
   SMain,
@@ -18,82 +18,82 @@ import {
   SButton,
   SLink,
   SInformation,
-} from './styles'
+} from "./styles";
 
 interface LoginProps {
-  name: string
-  password: string
+  name: string;
+  password: string;
 }
 
 const Login = () => {
-  const router = useRouter()
-  const { getCookieConsent } = useCookieConsent()
-  const { data: session } = useSession()
+  const router = useRouter();
+  const { getCookieConsent } = useCookieConsent();
+  const { data: session } = useSession();
   const [authState, setAuthState] = useState<LoginProps>({
-    name: '',
-    password: '',
-  })
+    name: "",
+    password: "",
+  });
 
   const [pageState, setPageState] = useState({
     error: false,
     processing: false,
-  })
+  });
 
-  const [passwordShown, setPasswordShown] = useState(false)
+  const [passwordShown, setPasswordShown] = useState(false);
 
   const togglePassword = () => {
-    setPasswordShown(!passwordShown)
-  }
+    setPasswordShown(!passwordShown);
+  };
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
-    e.preventDefault()
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
 
     // Check if cookies was accepted
-    const cookieConsent = getCookieConsent()
-    if (cookieConsent !== 'true') {
-      toast.warn('To login you need to accept the cookies')
-      return
+    const cookieConsent = getCookieConsent();
+    if (cookieConsent !== "true") {
+      toast.warn("To login you need to accept the cookies");
+      return;
     }
 
     if (!/^[a-zA-Z].*/.test(authState.name)) {
-      toast.warn('First character must be alphabetical!')
-      return
+      toast.warn("First character must be alphabetical!");
+      return;
     }
 
     if (!/^[a-zA-Z0-9_]*$/.test(authState.name)) {
-      toast.warn('Only alphanumerics and underscores are allowed!')
-      return
+      toast.warn("Only alphanumerics and underscores are allowed!");
+      return;
     }
 
-    setPageState({ error: false, processing: true })
+    setPageState({ error: false, processing: true });
 
-    signIn('credentials', {
+    signIn("credentials", {
       name: authState.name.toLowerCase(),
       password: authState.password,
       redirect: false,
     })
-      .then(response => {
+      .then((response) => {
         if (response!.ok) {
-          router.push('/dashboard')
+          router.push("/dashboard");
         } else {
-          setPageState({ error: true, processing: false })
+          setPageState({ error: true, processing: false });
         }
       })
-      .catch(error => {
-        console.log(error)
+      .catch((error) => {
+        console.log(error);
         setPageState({
           error: false,
           processing: false,
-        })
-        toast.error('Something went wrong! Please check the logs')
-      })
-  }
+        });
+        toast.error("Something went wrong! Please check the logs");
+      });
+  };
 
   useEffect(() => {
     if (session) {
-      router.replace('/dashboard')
+      router.replace("/dashboard");
     }
-  }, [session])
+  }, [session]);
 
   return (
     <SMain>
@@ -112,11 +112,11 @@ const Login = () => {
                 placeholder="Username"
                 required
                 value={authState.name}
-                onChange={e =>
-                  setAuthState(old => ({ ...old, name: e.target.value }))
+                onChange={(e) =>
+                  setAuthState((old) => ({ ...old, name: e.target.value }))
                 }
               />
-              <SSpanError className={pageState.error ? 'error' : ''}>
+              <SSpanError className={pageState.error ? "error" : ""}>
                 Incorrect username or password
               </SSpanError>
             </label>
@@ -126,12 +126,15 @@ const Login = () => {
               <div>
                 <input
                   id="password"
-                  type={passwordShown ? 'text' : 'password'}
+                  type={passwordShown ? "text" : "password"}
                   placeholder="Password"
                   required
                   value={authState.password}
-                  onChange={e =>
-                    setAuthState(old => ({ ...old, password: e.target.value }))
+                  onChange={(e) =>
+                    setAuthState((old) => ({
+                      ...old,
+                      password: e.target.value,
+                    }))
                   }
                 />
                 <button type="button" onClick={togglePassword}>
@@ -142,14 +145,14 @@ const Login = () => {
                   )}
                 </button>
               </div>
-              <SSpanError className={pageState.error ? 'error' : ''}>
+              <SSpanError className={pageState.error ? "error" : ""}>
                 Incorrect username or password
               </SSpanError>
             </label>
           </SInputs>
 
           <SButton disabled={pageState.processing} type="submit">
-            {pageState.processing ? 'Loading' : 'Login'}
+            {pageState.processing ? "Loading" : "Login"}
           </SButton>
         </SForm>
         <SLink>
@@ -166,7 +169,7 @@ const Login = () => {
         </p>
       </SInformation>
     </SMain>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

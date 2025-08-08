@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const SContainerButton = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ export const SContainerButton = styled.div`
   @media (max-width: 500px) {
     display: none;
   }
-`
+`;
 
 export const SButton = styled.button`
   background-color: transparent;
@@ -19,4 +19,4 @@ export const SButton = styled.button`
   .swiper-disabled {
     color: red;
   }
-`
+`;

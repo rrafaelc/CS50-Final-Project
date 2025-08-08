@@ -1,8 +1,8 @@
-import { lighten } from 'polished'
-import styled from 'styled-components'
-import colors from 'styles/colors'
+import { lighten } from "polished";
+import styled from "styled-components";
+import colors from "styles/colors";
 
-export const SContainer = styled.div``
+export const SContainer = styled.div``;
 
 export const SSearchCards = styled.div`
   flex: 1;
@@ -55,7 +55,7 @@ export const SSearchCards = styled.div`
     justify-content: center;
     align-items: center;
   }
-`
+`;
 
 export const SStatus = styled.div`
   margin-bottom: 30px;
@@ -63,13 +63,13 @@ export const SStatus = styled.div`
   @media (min-width: 500px) {
     margin-bottom: 80px;
   }
-`
+`;
 
 export const SStatusTitle = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
-`
+`;
 export const SModal = styled.div`
   overflow-y: auto;
   width: 90%;
@@ -303,4 +303,4 @@ export const SModal = styled.div`
       }
     }
   }
-`
+`;

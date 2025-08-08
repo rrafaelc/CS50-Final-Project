@@ -1,18 +1,18 @@
-import type { NextPage } from 'next'
+import type { NextPage } from "next";
 
-import Register from 'components/Account/Register'
-import CookieConsent from 'components/CookieConsent'
-import { useCookieConsent } from 'context/cookieConsentContext'
+import Register from "components/Account/Register";
+import CookieConsent from "components/CookieConsent";
+import { useCookieConsent } from "context/cookieConsentContext";
 
 const RegisterPage: NextPage = () => {
-  const { cookieConsent } = useCookieConsent()
+  const { cookieConsent } = useCookieConsent();
 
   return (
     <>
       <CookieConsent />
       <Register />
     </>
-  )
-}
+  );
+};
 
-export default RegisterPage
+export default RegisterPage;

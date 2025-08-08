@@ -1,13 +1,13 @@
-import styled, { css } from 'styled-components'
-import { lighten } from 'polished'
-import colors from 'styles/colors'
+import styled, { css } from "styled-components";
+import { lighten } from "polished";
+import colors from "styles/colors";
 
 interface SSInfo {
-  isMovie?: boolean
+  isMovie?: boolean;
 }
 
 interface SStatusProps {
-  status: string
+  status: string;
 }
 
 export const SContainer = styled.div`
@@ -28,7 +28,7 @@ export const SContainer = styled.div`
     border-radius: 10px;
     border-width: 2px;
   }
-`
+`;
 
 export const SImage = styled.div`
   position: relative;
@@ -39,7 +39,7 @@ export const SImage = styled.div`
     width: 220px;
     height: 330px;
   }
-`
+`;
 
 export const SInfo = styled.div<SSInfo>`
   position: relative;
@@ -172,7 +172,7 @@ export const SInfo = styled.div<SSInfo>`
       }
     }
   }
-`
+`;
 export const SStatus = styled.button<SStatusProps>`
   font-size: 12px;
   font-weight: 500;
@@ -185,7 +185,7 @@ export const SStatus = styled.button<SStatusProps>`
 
   ${({ status }) => {
     switch (status) {
-      case 'watching':
+      case "watching":
         return css`
           color: ${colors.black};
           background: ${colors.green};
@@ -193,9 +193,9 @@ export const SStatus = styled.button<SStatusProps>`
           &:hover {
             background: ${lighten(0.1, colors.green)};
           }
-        `
+        `;
 
-      case 'completed':
+      case "completed":
         return css`
           color: ${colors.white};
           background: ${colors.blue};
@@ -203,9 +203,9 @@ export const SStatus = styled.button<SStatusProps>`
           &:hover {
             background: ${lighten(0.1, colors.blue)};
           }
-        `
+        `;
 
-      case 'onhold':
+      case "onhold":
         return css`
           color: ${colors.black};
           background: ${colors.yellow};
@@ -213,9 +213,9 @@ export const SStatus = styled.button<SStatusProps>`
           &:hover {
             background: ${lighten(0.1, colors.yellow)};
           }
-        `
+        `;
 
-      case 'dropped':
+      case "dropped":
         return css`
           color: ${colors.white};
           background: ${colors.red};
@@ -223,9 +223,10 @@ export const SStatus = styled.button<SStatusProps>`
           &:hover {
             background: ${lighten(0.1, colors.red)};
           }
-        `
+        `;
 
-      case 'plantowatch' || 'ptw':
+      case "plantowatch":
+      case "ptw":
         return css`
           color: ${colors.black};
           background: ${colors.gray};
@@ -233,7 +234,7 @@ export const SStatus = styled.button<SStatusProps>`
           &:hover {
             background: ${lighten(0.1, colors.gray)};
           }
-        `
+        `;
 
       default:
         return css`
@@ -243,7 +244,7 @@ export const SStatus = styled.button<SStatusProps>`
           &:hover {
             background: ${lighten(0.1, colors.gray)};
           }
-        `
+        `;
     }
   }};
 
@@ -252,4 +253,4 @@ export const SStatus = styled.button<SStatusProps>`
     padding: 10px;
     border-radius: 10px;
   }
-`
+`;

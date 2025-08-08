@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import { SContainer } from './styles'
+import Link from "next/link";
+import { SContainer } from "./styles";
 
 export default function CookiesPolicy() {
   return (
@@ -20,7 +20,7 @@ export default function CookiesPolicy() {
         </div>
       </div>
 
-  <Link href="/">Return</Link>
+      <Link href="/">Return</Link>
     </SContainer>
-  )
+  );
 }

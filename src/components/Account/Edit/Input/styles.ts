@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import colors from 'styles/colors'
+import styled from "styled-components";
+import colors from "styles/colors";
 
 export const SContainer = styled.div<{ error?: boolean }>`
   label {
@@ -51,7 +51,7 @@ export const SContainer = styled.div<{ error?: boolean }>`
       transition: outline ease-in 200ms;
 
       &:hover {
-        outline-color: ${({ error }) => (error ? '' : colors.white)};
+        outline-color: ${({ error }) => (error ? "" : colors.white)};
       }
 
       &::placeholder {
@@ -71,10 +71,10 @@ export const SContainer = styled.div<{ error?: boolean }>`
       }
     }
   }
-`
+`;
 
 export const SError = styled.span`
   font-size: 16px;
   margin-top: 3px;
   color: ${colors.red};
-`
+`;
